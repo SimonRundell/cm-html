@@ -1,0 +1,14 @@
+{
+  "appName": "cm-html",
+  "version": "1.0.0",
+  "defaultFontSize": 14,
+  "defaultFontFamily": "Courier New, monospace",
+  "defaultTheme": "vs-dark",
+  "defaultMobileWidth": 375,
+  "debounceMs": 500,
+  "defaultProjectName": "my-project",
+  "mdnSearchBase": "https://developer.mozilla.org/api/v1/search",
+  "mdnPageBase": "https://developer.mozilla.org/en-US/docs/Web",
+  "helpDrawerWidth": 360,
+  "localStoragePrefix": "cmhtml_"
+}

@@ -1,0 +1,978 @@
+[
+  {
+    "keyword": "color",
+    "type": "css",
+    "title": "color",
+    "summary": "Sets the colour of text inside an element. You can use named colours like 'red', hex codes like '#ff0000', or RGB values like 'rgb(255, 0, 0)'. This is one of the most commonly used CSS properties.",
+    "syntax": "selector {\n  color: #333333;\n}",
+    "values": [
+      { "value": "named colour", "description": "A CSS colour name such as 'red', 'blue', 'coral', 'tomato', etc." },
+      { "value": "#rrggbb", "description": "A six-digit hex code representing red, green, and blue channels, e.g. #ff5733." },
+      { "value": "rgb(r, g, b)", "description": "Specifies a colour using red, green, and blue values from 0 to 255." },
+      { "value": "rgba(r, g, b, a)", "description": "Like rgb() but with an alpha (opacity) value from 0 (transparent) to 1 (fully opaque)." },
+      { "value": "hsl(h, s%, l%)", "description": "Specifies a colour using hue (0-360), saturation, and lightness percentages." }
+    ],
+    "example": "p {\n  color: #333333;\n}\n\nh1 {\n  color: rgb(220, 50, 50);\n}",
+    "level": 2,
+    "mdnPath": "CSS/color"
+  },
+  {
+    "keyword": "background-color",
+    "type": "css",
+    "title": "background-color",
+    "summary": "Sets the background colour of an element. Works just like the 'color' property but affects the area behind the content rather than the text itself. Great for highlighting sections or creating coloured boxes.",
+    "syntax": "selector {\n  background-color: lightblue;\n}",
+    "values": [
+      { "value": "named colour", "description": "A CSS colour name such as 'lightblue', 'gold', 'salmon', etc." },
+      { "value": "#rrggbb", "description": "A six-digit hex code, e.g. #f0f8ff for a pale blue." },
+      { "value": "rgb(r, g, b)", "description": "Specifies a colour using red, green, and blue values from 0 to 255." },
+      { "value": "rgba(r, g, b, a)", "description": "Like rgb() but allows transparency via the alpha channel." },
+      { "value": "transparent", "description": "Makes the background completely see-through (the default for most elements)." }
+    ],
+    "example": "header {\n  background-color: #2c3e50;\n  color: white;\n}\n\n.highlight {\n  background-color: rgba(255, 255, 0, 0.4);\n}",
+    "level": 2,
+    "mdnPath": "CSS/background-color"
+  },
+  {
+    "keyword": "background",
+    "type": "css",
+    "title": "background",
+    "summary": "A shorthand property that lets you set multiple background properties at once — including colour, image, position, size, and repeat. Very useful for adding images or gradients to elements.",
+    "syntax": "selector {\n  background: url('image.jpg') no-repeat center center / cover;\n}",
+    "values": [
+      { "value": "color", "description": "A background colour, e.g. #fff or lightgrey." },
+      { "value": "url('path')", "description": "Loads an image as the background." },
+      { "value": "no-repeat", "description": "Prevents the background image from tiling." },
+      { "value": "repeat", "description": "Tiles the background image horizontally and vertically (the default)." },
+      { "value": "center", "description": "Positions the background image in the centre of the element." },
+      { "value": "cover", "description": "Scales the image to cover the entire element, cropping if necessary." },
+      { "value": "contain", "description": "Scales the image so it fits entirely within the element." },
+      { "value": "linear-gradient(...)", "description": "Creates a smooth colour gradient as the background." }
+    ],
+    "example": ".hero {\n  background: url('hero.jpg') no-repeat center center / cover;\n}\n\n.gradient-box {\n  background: linear-gradient(to right, #6a11cb, #2575fc);\n}",
+    "level": 2,
+    "mdnPath": "CSS/background"
+  },
+  {
+    "keyword": "font-family",
+    "type": "css",
+    "title": "font-family",
+    "summary": "Specifies the typeface (font) to use for text. You can list multiple fonts as a fallback chain — the browser uses the first one available. Always end with a generic family like 'sans-serif' or 'serif' as a safe fallback.",
+    "syntax": "selector {\n  font-family: 'Roboto', Arial, sans-serif;\n}",
+    "values": [
+      { "value": "'Font Name'", "description": "A specific font, e.g. 'Georgia' or 'Roboto'. Quote names with spaces." },
+      { "value": "sans-serif", "description": "Generic family — a clean font without serifs, such as Arial or Helvetica." },
+      { "value": "serif", "description": "Generic family — a font with small decorative strokes, such as Times New Roman." },
+      { "value": "monospace", "description": "Generic family — all characters have the same width, great for code." },
+      { "value": "cursive", "description": "Generic family — a handwriting-style font." }
+    ],
+    "example": "body {\n  font-family: 'Open Sans', Arial, sans-serif;\n}\n\ncode {\n  font-family: 'Courier New', Courier, monospace;\n}",
+    "level": 2,
+    "mdnPath": "CSS/font-family"
+  },
+  {
+    "keyword": "font-size",
+    "type": "css",
+    "title": "font-size",
+    "summary": "Controls how big the text appears. You can use pixels (px) for exact sizes, rem or em for sizes relative to a parent or root element, or percentages. Using rem is considered best practice as it respects the user's browser font settings.",
+    "syntax": "selector {\n  font-size: 1rem;\n}",
+    "values": [
+      { "value": "px", "description": "Absolute size in pixels, e.g. 16px. Precise but doesn't scale with user preferences." },
+      { "value": "rem", "description": "Relative to the root element's font size (usually 16px). Recommended for accessibility." },
+      { "value": "em", "description": "Relative to the current element's parent font size. Can compound if nested." },
+      { "value": "%", "description": "A percentage of the parent element's font size." },
+      { "value": "small / medium / large", "description": "Named sizes — rarely used in practice." }
+    ],
+    "example": "body {\n  font-size: 16px;\n}\n\nh1 {\n  font-size: 2rem;\n}\n\n.small-print {\n  font-size: 0.75rem;\n}",
+    "level": 2,
+    "mdnPath": "CSS/font-size"
+  },
+  {
+    "keyword": "font-weight",
+    "type": "css",
+    "title": "font-weight",
+    "summary": "Sets how bold or light the text appears. You can use keywords like 'bold' or numeric values from 100 (thin) to 900 (extra bold). Not all fonts support every weight — check your font's documentation.",
+    "syntax": "selector {\n  font-weight: bold;\n}",
+    "values": [
+      { "value": "normal", "description": "The default weight (equivalent to 400)." },
+      { "value": "bold", "description": "Makes the text bold (equivalent to 700)." },
+      { "value": "100 - 900", "description": "Numeric values: 100 is thin, 400 is normal, 700 is bold, 900 is black." },
+      { "value": "lighter", "description": "One step lighter than the parent element's weight." },
+      { "value": "bolder", "description": "One step heavier than the parent element's weight." }
+    ],
+    "example": "h2 {\n  font-weight: 700;\n}\n\n.light-text {\n  font-weight: 300;\n}",
+    "level": 2,
+    "mdnPath": "CSS/font-weight"
+  },
+  {
+    "keyword": "font-style",
+    "type": "css",
+    "title": "font-style",
+    "summary": "Controls whether the text is displayed in italic or normal style. Italic is commonly used for quotations, captions, or to add emphasis in a softer way than bold.",
+    "syntax": "selector {\n  font-style: italic;\n}",
+    "values": [
+      { "value": "normal", "description": "Displays text upright (the default)." },
+      { "value": "italic", "description": "Displays text in italic. Uses the font's built-in italic variant if available." },
+      { "value": "oblique", "description": "Slants the text artificially if no italic variant exists." }
+    ],
+    "example": "em {\n  font-style: italic;\n}\n\n.caption {\n  font-style: italic;\n  color: #666;\n}",
+    "level": 2,
+    "mdnPath": "CSS/font-style"
+  },
+  {
+    "keyword": "text-align",
+    "type": "css",
+    "title": "text-align",
+    "summary": "Controls the horizontal alignment of text within an element. Very commonly used for headings, buttons, and centring content inside a container.",
+    "syntax": "selector {\n  text-align: center;\n}",
+    "values": [
+      { "value": "left", "description": "Aligns text to the left edge (the default in left-to-right languages)." },
+      { "value": "right", "description": "Aligns text to the right edge." },
+      { "value": "center", "description": "Centres the text within the element." },
+      { "value": "justify", "description": "Stretches lines so they reach both the left and right edges, like a newspaper column." }
+    ],
+    "example": "h1 {\n  text-align: center;\n}\n\n.article-body {\n  text-align: justify;\n}",
+    "level": 2,
+    "mdnPath": "CSS/text-align"
+  },
+  {
+    "keyword": "text-decoration",
+    "type": "css",
+    "title": "text-decoration",
+    "summary": "Adds decorative lines to text — most commonly used to remove the underline from links, or to add underlines, strikethroughs, or overlines to text elements.",
+    "syntax": "selector {\n  text-decoration: none;\n}",
+    "values": [
+      { "value": "none", "description": "Removes any text decoration (very commonly used on links)." },
+      { "value": "underline", "description": "Adds an underline beneath the text." },
+      { "value": "line-through", "description": "Draws a line through the middle of the text (strikethrough)." },
+      { "value": "overline", "description": "Draws a line above the text." }
+    ],
+    "example": "a {\n  text-decoration: none;\n  color: #0066cc;\n}\n\n.deleted {\n  text-decoration: line-through;\n  color: #999;\n}",
+    "level": 2,
+    "mdnPath": "CSS/text-decoration"
+  },
+  {
+    "keyword": "line-height",
+    "type": "css",
+    "title": "line-height",
+    "summary": "Controls the vertical spacing between lines of text. A good line-height makes text much easier to read. A value of 1.5 to 1.6 is recommended for body text — no units are needed when using a plain number.",
+    "syntax": "selector {\n  line-height: 1.6;\n}",
+    "values": [
+      { "value": "number (e.g. 1.5)", "description": "A multiplier of the font size — the recommended approach. 1.5 means lines are 1.5x the font size apart." },
+      { "value": "px", "description": "An exact pixel value for the line height." },
+      { "value": "em / rem", "description": "Relative units — calculated from the element's font size." },
+      { "value": "%", "description": "A percentage of the element's font size." },
+      { "value": "normal", "description": "The browser's default, usually around 1.2." }
+    ],
+    "example": "body {\n  line-height: 1.6;\n}\n\n.tight-heading {\n  line-height: 1.2;\n}",
+    "level": 2,
+    "mdnPath": "CSS/line-height"
+  },
+  {
+    "keyword": "margin",
+    "type": "css",
+    "title": "margin",
+    "summary": "Creates space outside an element's border, pushing it away from neighbouring elements. You can set all four sides at once or use shorthand. A classic trick: 'margin: 0 auto' centres a block element horizontally inside its parent.",
+    "syntax": "selector {\n  margin: 16px;\n}",
+    "values": [
+      { "value": "auto", "description": "Lets the browser calculate the margin — use 'margin: 0 auto' to centre a block element." },
+      { "value": "px", "description": "Exact margin in pixels." },
+      { "value": "em / rem", "description": "Margin relative to font size — scales nicely with text." },
+      { "value": "%", "description": "A percentage of the parent element's width." },
+      { "value": "4-value shorthand", "description": "e.g. margin: 10px 20px 10px 20px — top, right, bottom, left (clockwise)." },
+      { "value": "2-value shorthand", "description": "e.g. margin: 10px 20px — first value is top/bottom, second is left/right." }
+    ],
+    "example": ".card {\n  margin: 16px;\n}\n\n.container {\n  margin: 0 auto;\n  max-width: 960px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/margin"
+  },
+  {
+    "keyword": "margin-top",
+    "type": "css",
+    "title": "margin-top",
+    "summary": "Sets the space above an element, outside its border. Useful when you need to control just one side of the margin without affecting the others.",
+    "syntax": "selector {\n  margin-top: 24px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact size in pixels." },
+      { "value": "rem / em", "description": "Relative to font size — often preferred for consistent spacing." },
+      { "value": "%", "description": "Percentage of the parent element's width." },
+      { "value": "auto", "description": "Browser calculates the margin." }
+    ],
+    "example": "h2 {\n  margin-top: 32px;\n}\n\n.section {\n  margin-top: 2rem;\n}",
+    "level": 2,
+    "mdnPath": "CSS/margin-top"
+  },
+  {
+    "keyword": "margin-right",
+    "type": "css",
+    "title": "margin-right",
+    "summary": "Sets the space to the right of an element, outside its border. Useful for creating horizontal spacing between inline or inline-block elements.",
+    "syntax": "selector {\n  margin-right: 12px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact size in pixels." },
+      { "value": "rem / em", "description": "Relative to font size." },
+      { "value": "auto", "description": "Automatically fills available space — useful in flex containers." }
+    ],
+    "example": ".nav-link {\n  margin-right: 16px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/margin-right"
+  },
+  {
+    "keyword": "margin-bottom",
+    "type": "css",
+    "title": "margin-bottom",
+    "summary": "Sets the space below an element, outside its border. Commonly used to add breathing room between paragraphs, headings, and sections.",
+    "syntax": "selector {\n  margin-bottom: 16px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact size in pixels." },
+      { "value": "rem / em", "description": "Relative to font size." },
+      { "value": "auto", "description": "Browser calculates the margin." }
+    ],
+    "example": "p {\n  margin-bottom: 1em;\n}\n\nh1 {\n  margin-bottom: 24px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/margin-bottom"
+  },
+  {
+    "keyword": "margin-left",
+    "type": "css",
+    "title": "margin-left",
+    "summary": "Sets the space to the left of an element, outside its border. Combined with margin-right: auto it can push an element to the right edge of its container.",
+    "syntax": "selector {\n  margin-left: 12px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact size in pixels." },
+      { "value": "rem / em", "description": "Relative to font size." },
+      { "value": "auto", "description": "Automatically fills available space — useful for right-aligning block elements." }
+    ],
+    "example": ".indent {\n  margin-left: 2rem;\n}\n\n.push-right {\n  margin-left: auto;\n}",
+    "level": 2,
+    "mdnPath": "CSS/margin-left"
+  },
+  {
+    "keyword": "padding",
+    "type": "css",
+    "title": "padding",
+    "summary": "Creates space inside an element's border, between the border and the content. Unlike margin, padding is inside the element and shows the background colour. Padding is key to making buttons and boxes look comfortable.",
+    "syntax": "selector {\n  padding: 16px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact padding in pixels." },
+      { "value": "em / rem", "description": "Relative to font size — scales with text." },
+      { "value": "%", "description": "Percentage of the parent element's width." },
+      { "value": "4-value shorthand", "description": "e.g. padding: 8px 16px 8px 16px — top, right, bottom, left." },
+      { "value": "2-value shorthand", "description": "e.g. padding: 8px 16px — vertical then horizontal." }
+    ],
+    "example": ".button {\n  padding: 10px 24px;\n  background-color: #0066cc;\n  color: white;\n}\n\n.card {\n  padding: 24px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/padding"
+  },
+  {
+    "keyword": "padding-top",
+    "type": "css",
+    "title": "padding-top",
+    "summary": "Sets the space inside an element above the content, between the top border and the content. Useful for fine-tuning vertical spacing inside boxes and containers.",
+    "syntax": "selector {\n  padding-top: 16px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact size in pixels." },
+      { "value": "rem / em", "description": "Relative to font size." },
+      { "value": "%", "description": "Percentage of the parent element's width." }
+    ],
+    "example": ".hero {\n  padding-top: 80px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/padding-top"
+  },
+  {
+    "keyword": "padding-right",
+    "type": "css",
+    "title": "padding-right",
+    "summary": "Sets the space inside an element to the right of the content. Useful when you need different amounts of padding on each side.",
+    "syntax": "selector {\n  padding-right: 16px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact size in pixels." },
+      { "value": "rem / em", "description": "Relative to font size." }
+    ],
+    "example": ".input-field {\n  padding-right: 12px;\n  padding-left: 12px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/padding-right"
+  },
+  {
+    "keyword": "padding-bottom",
+    "type": "css",
+    "title": "padding-bottom",
+    "summary": "Sets the space inside an element below the content. Helps add breathing room at the bottom of cards, sections, and other containers.",
+    "syntax": "selector {\n  padding-bottom: 16px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact size in pixels." },
+      { "value": "rem / em", "description": "Relative to font size." }
+    ],
+    "example": ".section {\n  padding-bottom: 48px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/padding-bottom"
+  },
+  {
+    "keyword": "padding-left",
+    "type": "css",
+    "title": "padding-left",
+    "summary": "Sets the space inside an element to the left of the content. Commonly used to indent text inside elements or ensure content doesn't sit right at the edge.",
+    "syntax": "selector {\n  padding-left: 16px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact size in pixels." },
+      { "value": "rem / em", "description": "Relative to font size." }
+    ],
+    "example": "ul {\n  padding-left: 1.5em;\n}",
+    "level": 2,
+    "mdnPath": "CSS/padding-left"
+  },
+  {
+    "keyword": "border",
+    "type": "css",
+    "title": "border",
+    "summary": "A shorthand property that sets the width, style, and colour of an element's border all at once. Borders can frame content, separate sections, or add visual interest to UI components.",
+    "syntax": "selector {\n  border: 2px solid #333;\n}",
+    "values": [
+      { "value": "width style color", "description": "e.g. '2px solid red' — width, then style, then colour." },
+      { "value": "solid", "description": "A continuous, unbroken line." },
+      { "value": "dashed", "description": "A dashed line." },
+      { "value": "dotted", "description": "A dotted line." },
+      { "value": "none", "description": "Removes the border." },
+      { "value": "double", "description": "Two parallel solid lines." }
+    ],
+    "example": ".card {\n  border: 1px solid #ddd;\n  border-radius: 8px;\n}\n\n.input {\n  border: 2px solid #0066cc;\n}",
+    "level": 2,
+    "mdnPath": "CSS/border"
+  },
+  {
+    "keyword": "border-radius",
+    "type": "css",
+    "title": "border-radius",
+    "summary": "Rounds the corners of an element's border. Small values create a subtle softening effect; a value of 50% on a square element creates a perfect circle. Very popular for buttons, cards, and profile images.",
+    "syntax": "selector {\n  border-radius: 8px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact radius in pixels, e.g. 4px for subtle rounding." },
+      { "value": "%", "description": "Percentage — 50% makes a circle or pill shape." },
+      { "value": "4-value shorthand", "description": "Sets different radii for each corner: top-left, top-right, bottom-right, bottom-left." }
+    ],
+    "example": ".button {\n  border-radius: 24px;\n}\n\n.avatar {\n  border-radius: 50%;\n  width: 64px;\n  height: 64px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/border-radius"
+  },
+  {
+    "keyword": "width",
+    "type": "css",
+    "title": "width",
+    "summary": "Sets how wide an element is. You can use exact pixel values or percentages (which are relative to the parent element). Using percentages makes layouts more flexible and responsive.",
+    "syntax": "selector {\n  width: 100%;\n}",
+    "values": [
+      { "value": "px", "description": "Exact width in pixels." },
+      { "value": "%", "description": "Percentage of the parent element's width. Very useful for responsive layouts." },
+      { "value": "auto", "description": "The browser calculates the width based on content and context (the default)." },
+      { "value": "vw", "description": "Viewport width units — 100vw is the full width of the browser window." },
+      { "value": "rem / em", "description": "Relative to font size." }
+    ],
+    "example": ".container {\n  width: 100%;\n  max-width: 1200px;\n}\n\n.sidebar {\n  width: 300px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/width"
+  },
+  {
+    "keyword": "height",
+    "type": "css",
+    "title": "height",
+    "summary": "Sets how tall an element is. Like width, you can use pixels, percentages, or viewport units. Be careful with fixed heights — they can cause content to overflow if the text is longer than expected.",
+    "syntax": "selector {\n  height: 200px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact height in pixels." },
+      { "value": "%", "description": "Percentage of the parent element's height (parent must have a set height)." },
+      { "value": "auto", "description": "The height grows to fit the content (the default)." },
+      { "value": "vh", "description": "Viewport height units — 100vh is the full height of the browser window." }
+    ],
+    "example": ".hero-section {\n  height: 100vh;\n}\n\n.thumbnail {\n  height: 200px;\n  object-fit: cover;\n}",
+    "level": 2,
+    "mdnPath": "CSS/height"
+  },
+  {
+    "keyword": "max-width",
+    "type": "css",
+    "title": "max-width",
+    "summary": "Sets the maximum width an element can grow to. Commonly used with 'margin: 0 auto' to create a centred container that won't stretch too wide on large screens — a key technique for readable page layouts.",
+    "syntax": "selector {\n  max-width: 960px;\n}",
+    "values": [
+      { "value": "px", "description": "A maximum width in pixels." },
+      { "value": "%", "description": "A percentage of the parent element's width." },
+      { "value": "none", "description": "No maximum width limit (the default)." }
+    ],
+    "example": ".container {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 16px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/max-width"
+  },
+  {
+    "keyword": "min-width",
+    "type": "css",
+    "title": "min-width",
+    "summary": "Sets the minimum width an element must always be. Even if the viewport is small, the element won't shrink below this value. Useful for buttons and inputs that should never become too narrow to interact with.",
+    "syntax": "selector {\n  min-width: 200px;\n}",
+    "values": [
+      { "value": "px", "description": "A minimum width in pixels." },
+      { "value": "%", "description": "A percentage of the parent element's width." },
+      { "value": "0", "description": "No minimum (the default)." }
+    ],
+    "example": ".button {\n  min-width: 120px;\n  padding: 10px 16px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/min-width"
+  },
+  {
+    "keyword": "display",
+    "type": "css",
+    "title": "display",
+    "summary": "One of the most important CSS properties — it controls how an element is rendered in the page layout. Switching between 'block', 'inline', 'flex', and 'grid' is the foundation of CSS layout.",
+    "syntax": "selector {\n  display: flex;\n}",
+    "values": [
+      { "value": "block", "description": "The element takes up the full width available and starts on a new line. Default for div, p, h1-h6, etc." },
+      { "value": "inline", "description": "The element flows with text and only takes up as much width as its content. Default for span, a, strong, etc." },
+      { "value": "inline-block", "description": "Flows inline like text but you can set width and height like a block element." },
+      { "value": "flex", "description": "Turns the element into a flex container, enabling powerful one-dimensional layouts." },
+      { "value": "grid", "description": "Turns the element into a grid container for two-dimensional layouts." },
+      { "value": "none", "description": "Hides the element completely — it takes up no space in the layout." }
+    ],
+    "example": ".nav {\n  display: flex;\n  gap: 16px;\n}\n\n.hidden {\n  display: none;\n}",
+    "level": 2,
+    "mdnPath": "CSS/display"
+  },
+  {
+    "keyword": "flex",
+    "type": "css",
+    "title": "flex",
+    "summary": "A shorthand for 'flex-grow', 'flex-shrink', and 'flex-basis' on a flex child item. It controls how the item grows or shrinks relative to other items in the same flex container. 'flex: 1' is a quick way to make items share space equally.",
+    "syntax": "selector {\n  flex: 1;\n}",
+    "values": [
+      { "value": "1", "description": "The item grows to fill available space, sharing it equally with other flex: 1 siblings." },
+      { "value": "auto", "description": "Sized based on its content, but can grow and shrink." },
+      { "value": "none", "description": "The item does not grow or shrink." },
+      { "value": "grow shrink basis", "description": "e.g. flex: 1 1 200px — sets grow, shrink, and starting size." }
+    ],
+    "example": ".sidebar {\n  flex: 0 0 250px;\n}\n\n.main-content {\n  flex: 1;\n}",
+    "level": 3,
+    "mdnPath": "CSS/flex"
+  },
+  {
+    "keyword": "flex-direction",
+    "type": "css",
+    "title": "flex-direction",
+    "summary": "Sets the direction in which flex items are laid out inside a flex container. By default items are arranged in a row (left to right), but you can switch to a column layout, or reverse either direction.",
+    "syntax": "selector {\n  flex-direction: row;\n}",
+    "values": [
+      { "value": "row", "description": "Items are placed left to right (the default)." },
+      { "value": "row-reverse", "description": "Items are placed right to left." },
+      { "value": "column", "description": "Items are stacked top to bottom." },
+      { "value": "column-reverse", "description": "Items are stacked bottom to top." }
+    ],
+    "example": ".card-grid {\n  display: flex;\n  flex-direction: row;\n  gap: 16px;\n}\n\n.stack {\n  display: flex;\n  flex-direction: column;\n}",
+    "level": 2,
+    "mdnPath": "CSS/flex-direction"
+  },
+  {
+    "keyword": "flex-wrap",
+    "type": "css",
+    "title": "flex-wrap",
+    "summary": "Controls whether flex items are forced onto a single line or can wrap onto multiple lines. Using 'flex-wrap: wrap' is a simple way to create responsive card grids that wrap to new rows on smaller screens.",
+    "syntax": "selector {\n  flex-wrap: wrap;\n}",
+    "values": [
+      { "value": "nowrap", "description": "All items stay on one line, possibly overflowing (the default)." },
+      { "value": "wrap", "description": "Items wrap onto the next line if they don't all fit." },
+      { "value": "wrap-reverse", "description": "Items wrap onto the previous line (wraps in reverse order)." }
+    ],
+    "example": ".gallery {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 16px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/flex-wrap"
+  },
+  {
+    "keyword": "justify-content",
+    "type": "css",
+    "title": "justify-content",
+    "summary": "Controls how flex (or grid) items are distributed along the main axis of their container. This is the property you use to space out navigation links, centre content, or push items to opposite ends of a container.",
+    "syntax": "selector {\n  justify-content: space-between;\n}",
+    "values": [
+      { "value": "flex-start", "description": "Items are packed at the start (the default for flex)." },
+      { "value": "flex-end", "description": "Items are packed at the end." },
+      { "value": "center", "description": "Items are centred along the main axis." },
+      { "value": "space-between", "description": "Items are evenly spaced; first item at start, last at end." },
+      { "value": "space-around", "description": "Items have equal space around them (half-space at edges)." },
+      { "value": "space-evenly", "description": "Items have exactly equal space between and around them." }
+    ],
+    "example": ".navbar {\n  display: flex;\n  justify-content: space-between;\n}\n\n.centred {\n  display: flex;\n  justify-content: center;\n}",
+    "level": 2,
+    "mdnPath": "CSS/justify-content"
+  },
+  {
+    "keyword": "align-items",
+    "type": "css",
+    "title": "align-items",
+    "summary": "Controls how flex (or grid) items are aligned along the cross axis (perpendicular to the main axis). If your flex direction is row, this aligns items vertically. 'align-items: center' is the classic way to vertically centre content.",
+    "syntax": "selector {\n  align-items: center;\n}",
+    "values": [
+      { "value": "stretch", "description": "Items stretch to fill the cross axis (the default)." },
+      { "value": "flex-start", "description": "Items are aligned at the start of the cross axis." },
+      { "value": "flex-end", "description": "Items are aligned at the end of the cross axis." },
+      { "value": "center", "description": "Items are centred along the cross axis." },
+      { "value": "baseline", "description": "Items are aligned so their text baselines match." }
+    ],
+    "example": ".navbar {\n  display: flex;\n  align-items: center;\n  height: 64px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/align-items"
+  },
+  {
+    "keyword": "gap",
+    "type": "css",
+    "title": "gap",
+    "summary": "Sets the spacing between flex or grid items. It's a much cleaner alternative to adding margins to individual items. You can set both row and column gaps separately, or use a single value for both.",
+    "syntax": "selector {\n  gap: 16px;\n}",
+    "values": [
+      { "value": "px", "description": "Exact gap size in pixels." },
+      { "value": "rem / em", "description": "Gap relative to font size." },
+      { "value": "row-gap col-gap", "description": "e.g. gap: 16px 32px — first value is row spacing, second is column spacing." }
+    ],
+    "example": ".card-grid {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 24px;\n}\n\n.grid {\n  display: grid;\n  gap: 16px 32px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/gap"
+  },
+  {
+    "keyword": "grid-template-columns",
+    "type": "css",
+    "title": "grid-template-columns",
+    "summary": "Defines the number and width of columns in a CSS Grid layout. The special 'fr' unit lets columns share available space proportionally. The repeat() function is handy for creating multiple equal columns without repetition.",
+    "syntax": "selector {\n  grid-template-columns: repeat(3, 1fr);\n}",
+    "values": [
+      { "value": "px", "description": "Fixed column width in pixels." },
+      { "value": "fr", "description": "Fractional unit — shares remaining space proportionally. e.g. 1fr 2fr gives a 1:2 ratio." },
+      { "value": "%", "description": "Column width as a percentage of the container." },
+      { "value": "auto", "description": "Column width based on the content." },
+      { "value": "repeat(n, size)", "description": "Repeats a column definition n times, e.g. repeat(4, 1fr) creates 4 equal columns." },
+      { "value": "minmax(min, max)", "description": "Sets a flexible column size between a minimum and maximum value." }
+    ],
+    "example": ".grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 24px;\n}\n\n.layout {\n  display: grid;\n  grid-template-columns: 250px 1fr;\n}",
+    "level": 3,
+    "mdnPath": "CSS/grid-template-columns"
+  },
+  {
+    "keyword": "grid-template-rows",
+    "type": "css",
+    "title": "grid-template-rows",
+    "summary": "Defines the number and height of rows in a CSS Grid layout. Like grid-template-columns but for the vertical axis. Often used with 'auto' to let rows size themselves to their content.",
+    "syntax": "selector {\n  grid-template-rows: auto 1fr auto;\n}",
+    "values": [
+      { "value": "px", "description": "Fixed row height in pixels." },
+      { "value": "fr", "description": "Fractional unit — distributes remaining vertical space." },
+      { "value": "auto", "description": "Row height adjusts to fit the tallest content in that row." },
+      { "value": "repeat(n, size)", "description": "Repeats a row definition n times." }
+    ],
+    "example": ".page {\n  display: grid;\n  grid-template-rows: auto 1fr auto;\n  min-height: 100vh;\n}",
+    "level": 3,
+    "mdnPath": "CSS/grid-template-rows"
+  },
+  {
+    "keyword": "position",
+    "type": "css",
+    "title": "position",
+    "summary": "Controls how an element is positioned on the page. The default is 'static' (normal flow). 'Relative' lets you nudge an element from its normal position. 'Absolute' positions it relative to its nearest positioned ancestor. 'Fixed' pins it to the viewport.",
+    "syntax": "selector {\n  position: relative;\n}",
+    "values": [
+      { "value": "static", "description": "The element follows normal document flow (the default). top/left/etc. have no effect." },
+      { "value": "relative", "description": "The element stays in normal flow but you can nudge it using top/right/bottom/left." },
+      { "value": "absolute", "description": "Removed from normal flow and positioned relative to the nearest ancestor with position set (not static)." },
+      { "value": "fixed", "description": "Removed from flow and positioned relative to the viewport — stays in place when scrolling." },
+      { "value": "sticky", "description": "Stays in flow until it reaches a scroll threshold, then acts like fixed." }
+    ],
+    "example": ".tooltip {\n  position: absolute;\n  top: 100%;\n  left: 0;\n}\n\n.sticky-nav {\n  position: sticky;\n  top: 0;\n}",
+    "level": 3,
+    "mdnPath": "CSS/position"
+  },
+  {
+    "keyword": "top",
+    "type": "css",
+    "title": "top",
+    "summary": "Specifies the distance from the top edge of a positioned element to its reference point (the containing block for absolute, or the viewport for fixed). Has no effect on elements with position: static.",
+    "syntax": "selector {\n  position: absolute;\n  top: 20px;\n}",
+    "values": [
+      { "value": "px", "description": "Distance in pixels from the top." },
+      { "value": "%", "description": "Percentage of the containing block's height." },
+      { "value": "auto", "description": "Browser calculates the position (default)." }
+    ],
+    "example": ".dropdown {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  background: white;\n}",
+    "level": 3,
+    "mdnPath": "CSS/top"
+  },
+  {
+    "keyword": "right",
+    "type": "css",
+    "title": "right",
+    "summary": "Specifies the distance from the right edge of a positioned element to the right edge of its reference point. Combined with position: fixed it's great for floating action buttons or notification badges.",
+    "syntax": "selector {\n  position: fixed;\n  right: 20px;\n}",
+    "values": [
+      { "value": "px", "description": "Distance in pixels from the right." },
+      { "value": "%", "description": "Percentage of the containing block's width." },
+      { "value": "auto", "description": "Browser calculates the position (default)." }
+    ],
+    "example": ".fab {\n  position: fixed;\n  right: 24px;\n  bottom: 24px;\n}",
+    "level": 3,
+    "mdnPath": "CSS/right"
+  },
+  {
+    "keyword": "bottom",
+    "type": "css",
+    "title": "bottom",
+    "summary": "Specifies the distance from the bottom of a positioned element to the bottom of its reference point. Often paired with 'position: fixed' to pin elements (like cookie banners or chat buttons) to the bottom of the screen.",
+    "syntax": "selector {\n  position: fixed;\n  bottom: 0;\n}",
+    "values": [
+      { "value": "px", "description": "Distance in pixels from the bottom." },
+      { "value": "%", "description": "Percentage of the containing block's height." },
+      { "value": "auto", "description": "Browser calculates the position (default)." }
+    ],
+    "example": ".cookie-banner {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n}",
+    "level": 3,
+    "mdnPath": "CSS/bottom"
+  },
+  {
+    "keyword": "left",
+    "type": "css",
+    "title": "left",
+    "summary": "Specifies the distance from the left edge of a positioned element to the left edge of its reference point. Used alongside 'position' to precisely place elements, pop-ups, tooltips, and overlays.",
+    "syntax": "selector {\n  position: absolute;\n  left: 0;\n}",
+    "values": [
+      { "value": "px", "description": "Distance in pixels from the left." },
+      { "value": "%", "description": "Percentage of the containing block's width." },
+      { "value": "auto", "description": "Browser calculates the position (default)." }
+    ],
+    "example": ".sidebar {\n  position: absolute;\n  left: 0;\n  top: 0;\n  height: 100%;\n}",
+    "level": 3,
+    "mdnPath": "CSS/left"
+  },
+  {
+    "keyword": "z-index",
+    "type": "css",
+    "title": "z-index",
+    "summary": "Controls the stacking order of elements that overlap. Higher values appear on top of lower values. Only works on elements with a position value other than 'static'. Think of it as layers in a design app.",
+    "syntax": "selector {\n  position: relative;\n  z-index: 10;\n}",
+    "values": [
+      { "value": "integer", "description": "A whole number — higher numbers appear above lower numbers. Can be negative." },
+      { "value": "auto", "description": "The element's stacking order is the same as its parent (the default)." }
+    ],
+    "example": ".modal {\n  position: fixed;\n  z-index: 1000;\n}\n\n.overlay {\n  position: fixed;\n  z-index: 999;\n}",
+    "level": 3,
+    "mdnPath": "CSS/z-index"
+  },
+  {
+    "keyword": "overflow",
+    "type": "css",
+    "title": "overflow",
+    "summary": "Controls what happens when content is too large to fit inside an element. You can let it overflow, hide it, or add scrollbars. Very useful for fixed-height containers and custom scroll areas.",
+    "syntax": "selector {\n  overflow: hidden;\n}",
+    "values": [
+      { "value": "visible", "description": "Content overflows outside the element (the default)." },
+      { "value": "hidden", "description": "Content that overflows is clipped and not visible." },
+      { "value": "scroll", "description": "Scrollbars are always shown, whether or not content overflows." },
+      { "value": "auto", "description": "Scrollbars appear only when content overflows — usually the best choice." }
+    ],
+    "example": ".scroll-box {\n  height: 200px;\n  overflow-y: auto;\n  border: 1px solid #ccc;\n}\n\n.image-crop {\n  overflow: hidden;\n  border-radius: 50%;\n}",
+    "level": 2,
+    "mdnPath": "CSS/overflow"
+  },
+  {
+    "keyword": "float",
+    "type": "css",
+    "title": "float",
+    "summary": "Moves an element to the left or right, allowing other content to wrap around it. Originally designed for wrapping text around images — like in a magazine layout. Modern layouts prefer flexbox or grid, but float is still useful for this specific use case.",
+    "syntax": "selector {\n  float: left;\n}",
+    "values": [
+      { "value": "left", "description": "The element floats to the left; content wraps around its right side." },
+      { "value": "right", "description": "The element floats to the right; content wraps around its left side." },
+      { "value": "none", "description": "No floating — the element stays in normal flow (the default)." }
+    ],
+    "example": ".article img {\n  float: left;\n  margin: 0 16px 16px 0;\n  width: 200px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/float"
+  },
+  {
+    "keyword": "clear",
+    "type": "css",
+    "title": "clear",
+    "summary": "Stops an element from sitting next to floated elements. Used to 'clear' the float effect so subsequent elements appear below the floated element rather than beside it.",
+    "syntax": "selector {\n  clear: both;\n}",
+    "values": [
+      { "value": "none", "description": "The element can sit beside floats (the default)." },
+      { "value": "left", "description": "The element moves below any left-floated elements." },
+      { "value": "right", "description": "The element moves below any right-floated elements." },
+      { "value": "both", "description": "The element moves below all floated elements on either side." }
+    ],
+    "example": ".clearfix::after {\n  content: '';\n  display: block;\n  clear: both;\n}",
+    "level": 2,
+    "mdnPath": "CSS/clear"
+  },
+  {
+    "keyword": "opacity",
+    "type": "css",
+    "title": "opacity",
+    "summary": "Sets the transparency of an element, including all its children. A value of 1 is fully opaque (solid), 0 is completely invisible. A great property for hover effects and fade animations. Note: if you only want to change the background transparency, use rgba() instead.",
+    "syntax": "selector {\n  opacity: 0.8;\n}",
+    "values": [
+      { "value": "0", "description": "Fully transparent (invisible, but still takes up space)." },
+      { "value": "0.5", "description": "50% transparent." },
+      { "value": "1", "description": "Fully opaque (the default)." }
+    ],
+    "example": ".overlay {\n  opacity: 0.6;\n  background: black;\n}\n\n.button:hover {\n  opacity: 0.8;\n}",
+    "level": 2,
+    "mdnPath": "CSS/opacity"
+  },
+  {
+    "keyword": "box-shadow",
+    "type": "css",
+    "title": "box-shadow",
+    "summary": "Adds a shadow behind an element to make it appear raised or elevated. Widely used to give cards and buttons a sense of depth. You can set the horizontal offset, vertical offset, blur, spread, and colour.",
+    "syntax": "selector {\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);\n}",
+    "values": [
+      { "value": "h-offset v-offset blur color", "description": "e.g. '2px 4px 8px #333' — horizontal offset, vertical offset, blur radius, colour." },
+      { "value": "inset", "description": "Add 'inset' at the start to create an inner shadow rather than an outer one." },
+      { "value": "spread", "description": "An optional fourth length value that expands or contracts the shadow." },
+      { "value": "none", "description": "Removes the shadow." }
+    ],
+    "example": ".card {\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);\n}\n\n.card:hover {\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);\n}",
+    "level": 2,
+    "mdnPath": "CSS/box-shadow"
+  },
+  {
+    "keyword": "text-shadow",
+    "type": "css",
+    "title": "text-shadow",
+    "summary": "Adds a shadow to text, making it stand out from its background. Useful for headings on top of images, or for adding a subtle depth effect to large display text. The values are similar to box-shadow but without spread.",
+    "syntax": "selector {\n  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);\n}",
+    "values": [
+      { "value": "h-offset v-offset blur color", "description": "e.g. '1px 1px 3px #000' — horizontal offset, vertical offset, blur radius, colour." },
+      { "value": "none", "description": "Removes the shadow (the default)." }
+    ],
+    "example": ".hero-title {\n  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);\n  color: white;\n}",
+    "level": 2,
+    "mdnPath": "CSS/text-shadow"
+  },
+  {
+    "keyword": "transition",
+    "type": "css",
+    "title": "transition",
+    "summary": "Makes property changes animate smoothly over time instead of changing instantly. Add it to an element and specify which property to animate, how long it takes, and the timing curve. Transforms hover effects from jarring jumps to polished animations.",
+    "syntax": "selector {\n  transition: all 0.3s ease;\n}",
+    "values": [
+      { "value": "property duration timing-function", "description": "e.g. 'background-color 0.3s ease' — which property, how long, and the easing." },
+      { "value": "all", "description": "Transitions all animatable properties." },
+      { "value": "ease", "description": "Starts slow, speeds up, then slows down (the default)." },
+      { "value": "linear", "description": "Constant speed throughout." },
+      { "value": "ease-in", "description": "Starts slow, ends fast." },
+      { "value": "ease-out", "description": "Starts fast, ends slow — often feels most natural." }
+    ],
+    "example": ".button {\n  background-color: #0066cc;\n  transition: background-color 0.3s ease, transform 0.2s ease;\n}\n\n.button:hover {\n  background-color: #0055aa;\n  transform: translateY(-2px);\n}",
+    "level": 2,
+    "mdnPath": "CSS/transition"
+  },
+  {
+    "keyword": "animation",
+    "type": "css",
+    "title": "animation",
+    "summary": "Applies a keyframe animation to an element, giving you full control over how it moves or changes over time. Works with @keyframes rules that define the start, end, and intermediate states of the animation.",
+    "syntax": "selector {\n  animation: fadeIn 1s ease forwards;\n}",
+    "values": [
+      { "value": "name duration", "description": "The name of the @keyframes animation and how long it runs." },
+      { "value": "ease / linear / ease-in / ease-out", "description": "The timing function controlling acceleration." },
+      { "value": "forwards", "description": "The element keeps the final state of the animation after it finishes." },
+      { "value": "infinite", "description": "The animation loops forever." },
+      { "value": "delay", "description": "An optional delay before the animation starts, e.g. 0.5s." }
+    ],
+    "example": "@keyframes fadeIn {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n\n.intro {\n  animation: fadeIn 1s ease forwards;\n}",
+    "level": 3,
+    "mdnPath": "CSS/animation"
+  },
+  {
+    "keyword": "transform",
+    "type": "css",
+    "title": "transform",
+    "summary": "Visually moves, rotates, scales, or skews an element without affecting the layout of surrounding elements. Extremely powerful for animations and hover effects. Transformations happen on the GPU making them very smooth and performant.",
+    "syntax": "selector {\n  transform: translateY(-4px) scale(1.05);\n}",
+    "values": [
+      { "value": "translateX(n) / translateY(n)", "description": "Moves the element horizontally or vertically." },
+      { "value": "translate(x, y)", "description": "Moves the element both horizontally and vertically at once." },
+      { "value": "rotate(angle)", "description": "Rotates the element, e.g. rotate(45deg)." },
+      { "value": "scale(n)", "description": "Scales the element up or down, e.g. scale(1.2) makes it 20% larger." },
+      { "value": "skew(x, y)", "description": "Skews the element along the X and/or Y axis." },
+      { "value": "none", "description": "Removes any transform." }
+    ],
+    "example": ".card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0,0,0,0.2);\n}\n\n.icon.spin {\n  transform: rotate(360deg);\n}",
+    "level": 2,
+    "mdnPath": "CSS/transform"
+  },
+  {
+    "keyword": "cursor",
+    "type": "css",
+    "title": "cursor",
+    "summary": "Changes the mouse cursor icon when the user hovers over an element. Setting 'cursor: pointer' on a clickable element (like a button or card) gives users an important visual cue that it's interactive.",
+    "syntax": "selector {\n  cursor: pointer;\n}",
+    "values": [
+      { "value": "default", "description": "The standard arrow cursor." },
+      { "value": "pointer", "description": "A pointing hand — used to indicate a clickable element." },
+      { "value": "text", "description": "A text I-beam cursor — used for text input areas." },
+      { "value": "move", "description": "A move cursor — indicates the element can be dragged." },
+      { "value": "not-allowed", "description": "A circle with a line through it — used for disabled controls." },
+      { "value": "grab / grabbing", "description": "A hand cursor for draggable items." }
+    ],
+    "example": ".button {\n  cursor: pointer;\n}\n\n.disabled-button {\n  cursor: not-allowed;\n  opacity: 0.5;\n}",
+    "level": 2,
+    "mdnPath": "CSS/cursor"
+  },
+  {
+    "keyword": "list-style",
+    "type": "css",
+    "title": "list-style",
+    "summary": "A shorthand that controls the bullet or number style, position, and image for list items. Setting 'list-style: none' removes the default bullets — essential when using a ul as a navigation menu.",
+    "syntax": "selector {\n  list-style: none;\n}",
+    "values": [
+      { "value": "none", "description": "Removes the list marker entirely." },
+      { "value": "disc", "description": "A filled circle (default for unordered lists)." },
+      { "value": "circle", "description": "An unfilled circle." },
+      { "value": "square", "description": "A filled square." },
+      { "value": "decimal", "description": "Numbers (1, 2, 3... — default for ordered lists)." },
+      { "value": "inside / outside", "description": "Controls whether the bullet is inside or outside the content box." }
+    ],
+    "example": "nav ul {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: flex;\n  gap: 16px;\n}",
+    "level": 2,
+    "mdnPath": "CSS/list-style"
+  },
+  {
+    "keyword": "outline",
+    "type": "css",
+    "title": "outline",
+    "summary": "Similar to border, but drawn outside the element's border and doesn't affect the element's dimensions or layout. Browsers add an outline automatically when elements receive keyboard focus — this is crucial for accessibility and should not be removed without a replacement.",
+    "syntax": "selector {\n  outline: 2px solid #0066cc;\n}",
+    "values": [
+      { "value": "width style color", "description": "e.g. '3px solid #ff6600' — similar format to border." },
+      { "value": "none", "description": "Removes the outline. Avoid on focusable elements unless you add a custom focus style." },
+      { "value": "outline-offset", "description": "A separate property to add space between the outline and the element's border edge." }
+    ],
+    "example": ":focus-visible {\n  outline: 3px solid #0066cc;\n  outline-offset: 2px;\n}\n\n/* Don't do this without a replacement focus style */\n/* button { outline: none; } */",
+    "level": 2,
+    "mdnPath": "CSS/outline"
+  },
+  {
+    "keyword": "text-transform",
+    "type": "css",
+    "title": "text-transform",
+    "summary": "Changes the capitalisation of text without altering the HTML. Very useful for headings and navigation labels — you can enforce uppercase in CSS without writing it in uppercase in your HTML.",
+    "syntax": "selector {\n  text-transform: uppercase;\n}",
+    "values": [
+      { "value": "none", "description": "No transformation — text displays as written (the default)." },
+      { "value": "uppercase", "description": "Converts all characters to uppercase." },
+      { "value": "lowercase", "description": "Converts all characters to lowercase." },
+      { "value": "capitalize", "description": "Capitalises the first letter of each word." }
+    ],
+    "example": ".button {\n  text-transform: uppercase;\n  letter-spacing: 0.05em;\n}\n\n.name-tag {\n  text-transform: capitalize;\n}",
+    "level": 2,
+    "mdnPath": "CSS/text-transform"
+  },
+  {
+    "keyword": "letter-spacing",
+    "type": "css",
+    "title": "letter-spacing",
+    "summary": "Adjusts the spacing between individual characters in text. Increasing letter-spacing on uppercase headings or buttons can make them look more refined and easier to read. Negative values bring letters closer together.",
+    "syntax": "selector {\n  letter-spacing: 0.05em;\n}",
+    "values": [
+      { "value": "em", "description": "Relative to the font size — scales with text. Recommended unit." },
+      { "value": "px", "description": "Exact spacing in pixels." },
+      { "value": "normal", "description": "Default spacing determined by the font (the default)." }
+    ],
+    "example": ".heading-label {\n  letter-spacing: 0.1em;\n  text-transform: uppercase;\n  font-size: 0.85rem;\n}",
+    "level": 2,
+    "mdnPath": "CSS/letter-spacing"
+  },
+  {
+    "keyword": "word-spacing",
+    "type": "css",
+    "title": "word-spacing",
+    "summary": "Adjusts the spacing between words in text. Less commonly needed than letter-spacing, but can be useful for stylistic effects or improving readability in justified text.",
+    "syntax": "selector {\n  word-spacing: 0.2em;\n}",
+    "values": [
+      { "value": "em / px", "description": "Additional space added between words, on top of the normal word spacing." },
+      { "value": "normal", "description": "Default word spacing from the font (the default)." }
+    ],
+    "example": ".spaced-text {\n  word-spacing: 0.3em;\n}",
+    "level": 3,
+    "mdnPath": "CSS/word-spacing"
+  },
+  {
+    "keyword": "object-fit",
+    "type": "css",
+    "title": "object-fit",
+    "summary": "Controls how an image or video element fits within its container box. Especially useful when you have images of different dimensions that need to fill the same sized box without distortion.",
+    "syntax": "selector {\n  object-fit: cover;\n}",
+    "values": [
+      { "value": "fill", "description": "Stretches the image to fill the box — can distort the image (the default)." },
+      { "value": "cover", "description": "Scales the image to fill the box while maintaining aspect ratio — crops the edges if needed." },
+      { "value": "contain", "description": "Scales the image to fit entirely within the box — may leave empty space." },
+      { "value": "none", "description": "Uses the image's original size." }
+    ],
+    "example": ".card-image {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n}",
+    "level": 2,
+    "mdnPath": "CSS/object-fit"
+  },
+  {
+    "keyword": "visibility",
+    "type": "css",
+    "title": "visibility",
+    "summary": "Hides or shows an element. Unlike 'display: none', a hidden element still takes up its space in the layout — it's just invisible. This is useful when you want to hide content without causing the page to reflow.",
+    "syntax": "selector {\n  visibility: hidden;\n}",
+    "values": [
+      { "value": "visible", "description": "The element is visible (the default)." },
+      { "value": "hidden", "description": "The element is invisible but still occupies its space." },
+      { "value": "collapse", "description": "Used with table elements to remove rows or columns." }
+    ],
+    "example": ".tooltip {\n  visibility: hidden;\n  opacity: 0;\n  transition: opacity 0.2s;\n}\n\n.parent:hover .tooltip {\n  visibility: visible;\n  opacity: 1;\n}",
+    "level": 2,
+    "mdnPath": "CSS/visibility"
+  },
+  {
+    "keyword": "box-sizing",
+    "type": "css",
+    "title": "box-sizing",
+    "summary": "Controls how the total size of an element is calculated. By default (content-box), padding and border are added on top of the width. 'border-box' includes padding and border within the width — this is almost always more intuitive. Most developers set this globally in their CSS reset.",
+    "syntax": "selector {\n  box-sizing: border-box;\n}",
+    "values": [
+      { "value": "content-box", "description": "Width/height apply to the content only — padding and border are added on top (the default)." },
+      { "value": "border-box", "description": "Width/height include padding and border. Much more predictable — recommended." }
+    ],
+    "example": "*, *::before, *::after {\n  box-sizing: border-box;\n}",
+    "level": 2,
+    "mdnPath": "CSS/box-sizing"
+  },
+  {
+    "keyword": "white-space",
+    "type": "css",
+    "title": "white-space",
+    "summary": "Controls how whitespace (spaces, tabs, newlines) inside an element is handled. 'nowrap' prevents text from wrapping to a new line. 'pre' preserves all whitespace exactly as written — useful for displaying code.",
+    "syntax": "selector {\n  white-space: nowrap;\n}",
+    "values": [
+      { "value": "normal", "description": "Whitespace collapses and text wraps as needed (the default)." },
+      { "value": "nowrap", "description": "Text never wraps — it stays on one line, even if it overflows." },
+      { "value": "pre", "description": "Whitespace is preserved exactly, including newlines — like the HTML pre element." },
+      { "value": "pre-wrap", "description": "Preserves whitespace but allows normal line wrapping." }
+    ],
+    "example": ".label {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}",
+    "level": 3,
+    "mdnPath": "CSS/white-space"
+  },
+  {
+    "keyword": "resize",
+    "type": "css",
+    "title": "resize",
+    "summary": "Controls whether and how a user can resize an element by dragging its corner. By default, textareas are resizable. You can restrict this to one axis or disable it entirely.",
+    "syntax": "selector {\n  resize: vertical;\n}",
+    "values": [
+      { "value": "none", "description": "The element cannot be resized by the user." },
+      { "value": "both", "description": "The element can be resized horizontally and vertically." },
+      { "value": "horizontal", "description": "The element can only be resized horizontally." },
+      { "value": "vertical", "description": "The element can only be resized vertically — good for textareas." }
+    ],
+    "example": "textarea {\n  resize: vertical;\n  min-height: 100px;\n}",
+    "level": 3,
+    "mdnPath": "CSS/resize"
+  }
+]

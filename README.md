@@ -1,0 +1,257 @@
+# cm-html
+
+> A browser-based multi-file HTML/CSS/JavaScript teaching editor for Further Education students.
+
+[![Licence: CC BY-NC-SA 4.0](https://img.shields.io/badge/Licence-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+---
+
+## Overview
+
+**cm-html** is a self-contained web application that lets Level 2 and Level 3 FE
+students write and preview real HTML, CSS, and JavaScript files — all inside a
+browser, with no login, no installation, and no backend required.
+
+Students can:
+
+- Edit HTML, CSS, and JavaScript files side-by-side with Monaco (the VS Code editor engine)
+- See an instant live preview of their work in a sandboxed iframe
+- Use the built-in Help drawer to look up HTML tags, CSS properties, and JavaScript methods
+- Save and load projects using browser localStorage
+- Export and import entire projects as `.zip` files
+
+---
+
+## Features
+
+| Feature | Detail |
+|---------|--------|
+| **Monaco Editor** | Full syntax highlighting, autocomplete, and formatting for HTML, CSS, and JS |
+| **Live Preview** | Iframe preview rebuilt on every save; CSS and JS are linked via blob URLs |
+| **Multi-file projects** | Add, rename, and delete HTML, CSS, JS, JSON, Markdown, and plain text files |
+| **File tree** | Grouped sidebar with rename/delete/set-preview-root actions |
+| **Help drawer** | Bundled reference for 50+ HTML elements, 60+ CSS properties, and 47+ JS methods; falls back to live MDN search |
+| **Contextual help** | Select any word in the editor to look it up instantly |
+| **Project management** | Multiple named projects in localStorage; switch, create, delete |
+| **Zip export/import** | Full project round-trip as a `.zip` file |
+| **Mobile preview** | Preview pane can simulate a configurable mobile viewport width |
+| **Settings** | Font family, font size, editor theme (dark/light), auto-save delay, mobile width |
+| **Auto-save** | Debounced save to localStorage on every keystroke |
+| **Offline capable** | Full editor, preview, and reference data work without internet |
+
+---
+
+## Tech Stack
+
+| Library | Purpose |
+|---------|---------|
+| [React 18](https://react.dev) | UI framework |
+| [Vite](https://vitejs.dev) | Build tool and dev server |
+| [@monaco-editor/react](https://github.com/suren-atoyan/monaco-react) | Monaco Editor wrapper |
+| [JSZip](https://stuk.github.io/jszip/) | Client-side zip import/export |
+| [uuid](https://github.com/uuidjs/uuid) | Unique file IDs |
+| [lucide-react](https://lucide.dev) | Icon set |
+
+No TypeScript, no Redux, no backend. Plain JavaScript with JSDoc throughout.
+
+---
+
+## Getting Started
+
+### 1. Clone and install
+
+```bash
+git clone https://github.com/YOUR-USERNAME/cm-html.git
+cd cm-html
+npm install
+```
+
+### 2. Start the development server
+
+```bash
+npm run dev
+```
+
+Open `http://localhost:5173` in your browser.
+
+### 3. Build for production
+
+```bash
+npm run build
+```
+
+The production-ready files are written to `dist/`. See [DEPLOYMENT.md](DEPLOYMENT.md)
+for full server deployment instructions.
+
+---
+
+## Project Structure
+
+```
+cm-html/
+├── public/
+│   ├── images/              # App branding images
+│   └── resources/           # Student asset folder (images, etc.)
+├── src/
+│   ├── main.jsx             # React entry point
+│   ├── App.jsx              # Root component — wires all hooks and layout
+│   ├── config.js            # Loads .config.json at build time
+│   ├── index.css            # Global CSS reset and custom properties (design tokens)
+│   │
+│   ├── components/
+│   │   ├── Layout/          # AppLayout — main shell (toolbar + sidebar + pane)
+│   │   ├── Toolbar/         # Top toolbar: project name, save, run, import, export
+│   │   ├── FileTree/        # Left sidebar file list with add/rename/delete
+│   │   ├── TabBar/          # Editor / Preview / Settings tab switcher
+│   │   ├── Editor/          # Monaco editor wrapper + editor+help combined pane
+│   │   ├── Preview/         # Sandboxed iframe preview with viewport controls
+│   │   ├── HelpDrawer/      # Slide-in reference + MDN search drawer
+│   │   ├── Config/          # Settings UI
+│   │   └── Modal/           # Reusable modal dialog (alert and confirm variants)
+│   │
+│   ├── hooks/
+│   │   ├── useProject.js       # All project state: files, active file, CRUD
+│   │   ├── useAutoSave.js      # Debounced localStorage auto-save
+│   │   ├── usePreview.js       # Blob URL generation and iframe refresh
+│   │   └── useContextualHelp.js # Keyword lookup from editor selection
+│   │
+│   ├── data/
+│   │   ├── htmlReference.json  # Bundled HTML element reference (50+ entries)
+│   │   ├── cssReference.json   # Bundled CSS property reference (60+ entries)
+│   │   └── jsReference.json    # Bundled JS method/keyword reference (47+ entries)
+│   │
+│   └── utils/
+│       ├── blobPreview.js      # Multi-file blob URL builder for preview
+│       ├── defaultTemplates.js # Default HTML/CSS/JS starter content
+│       ├── languageDetect.js   # Maps file extensions to Monaco language IDs
+│       ├── mdnApi.js           # MDN Search API helper
+│       └── zipUtils.js         # JSZip project import/export
+│
+├── .config.json             # Runtime configuration (font size, theme, etc.)
+├── vite.config.js           # Vite build configuration
+├── DEPLOYMENT.md            # Server deployment instructions
+├── LICENSE                  # CC BY-NC-SA 4.0
+└── README.md                # This file
+```
+
+---
+
+## Configuration
+
+`.config.json` at the project root controls runtime defaults. Edit before building:
+
+```json
+{
+  "appName": "cm-html",
+  "version": "1.0.0",
+  "defaultFontSize": 14,
+  "defaultFontFamily": "Courier New, monospace",
+  "defaultTheme": "vs-dark",
+  "defaultMobileWidth": 375,
+  "debounceMs": 500,
+  "defaultProjectName": "my-project",
+  "mdnSearchBase": "https://developer.mozilla.org/api/v1/search",
+  "mdnPageBase": "https://developer.mozilla.org/en-US/docs/Web",
+  "helpDrawerWidth": 360,
+  "localStoragePrefix": "cmhtml_"
+}
+```
+
+| Key | Purpose |
+|-----|---------|
+| `defaultFontSize` | Starting editor font size (px) |
+| `defaultFontFamily` | Starting editor font family |
+| `defaultTheme` | `"vs-dark"` or `"vs"` (light) |
+| `defaultMobileWidth` | Default mobile preview viewport width (px) |
+| `debounceMs` | Auto-save debounce delay (ms) |
+| `localStoragePrefix` | Prefix for all localStorage keys — change if running multiple instances on the same origin |
+
+---
+
+## How the Preview Works
+
+1. When project files change, `usePreview` calls `buildPreviewUrl` in `utils/blobPreview.js`.
+2. Every non-HTML file (CSS, JS) is converted to a `blob:` URL with the correct MIME type.
+3. The active HTML file has its `<link href="...">` and `<script src="...">` attributes
+   rewritten to point to the corresponding blob URLs.
+4. A final blob URL is created for the modified HTML and set as the `<iframe src>`.
+5. Previous blob URLs are revoked on every rebuild to prevent memory leaks.
+
+The iframe uses `sandbox="allow-scripts allow-same-origin allow-modals allow-forms"`.
+`allow-same-origin` is required for blob URL resolution; this is an accepted trade-off
+in a controlled educational environment where students run only their own code.
+
+---
+
+## Reference Data Files
+
+The bundled reference JSON files in `src/data/` follow a common schema:
+
+```json
+{
+  "keyword": "display",
+  "type": "css",
+  "title": "display",
+  "summary": "Controls how an element is rendered in the layout.",
+  "syntax": "selector {\n  display: flex;\n}",
+  "values": [
+    { "value": "flex", "description": "Enables flexbox layout." }
+  ],
+  "example": ".container {\n  display: flex;\n}",
+  "level": 2,
+  "mdnPath": "CSS/display"
+}
+```
+
+- `level` — `2` for Level 2 FE, `3` for Level 3 / more advanced
+- HTML entries use `attributes` instead of `values`
+- JS entries use `parameters` and `returns` instead of `values`
+
+To add new entries, edit the relevant JSON file and rebuild.
+
+---
+
+## Browser Support
+
+| Browser | Support |
+|---------|---------|
+| Chrome / Edge (Chromium) | Full |
+| Firefox | Full |
+| Safari 16+ | Full |
+| Mobile browsers | Preview only (editor not optimised for touch) |
+
+Monaco Editor requires a modern browser. Internet Explorer is not supported.
+
+---
+
+## Deployment
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for full instructions covering:
+
+- Building for production
+- Configuring the `base` path for sub-directory hosting
+- Apache / Nginx / IIS server configuration for single-page app routing
+- Offline use considerations
+
+---
+
+## Licence
+
+Copyright (c) 2026 Simon Rundell / Exeter College.
+
+This project is licensed under the
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Licence](LICENSE).
+
+You are free to share and adapt this work for non-commercial purposes, provided
+you give appropriate credit and distribute any derivative works under the same licence.
+
+See [LICENSE](LICENSE) for the full licence text.
+
+---
+
+## Acknowledgements
+
+- [Monaco Editor](https://microsoft.github.io/monaco-editor/) — Microsoft, MIT Licence
+- [MDN Web Docs](https://developer.mozilla.org/) — Mozilla, CC BY-SA 2.5
+- [Lucide Icons](https://lucide.dev/) — Lucide Contributors, ISC Licence
+- [JSZip](https://stuk.github.io/jszip/) — Stuart Knightley, MIT / GPLv3 Licence

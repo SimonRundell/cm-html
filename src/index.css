@@ -1,0 +1,115 @@
+/* src/index.css */
+/* CM-HTML Global Styles — CSS Custom Properties & Reset */
+
+:root {
+  /* Colour Palette — Dark Theme Default */
+  --color-bg-primary: #1e1e2e;
+  --color-bg-secondary: #252538;
+  --color-bg-tertiary: #2d2d44;
+  --color-bg-surface: #313148;
+  --color-bg-hover: #3a3a55;
+
+  --color-accent: #7c9ef5;
+  --color-accent-hover: #9db4ff;
+  --color-accent-muted: rgba(124, 158, 245, 0.15);
+
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --color-info: #60a5fa;
+
+  --color-text-primary: #e2e2f0;
+  --color-text-secondary: #9898b8;
+  --color-text-muted: #6666aa;
+  --color-text-inverse: #1e1e2e;
+
+  --color-border: #3d3d5c;
+  --color-border-subtle: #2d2d44;
+
+  /* Typography */
+  --font-ui: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-code: 'Courier New', 'Consolas', monospace;
+
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  /* Layout */
+  --toolbar-height: 48px;
+  --tabbar-height: 38px;
+  --sidebar-width: 220px;
+  --help-drawer-width: 360px;
+
+  /* Borders & Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track { background: var(--color-bg-primary); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }

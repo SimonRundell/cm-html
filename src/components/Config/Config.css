@@ -1,0 +1,163 @@
+.config-pane {
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--space-6);
+  max-width: 640px;
+}
+
+.config-section-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.config-section {
+  margin-bottom: var(--space-6);
+}
+
+.config-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.config-label {
+  flex-shrink: 0;
+  width: 180px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.config-control {
+  flex: 1;
+}
+
+.config-range-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.config-range-row input[type='range'] {
+  flex: 1;
+  accent-color: var(--color-accent);
+}
+
+.config-value-label {
+  font-size: var(--font-size-sm);
+  font-family: var(--font-code);
+  color: var(--color-text-muted);
+  min-width: 48px;
+  text-align: right;
+}
+
+.config-select {
+  flex: 1;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  outline: none;
+  cursor: pointer;
+}
+
+.config-select:focus {
+  border-color: var(--color-accent);
+}
+
+.config-input {
+  flex: 1;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+.config-input:focus {
+  border-color: var(--color-accent);
+}
+
+.config-btn {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.config-btn:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text-primary);
+}
+
+.config-btn-accent {
+  background: var(--color-accent-muted);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.config-btn-accent:hover {
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+}
+
+.config-new-project {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.config-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.config-project-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.config-project-item.current {
+  border-color: var(--color-accent);
+  background: var(--color-accent-muted);
+}
+
+.config-project-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.config-project-item.current .config-project-name {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.config-project-actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.config-current-badge {
+  font-size: var(--font-size-xs);
+  color: var(--color-accent);
+  font-weight: 600;
+}

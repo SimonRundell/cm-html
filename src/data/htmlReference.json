@@ -1,0 +1,729 @@
+[
+  {
+    "keyword": "html",
+    "type": "html",
+    "title": "<html>",
+    "summary": "The root element of an HTML page. Every HTML document must have exactly one <html> element, which wraps all other content.",
+    "syntax": "<html lang=\"en\">\n  <!-- head and body go here -->\n</html>",
+    "attributes": [
+      { "name": "lang", "description": "Specifies the language of the document, e.g. lang=\"en\"." }
+    ],
+    "example": "<html lang=\"en\">\n  <head>...</head>\n  <body>...</body>\n</html>",
+    "level": 2,
+    "mdnPath": "HTML/Element/html"
+  },
+  {
+    "keyword": "head",
+    "type": "html",
+    "title": "<head>",
+    "summary": "Contains metadata about the document: title, links to stylesheets, character encoding, and more. Nothing inside <head> is displayed on the page.",
+    "syntax": "<head>\n  <meta charset=\"UTF-8\">\n  <title>Page Title</title>\n</head>",
+    "attributes": [],
+    "example": "<head>\n  <meta charset=\"UTF-8\">\n  <title>My Website</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>",
+    "level": 2,
+    "mdnPath": "HTML/Element/head"
+  },
+  {
+    "keyword": "body",
+    "type": "html",
+    "title": "<body>",
+    "summary": "Contains all the visible content of the web page: text, images, links, and everything the user sees.",
+    "syntax": "<body>\n  <!-- page content -->\n</body>",
+    "attributes": [],
+    "example": "<body>\n  <h1>Welcome!</h1>\n  <p>This is my page.</p>\n</body>",
+    "level": 2,
+    "mdnPath": "HTML/Element/body"
+  },
+  {
+    "keyword": "h1",
+    "type": "html",
+    "title": "<h1>",
+    "summary": "The top-level heading element. Use it for the main title of the page. There should be only one <h1> per page for accessibility and SEO.",
+    "syntax": "<h1>Your Main Heading</h1>",
+    "attributes": [
+      { "name": "class", "description": "CSS class name(s) for styling." },
+      { "name": "id", "description": "Unique identifier for this element." }
+    ],
+    "example": "<h1>About Our School</h1>",
+    "level": 2,
+    "mdnPath": "HTML/Element/Heading_Elements"
+  },
+  {
+    "keyword": "h2",
+    "type": "html",
+    "title": "<h2>",
+    "summary": "A second-level heading. Use after <h1> to introduce sections within your page.",
+    "syntax": "<h2>Section Heading</h2>",
+    "attributes": [
+      { "name": "class", "description": "CSS class name(s) for styling." },
+      { "name": "id", "description": "Unique identifier for this element." }
+    ],
+    "example": "<h2>Our Courses</h2>",
+    "level": 2,
+    "mdnPath": "HTML/Element/Heading_Elements"
+  },
+  {
+    "keyword": "h3",
+    "type": "html",
+    "title": "<h3>",
+    "summary": "A third-level heading. Use for sub-sections within an <h2> section.",
+    "syntax": "<h3>Sub-section Heading</h3>",
+    "attributes": [],
+    "example": "<h3>Web Design Basics</h3>",
+    "level": 2,
+    "mdnPath": "HTML/Element/Heading_Elements"
+  },
+  {
+    "keyword": "h4",
+    "type": "html",
+    "title": "<h4>",
+    "summary": "A fourth-level heading. Use sparingly — if you need h4, consider whether your content structure could be simplified.",
+    "syntax": "<h4>Minor Heading</h4>",
+    "attributes": [],
+    "example": "<h4>Assignment Details</h4>",
+    "level": 3,
+    "mdnPath": "HTML/Element/Heading_Elements"
+  },
+  {
+    "keyword": "h5",
+    "type": "html",
+    "title": "<h5>",
+    "summary": "A fifth-level heading. Rarely needed; consider restructuring if you reach this level.",
+    "syntax": "<h5>Minor Sub-heading</h5>",
+    "attributes": [],
+    "example": "<h5>Additional Notes</h5>",
+    "level": 3,
+    "mdnPath": "HTML/Element/Heading_Elements"
+  },
+  {
+    "keyword": "h6",
+    "type": "html",
+    "title": "<h6>",
+    "summary": "The lowest-level heading. Very rarely used in practice.",
+    "syntax": "<h6>Smallest Heading</h6>",
+    "attributes": [],
+    "example": "<h6>Fine Print</h6>",
+    "level": 3,
+    "mdnPath": "HTML/Element/Heading_Elements"
+  },
+  {
+    "keyword": "p",
+    "type": "html",
+    "title": "<p>",
+    "summary": "Defines a paragraph of text. Browsers automatically add space before and after each <p> element.",
+    "syntax": "<p>Your paragraph text here.</p>",
+    "attributes": [
+      { "name": "class", "description": "CSS class name(s) for styling." },
+      { "name": "id", "description": "Unique identifier." }
+    ],
+    "example": "<p>Welcome to our website. We hope you enjoy your visit.</p>",
+    "level": 2,
+    "mdnPath": "HTML/Element/p"
+  },
+  {
+    "keyword": "a",
+    "type": "html",
+    "title": "<a>",
+    "summary": "Creates a hyperlink to another page, a section of the same page, an email address, or any URL. The href attribute specifies the destination.",
+    "syntax": "<a href=\"url\">Link text</a>",
+    "attributes": [
+      { "name": "href", "description": "The URL or path the link goes to." },
+      { "name": "target", "description": "Where to open the link. Use _blank to open in a new tab." },
+      { "name": "rel", "description": "Relationship. Use rel=\"noopener\" with target=\"_blank\" for security." }
+    ],
+    "example": "<a href=\"https://www.example.com\" target=\"_blank\" rel=\"noopener\">Visit Example</a>",
+    "level": 2,
+    "mdnPath": "HTML/Element/a"
+  },
+  {
+    "keyword": "img",
+    "type": "html",
+    "title": "<img>",
+    "summary": "Embeds an image in the page. The src attribute specifies the image file. The alt attribute provides a text description for accessibility — always include it.",
+    "syntax": "<img src=\"image.jpg\" alt=\"Description of image\">",
+    "attributes": [
+      { "name": "src", "description": "Path or URL to the image file." },
+      { "name": "alt", "description": "Alternative text for screen readers and when the image fails to load." },
+      { "name": "width", "description": "Width in pixels." },
+      { "name": "height", "description": "Height in pixels." }
+    ],
+    "example": "<img src=\"photo.jpg\" alt=\"A student working at a computer\" width=\"400\">",
+    "level": 2,
+    "mdnPath": "HTML/Element/img"
+  },
+  {
+    "keyword": "ul",
+    "type": "html",
+    "title": "<ul>",
+    "summary": "An unordered (bulleted) list. Contains <li> items. Use when the order of items doesn't matter.",
+    "syntax": "<ul>\n  <li>Item one</li>\n  <li>Item two</li>\n</ul>",
+    "attributes": [],
+    "example": "<ul>\n  <li>HTML</li>\n  <li>CSS</li>\n  <li>JavaScript</li>\n</ul>",
+    "level": 2,
+    "mdnPath": "HTML/Element/ul"
+  },
+  {
+    "keyword": "ol",
+    "type": "html",
+    "title": "<ol>",
+    "summary": "An ordered (numbered) list. Contains <li> items. Use when the order matters, such as steps in a process.",
+    "syntax": "<ol>\n  <li>First step</li>\n  <li>Second step</li>\n</ol>",
+    "attributes": [
+      { "name": "start", "description": "The number to start counting from." },
+      { "name": "type", "description": "Numbering style: 1, A, a, I, or i." }
+    ],
+    "example": "<ol>\n  <li>Open the file</li>\n  <li>Edit the HTML</li>\n  <li>Save and preview</li>\n</ol>",
+    "level": 2,
+    "mdnPath": "HTML/Element/ol"
+  },
+  {
+    "keyword": "li",
+    "type": "html",
+    "title": "<li>",
+    "summary": "A list item. Must be inside a <ul> (unordered) or <ol> (ordered) list.",
+    "syntax": "<li>List item text</li>",
+    "attributes": [
+      { "name": "value", "description": "Sets the number for this item in an <ol> list." }
+    ],
+    "example": "<ul>\n  <li>Apple</li>\n  <li>Banana</li>\n</ul>",
+    "level": 2,
+    "mdnPath": "HTML/Element/li"
+  },
+  {
+    "keyword": "div",
+    "type": "html",
+    "title": "<div>",
+    "summary": "A generic block-level container. It groups content for styling with CSS or targeting with JavaScript. It has no meaning on its own.",
+    "syntax": "<div class=\"example\">Content here</div>",
+    "attributes": [
+      { "name": "class", "description": "Assigns one or more CSS class names." },
+      { "name": "id", "description": "A unique identifier for this element." },
+      { "name": "style", "description": "Inline CSS styles (avoid where possible)." }
+    ],
+    "example": "<div class=\"card\">\n  <h2>Card Title</h2>\n  <p>Some text.</p>\n</div>",
+    "level": 2,
+    "mdnPath": "HTML/Element/div"
+  },
+  {
+    "keyword": "span",
+    "type": "html",
+    "title": "<span>",
+    "summary": "A generic inline container, used to group text or inline elements for styling with CSS. Unlike <div>, it does not break the flow of text.",
+    "syntax": "<span class=\"highlight\">text</span>",
+    "attributes": [
+      { "name": "class", "description": "CSS class name(s) for styling." },
+      { "name": "id", "description": "Unique identifier." }
+    ],
+    "example": "<p>The price is <span class=\"price\">£9.99</span> per month.</p>",
+    "level": 2,
+    "mdnPath": "HTML/Element/span"
+  },
+  {
+    "keyword": "section",
+    "type": "html",
+    "title": "<section>",
+    "summary": "Defines a distinct section of a document, such as a chapter or a group of related content. Sections should generally have a heading.",
+    "syntax": "<section>\n  <h2>Section Title</h2>\n  <p>Content...</p>\n</section>",
+    "attributes": [],
+    "example": "<section>\n  <h2>Our Services</h2>\n  <p>We offer web design training.</p>\n</section>",
+    "level": 2,
+    "mdnPath": "HTML/Element/section"
+  },
+  {
+    "keyword": "header",
+    "type": "html",
+    "title": "<header>",
+    "summary": "Represents introductory content for its nearest parent section, or the whole page. Typically contains a logo, site title, and navigation.",
+    "syntax": "<header>\n  <h1>Site Title</h1>\n  <nav>...</nav>\n</header>",
+    "attributes": [],
+    "example": "<header>\n  <h1>My Portfolio</h1>\n  <nav><a href=\"#about\">About</a></nav>\n</header>",
+    "level": 2,
+    "mdnPath": "HTML/Element/header"
+  },
+  {
+    "keyword": "footer",
+    "type": "html",
+    "title": "<footer>",
+    "summary": "Represents the footer for its nearest section or for the whole page. Usually contains copyright, contact links, or site credits.",
+    "syntax": "<footer>\n  <p>&copy; 2025 My Site</p>\n</footer>",
+    "attributes": [],
+    "example": "<footer>\n  <p>Contact: info@example.com | &copy; 2025</p>\n</footer>",
+    "level": 2,
+    "mdnPath": "HTML/Element/footer"
+  },
+  {
+    "keyword": "nav",
+    "type": "html",
+    "title": "<nav>",
+    "summary": "Marks a group of navigation links. Screen readers use this to help users skip straight to the main content.",
+    "syntax": "<nav>\n  <a href=\"/\">Home</a>\n  <a href=\"/about\">About</a>\n</nav>",
+    "attributes": [],
+    "example": "<nav>\n  <a href=\"index.html\">Home</a>\n  <a href=\"about.html\">About</a>\n  <a href=\"contact.html\">Contact</a>\n</nav>",
+    "level": 2,
+    "mdnPath": "HTML/Element/nav"
+  },
+  {
+    "keyword": "main",
+    "type": "html",
+    "title": "<main>",
+    "summary": "Contains the central content of the page. There should be only one <main> per page. It helps screen readers jump past headers and navigation.",
+    "syntax": "<main>\n  <!-- primary page content -->\n</main>",
+    "attributes": [],
+    "example": "<main>\n  <h1>Welcome</h1>\n  <p>This is the main content area.</p>\n</main>",
+    "level": 2,
+    "mdnPath": "HTML/Element/main"
+  },
+  {
+    "keyword": "article",
+    "type": "html",
+    "title": "<article>",
+    "summary": "Represents self-contained content that could stand alone, like a blog post, news story, or product listing.",
+    "syntax": "<article>\n  <h2>Post Title</h2>\n  <p>Post content...</p>\n</article>",
+    "attributes": [],
+    "example": "<article>\n  <h2>How to Write HTML</h2>\n  <p>HTML stands for HyperText Markup Language...</p>\n</article>",
+    "level": 3,
+    "mdnPath": "HTML/Element/article"
+  },
+  {
+    "keyword": "aside",
+    "type": "html",
+    "title": "<aside>",
+    "summary": "Content that is related to the main content but could be removed without losing the main meaning — sidebars, pull quotes, or tips.",
+    "syntax": "<aside>\n  <p>Tip: ...</p>\n</aside>",
+    "attributes": [],
+    "example": "<aside>\n  <h3>Did you know?</h3>\n  <p>The first website went live in 1991.</p>\n</aside>",
+    "level": 3,
+    "mdnPath": "HTML/Element/aside"
+  },
+  {
+    "keyword": "table",
+    "type": "html",
+    "title": "<table>",
+    "summary": "Creates a data table. Tables should only be used for tabular data — not for page layout. Use CSS Flexbox or Grid for layout instead.",
+    "syntax": "<table>\n  <thead>...</thead>\n  <tbody>...</tbody>\n</table>",
+    "attributes": [],
+    "example": "<table>\n  <thead><tr><th>Name</th><th>Age</th></tr></thead>\n  <tbody><tr><td>Alice</td><td>17</td></tr></tbody>\n</table>",
+    "level": 2,
+    "mdnPath": "HTML/Element/table"
+  },
+  {
+    "keyword": "thead",
+    "type": "html",
+    "title": "<thead>",
+    "summary": "Groups the header rows of a table. Contains <tr> elements with <th> cells.",
+    "syntax": "<thead>\n  <tr><th>Column 1</th><th>Column 2</th></tr>\n</thead>",
+    "attributes": [],
+    "example": "<thead>\n  <tr><th>Product</th><th>Price</th></tr>\n</thead>",
+    "level": 2,
+    "mdnPath": "HTML/Element/thead"
+  },
+  {
+    "keyword": "tbody",
+    "type": "html",
+    "title": "<tbody>",
+    "summary": "Groups the body rows of a table. Contains <tr> elements with <td> cells.",
+    "syntax": "<tbody>\n  <tr><td>Data</td><td>Data</td></tr>\n</tbody>",
+    "attributes": [],
+    "example": "<tbody>\n  <tr><td>Widget</td><td>£4.99</td></tr>\n</tbody>",
+    "level": 2,
+    "mdnPath": "HTML/Element/tbody"
+  },
+  {
+    "keyword": "tr",
+    "type": "html",
+    "title": "<tr>",
+    "summary": "A table row. Contains <th> or <td> cells. Each <tr> represents one horizontal row in the table.",
+    "syntax": "<tr>\n  <td>Cell 1</td>\n  <td>Cell 2</td>\n</tr>",
+    "attributes": [],
+    "example": "<tr><td>Alice</td><td>Pass</td></tr>",
+    "level": 2,
+    "mdnPath": "HTML/Element/tr"
+  },
+  {
+    "keyword": "th",
+    "type": "html",
+    "title": "<th>",
+    "summary": "A table header cell. Bold and centred by default. Use scope=\"col\" or scope=\"row\" for better accessibility.",
+    "syntax": "<th scope=\"col\">Heading</th>",
+    "attributes": [
+      { "name": "scope", "description": "col or row — describes what the header applies to." },
+      { "name": "colspan", "description": "Number of columns this cell spans." }
+    ],
+    "example": "<th scope=\"col\">Name</th>",
+    "level": 2,
+    "mdnPath": "HTML/Element/th"
+  },
+  {
+    "keyword": "td",
+    "type": "html",
+    "title": "<td>",
+    "summary": "A standard table data cell. Each <td> holds one piece of data in a table row.",
+    "syntax": "<td>Data here</td>",
+    "attributes": [
+      { "name": "colspan", "description": "Number of columns this cell spans." },
+      { "name": "rowspan", "description": "Number of rows this cell spans." }
+    ],
+    "example": "<td>85%</td>",
+    "level": 2,
+    "mdnPath": "HTML/Element/td"
+  },
+  {
+    "keyword": "form",
+    "type": "html",
+    "title": "<form>",
+    "summary": "Creates an HTML form for collecting user input. The action attribute specifies where data is sent; method specifies how (GET or POST).",
+    "syntax": "<form action=\"/submit\" method=\"post\">\n  <!-- inputs -->\n</form>",
+    "attributes": [
+      { "name": "action", "description": "URL to send the form data to." },
+      { "name": "method", "description": "HTTP method: get or post." },
+      { "name": "id", "description": "Unique identifier for the form." }
+    ],
+    "example": "<form action=\"/contact\" method=\"post\">\n  <input type=\"text\" name=\"name\">\n  <button type=\"submit\">Send</button>\n</form>",
+    "level": 2,
+    "mdnPath": "HTML/Element/form"
+  },
+  {
+    "keyword": "input",
+    "type": "html",
+    "title": "<input>",
+    "summary": "Creates an interactive input field. The type attribute determines what kind — text, password, email, checkbox, radio, file, submit, and many more.",
+    "syntax": "<input type=\"text\" name=\"username\" placeholder=\"Enter your name\">",
+    "attributes": [
+      { "name": "type", "description": "Type of input: text, email, password, number, checkbox, radio, file, submit, etc." },
+      { "name": "name", "description": "The name sent with the form data." },
+      { "name": "placeholder", "description": "Hint text shown when the field is empty." },
+      { "name": "required", "description": "Makes the field mandatory before form submission." },
+      { "name": "value", "description": "The initial value of the field." }
+    ],
+    "example": "<input type=\"email\" name=\"email\" placeholder=\"you@example.com\" required>",
+    "level": 2,
+    "mdnPath": "HTML/Element/input"
+  },
+  {
+    "keyword": "textarea",
+    "type": "html",
+    "title": "<textarea>",
+    "summary": "A multi-line text input field. Use for longer messages or comments. Size is controlled by rows and cols, or by CSS.",
+    "syntax": "<textarea name=\"message\" rows=\"5\" cols=\"40\"></textarea>",
+    "attributes": [
+      { "name": "name", "description": "Form field name." },
+      { "name": "rows", "description": "Visible number of lines." },
+      { "name": "cols", "description": "Visible width in characters." },
+      { "name": "placeholder", "description": "Hint text." }
+    ],
+    "example": "<textarea name=\"message\" rows=\"5\" placeholder=\"Write your message here...\"></textarea>",
+    "level": 2,
+    "mdnPath": "HTML/Element/textarea"
+  },
+  {
+    "keyword": "select",
+    "type": "html",
+    "title": "<select>",
+    "summary": "Creates a dropdown list. Fill it with <option> elements. Use <optgroup> to group related options.",
+    "syntax": "<select name=\"colour\">\n  <option value=\"red\">Red</option>\n</select>",
+    "attributes": [
+      { "name": "name", "description": "Form field name." },
+      { "name": "multiple", "description": "Allow selecting more than one option." }
+    ],
+    "example": "<select name=\"level\">\n  <option value=\"2\">Level 2</option>\n  <option value=\"3\">Level 3</option>\n</select>",
+    "level": 2,
+    "mdnPath": "HTML/Element/select"
+  },
+  {
+    "keyword": "option",
+    "type": "html",
+    "title": "<option>",
+    "summary": "Represents one choice inside a <select> dropdown. The value attribute holds the data sent; the text shown is between the tags.",
+    "syntax": "<option value=\"value\">Display text</option>",
+    "attributes": [
+      { "name": "value", "description": "The data value submitted with the form." },
+      { "name": "selected", "description": "Pre-selects this option." },
+      { "name": "disabled", "description": "Makes this option unselectable." }
+    ],
+    "example": "<option value=\"html\">HTML</option>",
+    "level": 2,
+    "mdnPath": "HTML/Element/option"
+  },
+  {
+    "keyword": "button",
+    "type": "html",
+    "title": "<button>",
+    "summary": "A clickable button. The type attribute controls behaviour: submit sends a form, reset clears it, button does nothing by default (use with JavaScript).",
+    "syntax": "<button type=\"button\">Click Me</button>",
+    "attributes": [
+      { "name": "type", "description": "submit (default in forms), reset, or button." },
+      { "name": "disabled", "description": "Prevents the button from being clicked." },
+      { "name": "id", "description": "Unique identifier for JavaScript targeting." }
+    ],
+    "example": "<button type=\"button\" id=\"myBtn\">Show Message</button>",
+    "level": 2,
+    "mdnPath": "HTML/Element/button"
+  },
+  {
+    "keyword": "label",
+    "type": "html",
+    "title": "<label>",
+    "summary": "Associates descriptive text with a form input. Click the label and the linked input gets focus. Link using the for attribute (matching the input's id).",
+    "syntax": "<label for=\"email\">Email address:</label>\n<input type=\"email\" id=\"email\">",
+    "attributes": [
+      { "name": "for", "description": "The id of the input this label is for." }
+    ],
+    "example": "<label for=\"name\">Your Name:</label>\n<input type=\"text\" id=\"name\" name=\"name\">",
+    "level": 2,
+    "mdnPath": "HTML/Element/label"
+  },
+  {
+    "keyword": "link",
+    "type": "html",
+    "title": "<link>",
+    "summary": "Links an external resource to the page. Most commonly used to attach a CSS stylesheet. Goes inside the <head>.",
+    "syntax": "<link rel=\"stylesheet\" href=\"style.css\">",
+    "attributes": [
+      { "name": "rel", "description": "Relationship, e.g. stylesheet." },
+      { "name": "href", "description": "Path or URL of the resource." },
+      { "name": "type", "description": "MIME type, e.g. text/css." }
+    ],
+    "example": "<link rel=\"stylesheet\" href=\"style.css\">",
+    "level": 2,
+    "mdnPath": "HTML/Element/link"
+  },
+  {
+    "keyword": "meta",
+    "type": "html",
+    "title": "<meta>",
+    "summary": "Provides metadata about the document. Common uses: setting character encoding, viewport settings for mobile, and page description for search engines.",
+    "syntax": "<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+    "attributes": [
+      { "name": "charset", "description": "Character encoding, e.g. UTF-8." },
+      { "name": "name", "description": "Type of metadata: viewport, description, author, etc." },
+      { "name": "content", "description": "The value of the metadata." }
+    ],
+    "example": "<meta name=\"description\" content=\"A great website about HTML.\">",
+    "level": 2,
+    "mdnPath": "HTML/Element/meta"
+  },
+  {
+    "keyword": "title",
+    "type": "html",
+    "title": "<title>",
+    "summary": "Sets the title shown in the browser tab and in search engine results. Goes inside the <head> element.",
+    "syntax": "<title>Page Title Here</title>",
+    "attributes": [],
+    "example": "<title>My Portfolio | Home</title>",
+    "level": 2,
+    "mdnPath": "HTML/Element/title"
+  },
+  {
+    "keyword": "script",
+    "type": "html",
+    "title": "<script>",
+    "summary": "Embeds or links to JavaScript. Usually placed just before </body> so it loads after the page content. Use the src attribute to link an external file.",
+    "syntax": "<script src=\"script.js\"></script>",
+    "attributes": [
+      { "name": "src", "description": "Path to an external JavaScript file." },
+      { "name": "defer", "description": "Delays script execution until the page has parsed." },
+      { "name": "async", "description": "Downloads the script asynchronously." }
+    ],
+    "example": "<script src=\"script.js\"></script>",
+    "level": 2,
+    "mdnPath": "HTML/Element/script"
+  },
+  {
+    "keyword": "style",
+    "type": "html",
+    "title": "<style>",
+    "summary": "Embeds CSS styles directly in the HTML file. Prefer linking an external stylesheet with <link> for larger projects.",
+    "syntax": "<style>\n  body { background: #fff; }\n</style>",
+    "attributes": [],
+    "example": "<style>\n  h1 { color: navy; }\n</style>",
+    "level": 2,
+    "mdnPath": "HTML/Element/style"
+  },
+  {
+    "keyword": "br",
+    "type": "html",
+    "title": "<br>",
+    "summary": "Inserts a line break within text. Self-closing. Use sparingly — prefer CSS margin/padding for spacing.",
+    "syntax": "Line one<br>Line two",
+    "attributes": [],
+    "example": "<p>123 High Street<br>London<br>EC1A 1BB</p>",
+    "level": 2,
+    "mdnPath": "HTML/Element/br"
+  },
+  {
+    "keyword": "hr",
+    "type": "html",
+    "title": "<hr>",
+    "summary": "Draws a horizontal rule (dividing line) between sections of content. Self-closing. Style using CSS border properties.",
+    "syntax": "<hr>",
+    "attributes": [],
+    "example": "<p>Section one</p>\n<hr>\n<p>Section two</p>",
+    "level": 2,
+    "mdnPath": "HTML/Element/hr"
+  },
+  {
+    "keyword": "strong",
+    "type": "html",
+    "title": "<strong>",
+    "summary": "Marks text as important, rendering it bold. Screen readers give it added emphasis. Use when the content is genuinely important, not just for visual styling.",
+    "syntax": "<strong>Important text</strong>",
+    "attributes": [],
+    "example": "<p>Please <strong>do not</strong> share your password.</p>",
+    "level": 2,
+    "mdnPath": "HTML/Element/strong"
+  },
+  {
+    "keyword": "em",
+    "type": "html",
+    "title": "<em>",
+    "summary": "Marks text with emphasis, rendering it italic. Screen readers stress the word. Use for genuine emphasis, not just styling.",
+    "syntax": "<em>emphasised text</em>",
+    "attributes": [],
+    "example": "<p>You <em>must</em> save your work regularly.</p>",
+    "level": 2,
+    "mdnPath": "HTML/Element/em"
+  },
+  {
+    "keyword": "small",
+    "type": "html",
+    "title": "<small>",
+    "summary": "Renders text at a smaller font size. Typically used for fine print, disclaimers, or copyright notices.",
+    "syntax": "<small>Fine print or copyright text.</small>",
+    "attributes": [],
+    "example": "<footer><small>&copy; 2025 My School</small></footer>",
+    "level": 2,
+    "mdnPath": "HTML/Element/small"
+  },
+  {
+    "keyword": "blockquote",
+    "type": "html",
+    "title": "<blockquote>",
+    "summary": "Represents a section quoted from another source. Browsers typically indent it. Use the cite attribute to credit the source.",
+    "syntax": "<blockquote cite=\"source-url\">\n  <p>Quoted text here.</p>\n</blockquote>",
+    "attributes": [
+      { "name": "cite", "description": "URL of the source of the quotation." }
+    ],
+    "example": "<blockquote>\n  <p>The best way to predict the future is to invent it.</p>\n</blockquote>",
+    "level": 3,
+    "mdnPath": "HTML/Element/blockquote"
+  },
+  {
+    "keyword": "code",
+    "type": "html",
+    "title": "<code>",
+    "summary": "Displays inline code in a monospace font. Use for short code snippets within a paragraph.",
+    "syntax": "<code>code snippet</code>",
+    "attributes": [],
+    "example": "<p>Use the <code>console.log()</code> function to debug.</p>",
+    "level": 2,
+    "mdnPath": "HTML/Element/code"
+  },
+  {
+    "keyword": "pre",
+    "type": "html",
+    "title": "<pre>",
+    "summary": "Preformatted text — preserves whitespace, spaces, and line breaks exactly as written. Often used with <code> to display multi-line code blocks.",
+    "syntax": "<pre><code>\nfunction hello() {\n  console.log('Hi!');\n}\n</code></pre>",
+    "attributes": [],
+    "example": "<pre><code>if (x > 0) {\n  return true;\n}</code></pre>",
+    "level": 3,
+    "mdnPath": "HTML/Element/pre"
+  },
+  {
+    "keyword": "figure",
+    "type": "html",
+    "title": "<figure>",
+    "summary": "Groups self-contained media content such as an image, diagram, or code snippet together with its caption. Often paired with <figcaption>.",
+    "syntax": "<figure>\n  <img src=\"\" alt=\"\">\n  <figcaption>Caption</figcaption>\n</figure>",
+    "attributes": [],
+    "example": "<figure>\n  <img src=\"chart.png\" alt=\"Bar chart of results\">\n  <figcaption>Figure 1: Results 2025</figcaption>\n</figure>",
+    "level": 3,
+    "mdnPath": "HTML/Element/figure"
+  },
+  {
+    "keyword": "figcaption",
+    "type": "html",
+    "title": "<figcaption>",
+    "summary": "Provides a visible caption or legend for a <figure> element. Usually the first or last child of the <figure>.",
+    "syntax": "<figcaption>Caption text here</figcaption>",
+    "attributes": [],
+    "example": "<figure>\n  <img src=\"dog.jpg\" alt=\"A golden retriever\">\n  <figcaption>Our class mascot, Buddy.</figcaption>\n</figure>",
+    "level": 3,
+    "mdnPath": "HTML/Element/figcaption"
+  },
+  {
+    "keyword": "video",
+    "type": "html",
+    "title": "<video>",
+    "summary": "Embeds a video player. Use controls to show play/pause buttons. The src attribute or <source> child specifies the video file.",
+    "syntax": "<video src=\"video.mp4\" controls width=\"640\"></video>",
+    "attributes": [
+      { "name": "src", "description": "Path to the video file." },
+      { "name": "controls", "description": "Shows the default browser video controls." },
+      { "name": "autoplay", "description": "Plays automatically (use carefully)." },
+      { "name": "loop", "description": "Loops the video." },
+      { "name": "muted", "description": "Starts muted (required for autoplay in most browsers)." },
+      { "name": "width", "description": "Width of the video player in pixels." }
+    ],
+    "example": "<video src=\"intro.mp4\" controls width=\"800\">Your browser doesn't support video.</video>",
+    "level": 3,
+    "mdnPath": "HTML/Element/video"
+  },
+  {
+    "keyword": "audio",
+    "type": "html",
+    "title": "<audio>",
+    "summary": "Embeds an audio player. Include controls to show play/pause buttons. Use <source> child elements for multiple formats.",
+    "syntax": "<audio src=\"sound.mp3\" controls></audio>",
+    "attributes": [
+      { "name": "src", "description": "Path to the audio file." },
+      { "name": "controls", "description": "Shows the browser audio controls." },
+      { "name": "loop", "description": "Loops the audio." },
+      { "name": "autoplay", "description": "Plays automatically (use carefully)." }
+    ],
+    "example": "<audio src=\"background.mp3\" controls></audio>",
+    "level": 3,
+    "mdnPath": "HTML/Element/audio"
+  },
+  {
+    "keyword": "iframe",
+    "type": "html",
+    "title": "<iframe>",
+    "summary": "Embeds another web page or resource (such as a YouTube video or Google Map) inside your page.",
+    "syntax": "<iframe src=\"https://example.com\" width=\"600\" height=\"400\" title=\"Embedded page\"></iframe>",
+    "attributes": [
+      { "name": "src", "description": "URL of the page to embed." },
+      { "name": "width", "description": "Width in pixels." },
+      { "name": "height", "description": "Height in pixels." },
+      { "name": "title", "description": "Accessible name for the iframe." },
+      { "name": "allow", "description": "Permissions, e.g. allow=\"fullscreen\"." }
+    ],
+    "example": "<iframe src=\"https://www.youtube.com/embed/dQw4w9WgXcQ\" width=\"560\" height=\"315\" title=\"YouTube video\" allow=\"fullscreen\"></iframe>",
+    "level": 3,
+    "mdnPath": "HTML/Element/iframe"
+  },
+  {
+    "keyword": "details",
+    "type": "html",
+    "title": "<details>",
+    "summary": "Creates a disclosure widget — content is hidden by default and revealed when clicked. Pair with <summary> for the visible heading.",
+    "syntax": "<details>\n  <summary>Click to expand</summary>\n  <p>Hidden content here.</p>\n</details>",
+    "attributes": [
+      { "name": "open", "description": "If present, the details are expanded by default." }
+    ],
+    "example": "<details>\n  <summary>What is HTML?</summary>\n  <p>HTML stands for HyperText Markup Language.</p>\n</details>",
+    "level": 3,
+    "mdnPath": "HTML/Element/details"
+  },
+  {
+    "keyword": "summary",
+    "type": "html",
+    "title": "<summary>",
+    "summary": "The visible heading for a <details> element. Clicking it toggles the rest of the content open or closed.",
+    "syntax": "<details>\n  <summary>Heading here</summary>\n  <p>Content...</p>\n</details>",
+    "attributes": [],
+    "example": "<details><summary>Show answer</summary><p>42</p></details>",
+    "level": 3,
+    "mdnPath": "HTML/Element/summary"
+  }
+]

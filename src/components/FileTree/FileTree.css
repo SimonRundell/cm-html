@@ -1,0 +1,200 @@
+.file-tree {
+  width: var(--sidebar-width);
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.file-tree-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border-subtle);
+  flex-shrink: 0;
+}
+
+.file-tree-title {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.file-tree-add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.file-tree-add-btn:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text-primary);
+}
+
+.file-tree-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-2) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.file-tree-group {
+  margin-bottom: var(--space-2);
+}
+
+.file-tree-group-label {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+/* File item */
+.file-tree-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  cursor: pointer;
+  position: relative;
+  border-left: 3px solid transparent;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+  min-height: 28px;
+}
+
+.file-tree-item:hover {
+  background: var(--color-bg-hover);
+}
+
+.file-tree-item.active {
+  background: var(--color-accent-muted);
+  border-left-color: var(--color-accent);
+}
+
+.file-tree-item-icon {
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.file-tree-item.active .file-tree-item-icon {
+  color: var(--color-accent);
+}
+
+.file-tree-item-name {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-tree-item.active .file-tree-item-name {
+  color: var(--color-text-primary);
+}
+
+.file-tree-preview-badge {
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Hover action buttons */
+.file-tree-item-actions {
+  display: none;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.file-tree-item:hover .file-tree-item-actions {
+  display: flex;
+}
+
+.file-tree-item-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.file-tree-item-actions button:hover {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+.file-tree-item-actions button.danger:hover {
+  color: var(--color-danger);
+}
+
+/* Rename input */
+.file-tree-rename-wrap {
+  flex: 1;
+}
+
+.file-tree-rename-input {
+  width: 100%;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: 2px var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+/* New file input */
+.file-tree-new-file {
+  padding: var(--space-2) var(--space-3);
+}
+
+.file-tree-new-input {
+  width: 100%;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+/* Error messages */
+.file-tree-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+  margin-top: var(--space-1);
+  line-height: 1.3;
+}
+
+.logo {
+  display: block;
+  width: 120px;
+  margin: auto auto var(--space-4);
+}

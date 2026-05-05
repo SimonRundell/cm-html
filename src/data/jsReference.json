@@ -1,0 +1,679 @@
+[
+  {
+    "keyword": "getElementById",
+    "type": "js",
+    "title": "document.getElementById()",
+    "summary": "Finds a single element on the page by its unique id attribute. This is one of the most common ways to grab a specific element so you can change its content, style, or listen for events. If no element with that id exists, it returns null.",
+    "syntax": "const element = document.getElementById('myId');",
+    "parameters": [
+      { "name": "id", "description": "A string matching the id attribute of the element you want to find, e.g. 'header' or 'submit-btn'." }
+    ],
+    "returns": "HTMLElement or null",
+    "example": "const heading = document.getElementById('main-heading');\nheading.textContent = 'Hello, World!';\nheading.style.color = 'royalblue';",
+    "level": 2,
+    "mdnPath": "API/Document/getElementById"
+  },
+  {
+    "keyword": "getElementsByClassName",
+    "type": "js",
+    "title": "document.getElementsByClassName()",
+    "summary": "Returns a live HTMLCollection of all elements on the page that have a specific class name. 'Live' means if you add or remove elements from the DOM, the collection updates automatically. Note: you need to loop through the result — it's not an array.",
+    "syntax": "const elements = document.getElementsByClassName('className');",
+    "parameters": [
+      { "name": "className", "description": "A string with the class name(s) to search for, e.g. 'card' or 'card featured'." }
+    ],
+    "returns": "HTMLCollection (live)",
+    "example": "const cards = document.getElementsByClassName('card');\n\nfor (let i = 0; i < cards.length; i++) {\n  cards[i].style.border = '2px solid blue';\n}",
+    "level": 2,
+    "mdnPath": "API/Document/getElementsByClassName"
+  },
+  {
+    "keyword": "getElementsByTagName",
+    "type": "js",
+    "title": "document.getElementsByTagName()",
+    "summary": "Returns a live HTMLCollection of all elements with a given HTML tag name (like 'p', 'li', 'div'). Useful when you want to do something to all elements of a particular type on the page.",
+    "syntax": "const elements = document.getElementsByTagName('tagName');",
+    "parameters": [
+      { "name": "tagName", "description": "An HTML tag name as a string, e.g. 'p', 'img', 'li'. Use '*' to match all elements." }
+    ],
+    "returns": "HTMLCollection (live)",
+    "example": "const paragraphs = document.getElementsByTagName('p');\n\nfor (const para of paragraphs) {\n  para.style.lineHeight = '1.6';\n}",
+    "level": 2,
+    "mdnPath": "API/Document/getElementsByTagName"
+  },
+  {
+    "keyword": "querySelector",
+    "type": "js",
+    "title": "document.querySelector()",
+    "summary": "Finds the first element on the page that matches a CSS selector. This is very powerful because you can use any CSS selector — including classes, IDs, pseudo-classes, attribute selectors, and more — to pinpoint exactly the element you need.",
+    "syntax": "const element = document.querySelector('.my-class');",
+    "parameters": [
+      { "name": "selector", "description": "Any valid CSS selector string, e.g. '#nav', '.card:first-child', 'input[type=\"email\"]'." }
+    ],
+    "returns": "Element or null",
+    "example": "const firstCard = document.querySelector('.card');\nconst emailInput = document.querySelector('input[type=\"email\"]');\nconst navLink = document.querySelector('nav a.active');",
+    "level": 2,
+    "mdnPath": "API/Document/querySelector"
+  },
+  {
+    "keyword": "querySelectorAll",
+    "type": "js",
+    "title": "document.querySelectorAll()",
+    "summary": "Returns a static NodeList of all elements matching a CSS selector. Unlike getElementsByClassName, this is not live — it's a snapshot. You can use forEach() on a NodeList, or spread it into an array for full array methods.",
+    "syntax": "const elements = document.querySelectorAll('.my-class');",
+    "parameters": [
+      { "name": "selector", "description": "Any valid CSS selector string. Matches all elements that match, not just the first." }
+    ],
+    "returns": "NodeList (static)",
+    "example": "const buttons = document.querySelectorAll('.btn');\n\nbuttons.forEach(button => {\n  button.addEventListener('click', () => {\n    console.log('Button clicked:', button.textContent);\n  });\n});",
+    "level": 2,
+    "mdnPath": "API/Document/querySelectorAll"
+  },
+  {
+    "keyword": "addEventListener",
+    "type": "js",
+    "title": "element.addEventListener()",
+    "summary": "Attaches a function (called a callback or event handler) to an element so it runs when a specific event happens — like a click, keypress, or form submission. This is the modern, preferred way to handle events in JavaScript.",
+    "syntax": "element.addEventListener('click', function(event) {\n  // code to run when the event fires\n});",
+    "parameters": [
+      { "name": "type", "description": "The event type as a string, e.g. 'click', 'input', 'submit', 'keydown', 'mouseover'." },
+      { "name": "listener", "description": "The function to call when the event fires. Receives an event object as its first argument." },
+      { "name": "options", "description": "Optional. An options object, e.g. { once: true } to auto-remove the listener after the first fire." }
+    ],
+    "returns": "undefined",
+    "example": "const button = document.querySelector('#submit-btn');\n\nbutton.addEventListener('click', (event) => {\n  event.preventDefault();\n  console.log('Button was clicked!');\n});",
+    "level": 2,
+    "mdnPath": "API/EventTarget/addEventListener"
+  },
+  {
+    "keyword": "removeEventListener",
+    "type": "js",
+    "title": "element.removeEventListener()",
+    "summary": "Removes an event listener that was previously added with addEventListener(). You must pass the exact same function reference — so the listener function needs to be stored in a named variable, not an anonymous arrow function.",
+    "syntax": "element.removeEventListener('click', handlerFunction);",
+    "parameters": [
+      { "name": "type", "description": "The event type string — must match the one used in addEventListener()." },
+      { "name": "listener", "description": "The same function reference that was passed to addEventListener()." }
+    ],
+    "returns": "undefined",
+    "example": "function handleClick() {\n  console.log('Clicked once!');\n}\n\nbutton.addEventListener('click', handleClick);\n\n// Later, to stop listening:\nbutton.removeEventListener('click', handleClick);",
+    "level": 3,
+    "mdnPath": "API/EventTarget/removeEventListener"
+  },
+  {
+    "keyword": "innerHTML",
+    "type": "js",
+    "title": "element.innerHTML",
+    "summary": "Gets or sets the HTML content inside an element, including any HTML tags. Setting innerHTML replaces all the element's content. Be careful: never put user-supplied text directly into innerHTML as it can create security vulnerabilities (XSS). Use textContent for plain text instead.",
+    "syntax": "element.innerHTML = '<p>New content</p>';",
+    "parameters": [
+      { "name": "value (setter)", "description": "An HTML string to set as the element's inner content. Tags are parsed as real HTML." }
+    ],
+    "returns": "string (getter) / undefined (setter)",
+    "example": "const container = document.querySelector('#result');\n\n// Setting HTML content\ncontainer.innerHTML = '<strong>Success!</strong> Your form was submitted.';\n\n// Reading existing HTML\nconsole.log(container.innerHTML);",
+    "level": 2,
+    "mdnPath": "API/Element/innerHTML"
+  },
+  {
+    "keyword": "textContent",
+    "type": "js",
+    "title": "element.textContent",
+    "summary": "Gets or sets the plain text content of an element. Unlike innerHTML, it doesn't parse HTML tags — any tags you set are shown as literal text, making it safe to use with user-supplied content. Great for updating labels, headings, and display values.",
+    "syntax": "element.textContent = 'New text content';",
+    "parameters": [
+      { "name": "value (setter)", "description": "A plain text string. Any HTML tags are treated as text, not markup." }
+    ],
+    "returns": "string (getter) / undefined (setter)",
+    "example": "const score = document.querySelector('#score');\nscore.textContent = '42';\n\n// Reading text\nconsole.log(score.textContent); // '42'",
+    "level": 2,
+    "mdnPath": "API/Node/textContent"
+  },
+  {
+    "keyword": "style",
+    "type": "js",
+    "title": "element.style",
+    "summary": "Directly accesses an element's inline CSS styles. You can read or set individual style properties using camelCase versions of CSS property names (e.g. 'background-color' becomes 'backgroundColor'). These inline styles override stylesheet rules.",
+    "syntax": "element.style.propertyName = 'value';",
+    "parameters": [
+      { "name": "propertyName", "description": "A CSS property in camelCase, e.g. 'color', 'fontSize', 'backgroundColor', 'marginTop'." },
+      { "name": "value", "description": "The value as a string, including units where required, e.g. '16px', 'red', 'flex'." }
+    ],
+    "returns": "CSSStyleDeclaration object",
+    "example": "const box = document.querySelector('.box');\nbox.style.backgroundColor = '#ff6600';\nbox.style.padding = '16px';\nbox.style.borderRadius = '8px';",
+    "level": 2,
+    "mdnPath": "API/HTMLElement/style"
+  },
+  {
+    "keyword": "classList",
+    "type": "js",
+    "title": "element.classList",
+    "summary": "Provides methods to add, remove, toggle, and check CSS classes on an element. This is the cleanest way to change an element's appearance via JavaScript, because your styles stay in CSS while JS just switches classes on and off.",
+    "syntax": "element.classList.add('active');\nelement.classList.remove('hidden');\nelement.classList.toggle('open');",
+    "parameters": [
+      { "name": ".add(className)", "description": "Adds one or more class names to the element." },
+      { "name": ".remove(className)", "description": "Removes one or more class names from the element." },
+      { "name": ".toggle(className)", "description": "Adds the class if it's missing, removes it if it's present." },
+      { "name": ".contains(className)", "description": "Returns true if the element has the class, false if not." },
+      { "name": ".replace(old, new)", "description": "Replaces an existing class with a new one." }
+    ],
+    "returns": "DOMTokenList",
+    "example": "const menu = document.querySelector('.nav-menu');\nconst toggleBtn = document.querySelector('#menu-btn');\n\ntoggleBtn.addEventListener('click', () => {\n  menu.classList.toggle('is-open');\n});",
+    "level": 2,
+    "mdnPath": "API/Element/classList"
+  },
+  {
+    "keyword": "setAttribute",
+    "type": "js",
+    "title": "element.setAttribute()",
+    "summary": "Sets the value of an attribute on an element. If the attribute already exists, its value is updated. If it doesn't exist, it is created. Useful for setting href, src, disabled, aria-* attributes, and data-* attributes dynamically.",
+    "syntax": "element.setAttribute('attributeName', 'value');",
+    "parameters": [
+      { "name": "name", "description": "The attribute name as a string, e.g. 'href', 'src', 'disabled', 'aria-label'." },
+      { "name": "value", "description": "The value to set, always as a string." }
+    ],
+    "returns": "undefined",
+    "example": "const link = document.querySelector('a#home-link');\nlink.setAttribute('href', 'https://example.com');\n\nconst input = document.querySelector('#username');\ninput.setAttribute('disabled', '');",
+    "level": 2,
+    "mdnPath": "API/Element/setAttribute"
+  },
+  {
+    "keyword": "getAttribute",
+    "type": "js",
+    "title": "element.getAttribute()",
+    "summary": "Retrieves the value of a specific attribute from an element. Returns the value as a string, or null if the attribute doesn't exist. Commonly used to read data-* attributes, href values, and custom attributes.",
+    "syntax": "const value = element.getAttribute('attributeName');",
+    "parameters": [
+      { "name": "name", "description": "The attribute name to retrieve, e.g. 'data-id', 'href', 'value'." }
+    ],
+    "returns": "string or null",
+    "example": "const card = document.querySelector('.card');\nconst productId = card.getAttribute('data-id');\nconsole.log('Product ID:', productId);",
+    "level": 2,
+    "mdnPath": "API/Element/getAttribute"
+  },
+  {
+    "keyword": "appendChild",
+    "type": "js",
+    "title": "element.appendChild()",
+    "summary": "Adds a node (usually a new element) as the last child of a parent element. If the node already exists somewhere in the document, it is moved to the new position. Use with createElement() to dynamically build page content.",
+    "syntax": "parentElement.appendChild(newChildElement);",
+    "parameters": [
+      { "name": "node", "description": "The DOM node to append. Usually a new element created with document.createElement()." }
+    ],
+    "returns": "The appended Node",
+    "example": "const list = document.querySelector('#todo-list');\nconst newItem = document.createElement('li');\nnewItem.textContent = 'Buy milk';\nlist.appendChild(newItem);",
+    "level": 2,
+    "mdnPath": "API/Node/appendChild"
+  },
+  {
+    "keyword": "removeChild",
+    "type": "js",
+    "title": "element.removeChild()",
+    "summary": "Removes a specified child element from a parent element. The removed element is returned, so you can reuse it if needed. You must call this on the parent, passing the child you want to remove.",
+    "syntax": "parentElement.removeChild(childElement);",
+    "parameters": [
+      { "name": "child", "description": "The child node to remove. Must be a direct child of the element you call removeChild() on." }
+    ],
+    "returns": "The removed Node",
+    "example": "const list = document.querySelector('#todo-list');\nconst firstItem = list.querySelector('li');\n\nif (firstItem) {\n  list.removeChild(firstItem);\n}",
+    "level": 2,
+    "mdnPath": "API/Node/removeChild"
+  },
+  {
+    "keyword": "createElement",
+    "type": "js",
+    "title": "document.createElement()",
+    "summary": "Creates a new HTML element in memory (but doesn't add it to the page yet). After creating it, you set its content and attributes, then add it to the DOM using appendChild(), prepend(), or insertBefore(). This is how you dynamically build page content with JavaScript.",
+    "syntax": "const element = document.createElement('tagName');",
+    "parameters": [
+      { "name": "tagName", "description": "The HTML tag name for the element to create, e.g. 'div', 'p', 'button', 'li', 'img'." }
+    ],
+    "returns": "HTMLElement",
+    "example": "const card = document.createElement('div');\ncard.classList.add('card');\ncard.innerHTML = '<h2>New Card</h2><p>Some content here.</p>';\n\ndocument.querySelector('#container').appendChild(card);",
+    "level": 2,
+    "mdnPath": "API/Document/createElement"
+  },
+  {
+    "keyword": "console.log",
+    "type": "js",
+    "title": "console.log()",
+    "summary": "Prints information to the browser's developer console. Essential for debugging — use it to check the values of variables, see if code is running, and understand what's happening in your program. Open the console with F12 or right-click > Inspect > Console.",
+    "syntax": "console.log(value1, value2, ...);",
+    "parameters": [
+      { "name": "...data", "description": "One or more values to log. These can be strings, numbers, objects, arrays, or any JavaScript value." }
+    ],
+    "returns": "undefined",
+    "example": "const name = 'Alice';\nconsole.log('Hello,', name);\n\nconst user = { id: 1, age: 20 };\nconsole.log('User object:', user);\n\nconsole.log(1 + 2); // 3",
+    "level": 2,
+    "mdnPath": "API/console/log_static"
+  },
+  {
+    "keyword": "alert",
+    "type": "js",
+    "title": "alert()",
+    "summary": "Shows a pop-up dialog box with a message and an OK button. It blocks the page until the user clicks OK. Useful for quick messages during development, but avoid using it in finished websites as it interrupts the user experience.",
+    "syntax": "alert('Your message here');",
+    "parameters": [
+      { "name": "message", "description": "The text to display in the alert dialog. Non-string values are converted to strings." }
+    ],
+    "returns": "undefined",
+    "example": "alert('Welcome to my website!');\n\nconst score = 95;\nalert('You scored ' + score + ' points!');",
+    "level": 2,
+    "mdnPath": "API/Window/alert"
+  },
+  {
+    "keyword": "prompt",
+    "type": "js",
+    "title": "prompt()",
+    "summary": "Shows a dialog box with a text input field, asking the user to enter a value. Returns the text the user typed as a string, or null if they clicked Cancel. Great for learning, but avoid in real projects — custom input forms are much better for user experience.",
+    "syntax": "const result = prompt('Enter your name:');",
+    "parameters": [
+      { "name": "message", "description": "The text label shown above the input field." },
+      { "name": "default", "description": "Optional. A default value pre-filled in the input field." }
+    ],
+    "returns": "string or null",
+    "example": "const name = prompt('What is your name?');\n\nif (name !== null && name !== '') {\n  alert('Hello, ' + name + '!');\n} else {\n  alert('You did not enter a name.');\n}",
+    "level": 2,
+    "mdnPath": "API/Window/prompt"
+  },
+  {
+    "keyword": "confirm",
+    "type": "js",
+    "title": "confirm()",
+    "summary": "Shows a dialog with OK and Cancel buttons. Returns true if the user clicks OK, or false if they click Cancel. Useful for asking the user to confirm a destructive action, like deleting an item.",
+    "syntax": "const result = confirm('Are you sure?');",
+    "parameters": [
+      { "name": "message", "description": "The question to display in the dialog box." }
+    ],
+    "returns": "boolean (true for OK, false for Cancel)",
+    "example": "const confirmed = confirm('Are you sure you want to delete this item?');\n\nif (confirmed) {\n  console.log('Item deleted.');\n} else {\n  console.log('Cancelled.');\n}",
+    "level": 2,
+    "mdnPath": "API/Window/confirm"
+  },
+  {
+    "keyword": "setTimeout",
+    "type": "js",
+    "title": "setTimeout()",
+    "summary": "Runs a function once after a specified delay in milliseconds. It's non-blocking — the rest of your code continues running while the timer counts down. Returns a timer ID that you can use with clearTimeout() to cancel it before it fires.",
+    "syntax": "const timerId = setTimeout(function, delayInMs);",
+    "parameters": [
+      { "name": "callback", "description": "The function to run after the delay." },
+      { "name": "delay", "description": "The number of milliseconds to wait before running the function. 1000ms = 1 second." }
+    ],
+    "returns": "number (timer ID)",
+    "example": "console.log('Start');\n\nsetTimeout(() => {\n  console.log('This runs after 2 seconds');\n}, 2000);\n\nconsole.log('End'); // This runs before the setTimeout callback!",
+    "level": 2,
+    "mdnPath": "API/setTimeout"
+  },
+  {
+    "keyword": "setInterval",
+    "type": "js",
+    "title": "setInterval()",
+    "summary": "Repeatedly runs a function at a fixed interval (in milliseconds). Unlike setTimeout which fires once, setInterval keeps firing until you stop it with clearInterval(). Great for clocks, countdowns, and animation polling.",
+    "syntax": "const intervalId = setInterval(function, intervalInMs);",
+    "parameters": [
+      { "name": "callback", "description": "The function to run repeatedly." },
+      { "name": "delay", "description": "The number of milliseconds between each call." }
+    ],
+    "returns": "number (interval ID)",
+    "example": "let count = 0;\nconst intervalId = setInterval(() => {\n  count++;\n  console.log('Count:', count);\n  if (count >= 5) {\n    clearInterval(intervalId);\n    console.log('Done!');\n  }\n}, 1000);",
+    "level": 2,
+    "mdnPath": "API/setInterval"
+  },
+  {
+    "keyword": "clearTimeout",
+    "type": "js",
+    "title": "clearTimeout()",
+    "summary": "Cancels a setTimeout() timer before it fires. You must pass the timer ID that was returned by setTimeout(). If the timer has already fired, calling clearTimeout() has no effect.",
+    "syntax": "clearTimeout(timerId);",
+    "parameters": [
+      { "name": "id", "description": "The timer ID returned by the setTimeout() call you want to cancel." }
+    ],
+    "returns": "undefined",
+    "example": "const timerId = setTimeout(() => {\n  console.log('This will NOT run');\n}, 5000);\n\n// Cancel it before 5 seconds pass\nclearTimeout(timerId);",
+    "level": 2,
+    "mdnPath": "API/clearTimeout"
+  },
+  {
+    "keyword": "clearInterval",
+    "type": "js",
+    "title": "clearInterval()",
+    "summary": "Stops a setInterval() timer from continuing to fire. Pass the ID that was returned by setInterval(). Always store the interval ID in a variable so you can stop it later — otherwise the interval runs forever (even after navigating away on some browsers).",
+    "syntax": "clearInterval(intervalId);",
+    "parameters": [
+      { "name": "id", "description": "The interval ID returned by the setInterval() call you want to stop." }
+    ],
+    "returns": "undefined",
+    "example": "const clockId = setInterval(() => {\n  updateClock();\n}, 1000);\n\n// Stop the clock when the user leaves the page\ndocument.querySelector('#stop-btn').addEventListener('click', () => {\n  clearInterval(clockId);\n});",
+    "level": 2,
+    "mdnPath": "API/clearInterval"
+  },
+  {
+    "keyword": "fetch",
+    "type": "js",
+    "title": "fetch()",
+    "summary": "Makes an HTTP request to a URL and returns a Promise. Used to load data from APIs or servers without refreshing the page. You chain .then() calls (or use async/await) to handle the response. The response body isn't automatically parsed — you need to call .json() or .text() on it.",
+    "syntax": "fetch(url)\n  .then(response => response.json())\n  .then(data => console.log(data))\n  .catch(error => console.error(error));",
+    "parameters": [
+      { "name": "url", "description": "The URL to request as a string, e.g. 'https://api.example.com/data'." },
+      { "name": "options", "description": "Optional. An object with settings like method ('GET', 'POST'), headers, and body for the request." }
+    ],
+    "returns": "Promise<Response>",
+    "example": "async function loadUsers() {\n  try {\n    const response = await fetch('https://jsonplaceholder.typicode.com/users');\n    const users = await response.json();\n    console.log(users);\n  } catch (error) {\n    console.error('Failed to load users:', error);\n  }\n}\n\nloadUsers();",
+    "level": 3,
+    "mdnPath": "API/fetch"
+  },
+  {
+    "keyword": "JSON.parse",
+    "type": "js",
+    "title": "JSON.parse()",
+    "summary": "Converts a JSON string into a JavaScript object (or array). JSON is the standard format for sending data between a server and a browser. You'll use this whenever you receive data from an API as a text string and need to work with it as a JavaScript value.",
+    "syntax": "const data = JSON.parse(jsonString);",
+    "parameters": [
+      { "name": "text", "description": "A valid JSON string to parse. Throws a SyntaxError if the string is not valid JSON." }
+    ],
+    "returns": "Object, Array, string, number, boolean, or null",
+    "example": "const jsonString = '{\"name\": \"Alice\", \"age\": 20}';\nconst user = JSON.parse(jsonString);\nconsole.log(user.name); // 'Alice'\nconsole.log(user.age);  // 20",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/JSON/parse"
+  },
+  {
+    "keyword": "JSON.stringify",
+    "type": "js",
+    "title": "JSON.stringify()",
+    "summary": "Converts a JavaScript object or array into a JSON string. You need this when sending data to a server (e.g. in a fetch POST request body) or when saving a JavaScript object to localStorage.",
+    "syntax": "const jsonString = JSON.stringify(value);",
+    "parameters": [
+      { "name": "value", "description": "The JavaScript value to convert — usually an object or array." },
+      { "name": "replacer", "description": "Optional. A function or array to filter properties. Pass null to include everything." },
+      { "name": "space", "description": "Optional. A number of spaces for pretty-printing, e.g. 2 for readable output." }
+    ],
+    "returns": "string",
+    "example": "const user = { name: 'Alice', age: 20 };\nconst jsonString = JSON.stringify(user);\nconsole.log(jsonString); // '{\"name\":\"Alice\",\"age\":20}'\n\n// Pretty-printed:\nconsole.log(JSON.stringify(user, null, 2));",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/JSON/stringify"
+  },
+  {
+    "keyword": "parseInt",
+    "type": "js",
+    "title": "parseInt()",
+    "summary": "Converts a string to a whole (integer) number. It reads digits from the start of the string and stops when it hits a non-digit character. If the string doesn't start with a number, it returns NaN (Not a Number). Always pass 10 as the second argument to ensure base-10 parsing.",
+    "syntax": "const num = parseInt('42', 10);",
+    "parameters": [
+      { "name": "string", "description": "The string to parse, e.g. '42', '3.7', '100px'." },
+      { "name": "radix", "description": "The base of the number system. Use 10 for standard decimal numbers." }
+    ],
+    "returns": "integer or NaN",
+    "example": "console.log(parseInt('42', 10));    // 42\nconsole.log(parseInt('3.9', 10));   // 3 (truncates, not rounds)\nconsole.log(parseInt('100px', 10)); // 100 (ignores 'px')\nconsole.log(parseInt('abc', 10));   // NaN",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/parseInt"
+  },
+  {
+    "keyword": "parseFloat",
+    "type": "js",
+    "title": "parseFloat()",
+    "summary": "Converts a string to a floating-point (decimal) number. Similar to parseInt but preserves the decimal part. Useful when reading numeric values from form inputs or API data that arrive as strings.",
+    "syntax": "const num = parseFloat('3.14');",
+    "parameters": [
+      { "name": "string", "description": "The string to parse, e.g. '3.14', '9.99', '100.5px'." }
+    ],
+    "returns": "floating-point number or NaN",
+    "example": "console.log(parseFloat('3.14'));     // 3.14\nconsole.log(parseFloat('9.99 GBP')); // 9.99\nconsole.log(parseFloat('abc'));      // NaN",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/parseFloat"
+  },
+  {
+    "keyword": "Math.random",
+    "type": "js",
+    "title": "Math.random()",
+    "summary": "Returns a random decimal number between 0 (inclusive) and 1 (exclusive). On its own it's not that useful, but multiplied and floored it can generate random integers in any range. A staple for games, quizzes, and randomised content.",
+    "syntax": "const num = Math.random();",
+    "parameters": [],
+    "returns": "float between 0 and 1 (exclusive)",
+    "example": "// Random decimal between 0 and 1\nconsole.log(Math.random());\n\n// Random integer between 1 and 6 (like a dice roll)\nconst dice = Math.floor(Math.random() * 6) + 1;\nconsole.log('Dice roll:', dice);",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Math/random"
+  },
+  {
+    "keyword": "Math.floor",
+    "type": "js",
+    "title": "Math.floor()",
+    "summary": "Rounds a number down to the nearest whole number. 'Floor' means towards negative infinity — so 4.9 becomes 4, and -1.1 becomes -2. Almost always used together with Math.random() to generate random integers.",
+    "syntax": "const result = Math.floor(number);",
+    "parameters": [
+      { "name": "x", "description": "The number to round down." }
+    ],
+    "returns": "integer",
+    "example": "console.log(Math.floor(4.9));  // 4\nconsole.log(Math.floor(4.1));  // 4\nconsole.log(Math.floor(-1.1)); // -2\n\n// Random integer 0–9\nconst rand = Math.floor(Math.random() * 10);",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Math/floor"
+  },
+  {
+    "keyword": "Math.ceil",
+    "type": "js",
+    "title": "Math.ceil()",
+    "summary": "Rounds a number up to the nearest whole number. 'Ceil' means towards positive infinity — so 4.1 becomes 5, and -1.9 becomes -1. Useful when you need to ensure you always round up, for example when calculating the number of pages needed for pagination.",
+    "syntax": "const result = Math.ceil(number);",
+    "parameters": [
+      { "name": "x", "description": "The number to round up." }
+    ],
+    "returns": "integer",
+    "example": "console.log(Math.ceil(4.1));  // 5\nconsole.log(Math.ceil(4.9));  // 5\nconsole.log(Math.ceil(-1.9)); // -1\n\n// Pages needed for 25 items, 10 per page:\nconst pages = Math.ceil(25 / 10); // 3",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Math/ceil"
+  },
+  {
+    "keyword": "Math.round",
+    "type": "js",
+    "title": "Math.round()",
+    "summary": "Rounds a number to the nearest whole number using standard rounding rules — .5 and above rounds up, below .5 rounds down. The most intuitive of the Math rounding methods for everyday use.",
+    "syntax": "const result = Math.round(number);",
+    "parameters": [
+      { "name": "x", "description": "The number to round." }
+    ],
+    "returns": "integer",
+    "example": "console.log(Math.round(4.4)); // 4\nconsole.log(Math.round(4.5)); // 5\nconsole.log(Math.round(4.9)); // 5\n\n// Round a price to 2 decimal places:\nconst price = Math.round(9.9999 * 100) / 100; // 10",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Math/round"
+  },
+  {
+    "keyword": "Array.push",
+    "type": "js",
+    "title": "Array.push()",
+    "summary": "Adds one or more items to the end of an array and returns the new length of the array. This modifies the original array — it doesn't create a copy. One of the most commonly used array methods for building up lists of data.",
+    "syntax": "array.push(item1, item2, ...);",
+    "parameters": [
+      { "name": "...items", "description": "One or more values to add to the end of the array." }
+    ],
+    "returns": "number (the new length of the array)",
+    "example": "const fruits = ['apple', 'banana'];\nfruits.push('cherry');\nconsole.log(fruits); // ['apple', 'banana', 'cherry']\n\nfruits.push('date', 'elderberry');\nconsole.log(fruits.length); // 5",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Array/push"
+  },
+  {
+    "keyword": "Array.pop",
+    "type": "js",
+    "title": "Array.pop()",
+    "summary": "Removes the last item from an array and returns it. This modifies the original array. Useful in stack data structures where you want to process items in last-in, first-out order.",
+    "syntax": "const lastItem = array.pop();",
+    "parameters": [],
+    "returns": "The removed element, or undefined if the array is empty",
+    "example": "const tasks = ['Buy milk', 'Walk dog', 'Study CSS'];\nconst last = tasks.pop();\nconsole.log(last);  // 'Study CSS'\nconsole.log(tasks); // ['Buy milk', 'Walk dog']",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Array/pop"
+  },
+  {
+    "keyword": "Array.map",
+    "type": "js",
+    "title": "Array.map()",
+    "summary": "Creates a new array by calling a function on every item in the original array and collecting the return values. The original array is not changed. Great for transforming data, e.g. converting an array of objects into an array of HTML strings.",
+    "syntax": "const newArray = array.map(item => /* return transformed item */);",
+    "parameters": [
+      { "name": "callback(element, index, array)", "description": "A function called for each element. Its return value becomes the corresponding element in the new array." }
+    ],
+    "returns": "New Array",
+    "example": "const prices = [10, 20, 30];\nconst doubled = prices.map(price => price * 2);\nconsole.log(doubled); // [20, 40, 60]\n\nconst names = ['alice', 'bob'];\nconst upperNames = names.map(name => name.toUpperCase());\nconsole.log(upperNames); // ['ALICE', 'BOB']",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Array/map"
+  },
+  {
+    "keyword": "Array.filter",
+    "type": "js",
+    "title": "Array.filter()",
+    "summary": "Creates a new array containing only the items for which a test function returns true. The original array is not changed. Perfect for searching and narrowing down datasets, e.g. filtering a list to only show items matching a search term.",
+    "syntax": "const filtered = array.filter(item => /* return true to keep */);",
+    "parameters": [
+      { "name": "callback(element, index, array)", "description": "A test function. If it returns true for an element, that element is included in the result." }
+    ],
+    "returns": "New Array (a subset of the original)",
+    "example": "const scores = [55, 72, 88, 45, 91];\nconst passes = scores.filter(score => score >= 60);\nconsole.log(passes); // [72, 88, 91]\n\nconst users = [{name: 'Alice', active: true}, {name: 'Bob', active: false}];\nconst activeUsers = users.filter(user => user.active);\nconsole.log(activeUsers); // [{name: 'Alice', active: true}]",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Array/filter"
+  },
+  {
+    "keyword": "Array.forEach",
+    "type": "js",
+    "title": "Array.forEach()",
+    "summary": "Runs a function once for every item in an array. Unlike map(), it doesn't return a new array — it's used purely for side effects like logging, updating the DOM, or sending requests. It's a clean alternative to a traditional for loop.",
+    "syntax": "array.forEach(item => { /* do something */ });",
+    "parameters": [
+      { "name": "callback(element, index, array)", "description": "A function called for each element. Any return value is ignored." }
+    ],
+    "returns": "undefined",
+    "example": "const colours = ['red', 'green', 'blue'];\n\ncolours.forEach((colour, index) => {\n  console.log(index + ': ' + colour);\n});\n// 0: red\n// 1: green\n// 2: blue",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Array/forEach"
+  },
+  {
+    "keyword": "Array.find",
+    "type": "js",
+    "title": "Array.find()",
+    "summary": "Returns the first element in an array that satisfies a test function. If no element matches, it returns undefined. Useful when you have an array of objects and need to find one specific item, like finding a product by its ID.",
+    "syntax": "const found = array.find(item => /* return true when found */);",
+    "parameters": [
+      { "name": "callback(element, index, array)", "description": "A test function. find() returns the first element for which this returns true." }
+    ],
+    "returns": "Element or undefined",
+    "example": "const products = [\n  { id: 1, name: 'Laptop' },\n  { id: 2, name: 'Phone' },\n  { id: 3, name: 'Tablet' }\n];\n\nconst phone = products.find(p => p.id === 2);\nconsole.log(phone.name); // 'Phone'",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Array/find"
+  },
+  {
+    "keyword": "String.split",
+    "type": "js",
+    "title": "String.split()",
+    "summary": "Splits a string into an array of substrings, using a specified separator. The original string is not changed. Useful for parsing comma-separated values, splitting sentences into words, or breaking up structured text data.",
+    "syntax": "const parts = string.split(separator);",
+    "parameters": [
+      { "name": "separator", "description": "A string or regular expression to split on. If omitted, the whole string becomes a single-item array." },
+      { "name": "limit", "description": "Optional. Maximum number of splits to make." }
+    ],
+    "returns": "Array of strings",
+    "example": "const csv = 'Alice,Bob,Charlie';\nconst names = csv.split(',');\nconsole.log(names); // ['Alice', 'Bob', 'Charlie']\n\nconst sentence = 'Hello World';\nconsole.log(sentence.split(' ')); // ['Hello', 'World']",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/String/split"
+  },
+  {
+    "keyword": "String.join",
+    "type": "js",
+    "title": "Array.join()",
+    "summary": "Joins all elements of an array into a single string, with a specified separator between each element. Note: join() is actually an Array method, not a String method. It's the opposite of split() — use them together to process text.",
+    "syntax": "const result = array.join(separator);",
+    "parameters": [
+      { "name": "separator", "description": "A string to place between each element. Defaults to a comma if omitted." }
+    ],
+    "returns": "string",
+    "example": "const words = ['Hello', 'World', 'JavaScript'];\nconsole.log(words.join(' '));  // 'Hello World JavaScript'\nconsole.log(words.join(', ')); // 'Hello, World, JavaScript'\nconsole.log(words.join('-'));  // 'Hello-World-JavaScript'",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/Array/join"
+  },
+  {
+    "keyword": "String.trim",
+    "type": "js",
+    "title": "String.trim()",
+    "summary": "Removes whitespace (spaces, tabs, newlines) from both ends of a string. Essential for cleaning up user input — people often accidentally add spaces before or after what they type. Does not change the original string.",
+    "syntax": "const cleaned = string.trim();",
+    "parameters": [],
+    "returns": "string (new string with whitespace stripped)",
+    "example": "const input = '   hello world   ';\nconst clean = input.trim();\nconsole.log(clean);        // 'hello world'\nconsole.log(clean.length); // 11\n\n// Check if a form field is empty:\nif (inputField.value.trim() === '') {\n  alert('Please enter a value.');\n}",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/String/trim"
+  },
+  {
+    "keyword": "String.includes",
+    "type": "js",
+    "title": "String.includes()",
+    "summary": "Checks whether a string contains a specified substring. Returns true if found, false if not. Case-sensitive. Very useful for search filtering — you can check if a product name includes the user's search term, for example.",
+    "syntax": "const result = string.includes(searchString);",
+    "parameters": [
+      { "name": "searchString", "description": "The substring to search for." },
+      { "name": "position", "description": "Optional. The position in the string to start searching from." }
+    ],
+    "returns": "boolean",
+    "example": "const sentence = 'JavaScript is awesome';\nconsole.log(sentence.includes('awesome')); // true\nconsole.log(sentence.includes('boring'));  // false\n\n// Search filter:\nconst results = products.filter(p =>\n  p.name.toLowerCase().includes(searchTerm.toLowerCase())\n);",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/String/includes"
+  },
+  {
+    "keyword": "String.replace",
+    "type": "js",
+    "title": "String.replace()",
+    "summary": "Returns a new string with the first match of a search value replaced by a replacement string. The original string is not changed. To replace all occurrences, use replaceAll() or use a regex with the global flag /pattern/g.",
+    "syntax": "const result = string.replace(searchValue, replacement);",
+    "parameters": [
+      { "name": "searchValue", "description": "A string or regular expression to find. Only the first match is replaced (use replaceAll() for all)." },
+      { "name": "replacement", "description": "The string to put in place of the match." }
+    ],
+    "returns": "string (new string)",
+    "example": "const text = 'Hello, World!';\nconsole.log(text.replace('World', 'JavaScript'));\n// 'Hello, JavaScript!'\n\n// Replace all spaces with dashes using a regex:\nconst slug = 'My Blog Post'.replace(/ /g, '-').toLowerCase();\nconsole.log(slug); // 'my-blog-post'",
+    "level": 2,
+    "mdnPath": "JavaScript/Reference/Global_Objects/String/replace"
+  },
+  {
+    "keyword": "localStorage.setItem",
+    "type": "js",
+    "title": "localStorage.setItem()",
+    "summary": "Saves a key-value pair to the browser's localStorage — data that persists even after the browser tab is closed. Values must be strings, so use JSON.stringify() to save objects or arrays. Data is tied to the origin (domain + port).",
+    "syntax": "localStorage.setItem('key', 'value');",
+    "parameters": [
+      { "name": "key", "description": "A string key to identify the stored value." },
+      { "name": "value", "description": "The value to store — must be a string. Use JSON.stringify() for objects." }
+    ],
+    "returns": "undefined",
+    "example": "// Storing a simple string\nlocalStorage.setItem('username', 'Alice');\n\n// Storing an object\nconst settings = { theme: 'dark', fontSize: 16 };\nlocalStorage.setItem('settings', JSON.stringify(settings));",
+    "level": 2,
+    "mdnPath": "API/Storage/setItem"
+  },
+  {
+    "keyword": "localStorage.getItem",
+    "type": "js",
+    "title": "localStorage.getItem()",
+    "summary": "Retrieves a value from localStorage using its key. Returns the stored string, or null if the key doesn't exist. If you stored an object with JSON.stringify(), you'll need to parse it back with JSON.parse().",
+    "syntax": "const value = localStorage.getItem('key');",
+    "parameters": [
+      { "name": "key", "description": "The string key of the item to retrieve." }
+    ],
+    "returns": "string or null",
+    "example": "// Reading a simple value\nconst username = localStorage.getItem('username');\nconsole.log(username); // 'Alice'\n\n// Reading and parsing a stored object\nconst settingsJson = localStorage.getItem('settings');\nif (settingsJson) {\n  const settings = JSON.parse(settingsJson);\n  console.log(settings.theme); // 'dark'\n}",
+    "level": 2,
+    "mdnPath": "API/Storage/getItem"
+  },
+  {
+    "keyword": "window.location",
+    "type": "js",
+    "title": "window.location",
+    "summary": "An object containing information about the current page URL, and methods to navigate the browser. You can read properties like href (full URL), pathname (/page/name), and search (?query=string), or use assign() and replace() to redirect users to another page.",
+    "syntax": "window.location.href = 'https://example.com';",
+    "parameters": [
+      { "name": ".href", "description": "The full URL of the current page. Set it to navigate to a new URL." },
+      { "name": ".pathname", "description": "The path part of the URL, e.g. '/about' or '/products/1'." },
+      { "name": ".search", "description": "The query string, e.g. '?id=5&page=2'." },
+      { "name": ".assign(url)", "description": "Navigates to a new URL, keeping the current page in browser history." },
+      { "name": ".replace(url)", "description": "Navigates to a new URL, replacing the current page in history (can't go back)." },
+      { "name": ".reload()", "description": "Reloads the current page." }
+    ],
+    "returns": "Location object",
+    "example": "// Read the current URL\nconsole.log(window.location.href);\n\n// Navigate to another page\nwindow.location.href = '/dashboard';\n\n// Redirect without history entry\nwindow.location.replace('/login');",
+    "level": 2,
+    "mdnPath": "API/Location"
+  }
+]
