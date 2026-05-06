@@ -273,7 +273,9 @@ export function useProject() {
       language: detectLanguage(f.name),
       ...(f.isImage ? { isImage: true } : {}),
     }));
-    const htmlFile = files.find(f => !f.isImage && f.name.match(/\.html?$/i));
+    const htmlFile =
+      files.find(f => !f.isImage && f.name.toLowerCase() === 'index.html') ||
+      files.find(f => !f.isImage && f.name.match(/\.html?$/i));
     const fresh = {
       projectName,
       files,
