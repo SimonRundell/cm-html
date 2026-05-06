@@ -6,7 +6,7 @@
  * effect in the editor without the student needing to submit a form.
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Config.css';
 
 const FONT_FAMILIES = [
@@ -48,6 +48,14 @@ export default function ConfigPane({
   onSetPreviewRoot,
 }) {
   const [newProjectName, setNewProjectName] = useState('');
+  const [motd, setMotd] = useState('');
+
+  useEffect(() => {
+    fetch('/MOTD.txt')
+      .then(r => r.text())
+      .then(setMotd)
+      .catch(() => {});
+  }, []);
 
   /**
    * Merges a single changed setting key into the current settings object and
@@ -209,6 +217,11 @@ export default function ConfigPane({
           </div>
         )}
       </div>
+      <h3>Recent Updates</h3>
+      <div className="motd-para">This application is currently in development. 
+        Please inform <a href="mailto:simonrundell@exe-coll.ac.uk">simonrundell@exe-coll.ac.uk</a> of any suggestions or bug reports.</div>
+      <div className="motd-para">Recent updates include:</div>
+      {motd && <div className="motd-para" dangerouslySetInnerHTML={{ __html: motd }} />}
     </div>
   );
 }

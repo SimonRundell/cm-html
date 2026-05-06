@@ -1,0 +1,5 @@
+<h3>Version 0.1.2</h3>
+<ul>
+<li>Ensure index.html is always displayed first</li>
+<li>Improved uploading of images</li>
+</ul>
