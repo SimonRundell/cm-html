@@ -7,6 +7,8 @@
  * Maps lowercase file extensions to the Monaco editor's internal language IDs.
  * Extensions not listed here fall back to 'plaintext', which gives students
  * a usable editor with no syntax highlighting rather than an error.
+ * Image extensions map to 'image' — a sentinel value used to distinguish
+ * binary assets from editable text files throughout the app.
  * @type {Object.<string, string>}
  */
 const extensionMap = {
@@ -17,17 +19,34 @@ const extensionMap = {
   json: 'json',
   md:   'markdown',
   txt:  'plaintext',
+  png:  'image',
+  jpg:  'image',
+  jpeg: 'image',
+  gif:  'image',
+  svg:  'image',
+  webp: 'image',
+  ico:  'image',
+  bmp:  'image',
 };
 
 /**
  * Returns the Monaco language identifier for a given filename.
  * Unknown extensions fall back to 'plaintext'.
  * @param {string} filename - The full filename including extension, e.g. "index.html".
- * @returns {string} A Monaco language identifier string (e.g. "html", "css", "javascript").
+ * @returns {string} A Monaco language identifier string (e.g. "html", "css", "javascript", "image").
  */
 export function detectLanguage(filename) {
   const ext = filename.split('.').pop().toLowerCase();
   return extensionMap[ext] || 'plaintext';
+}
+
+/**
+ * Returns true if the filename has a known image extension.
+ * @param {string} filename - Filename or path, e.g. "images/cat.png".
+ * @returns {boolean}
+ */
+export function isImageFile(filename) {
+  return detectLanguage(filename) === 'image';
 }
 
 /**

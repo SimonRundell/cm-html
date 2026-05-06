@@ -5,7 +5,7 @@
  * and coordinating project import/export errors.
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useProject, getSavedProjectNames } from './hooks/useProject';
 import { usePreview } from './hooks/usePreview';
 import { useContextualHelp } from './hooks/useContextualHelp';
@@ -66,10 +66,50 @@ export default function App() {
     newProject,
     renameProject,
     importFiles,
+    addImportedFile,
     saveToStorage,
   } = useProject();
 
   const { previewUrl } = usePreview(project.files, project.previewRootFile);
+
+  // A ref that always holds the latest file list.  Used by the navigation
+  // message handler below so it can look up files without being included in
+  // that effect's dependency array (which would cause it to re-register on
+  // every keystroke).  setPreviewRootFile / setActiveFile are already stable
+  // useCallback refs, so the handler is registered exactly once.
+  const filesRef = useRef(project.files);
+  useEffect(() => { filesRef.current = project.files; }, [project.files]);
+
+  /**
+   * Handles `cm-navigate` postMessages sent by the nav-interceptor script
+   * that blobPreview.js injects into every HTML blob.
+   *
+   * When the student clicks a relative link inside the preview iframe the
+   * browser would normally try to navigate the blob: URL, which produces a
+   * 404.  The interceptor prevents that default and posts the target href to
+   * the parent window instead.  Here we:
+   *   1. Strip any leading "./" from the href.
+   *   2. Find the matching HTML file in the project.
+   *   3. Update previewRootFile so usePreview rebuilds the preview for that page.
+   *   4. Update activeFileId so the Monaco editor switches to that page's source.
+   *
+   * Non-HTML hrefs, external URLs, and hrefs with no matching project file
+   * produce no visible effect (the postMessage is silently ignored).
+   */
+  useEffect(() => {
+    function handleNavMessage(event) {
+      if (!event.data || event.data.type !== 'cm-navigate') return;
+      const href = String(event.data.href).replace(/^\.\//, '').trim();
+      const target = filesRef.current.find(
+        f => !f.isImage && f.name === href && /\.html?$/i.test(f.name)
+      );
+      if (!target) return;
+      setPreviewRootFile(target.name);
+      setActiveFile(target.id);
+    }
+    window.addEventListener('message', handleNavMessage);
+    return () => window.removeEventListener('message', handleNavMessage);
+  }, [setPreviewRootFile, setActiveFile]);
 
   const help = useContextualHelp();
 
@@ -172,6 +212,7 @@ export default function App() {
       onLoadProject={loadProject}
       onProjectRename={renameProject}
       onSettingsChange={handleSettingsChange}
+      onImportFile={addImportedFile}
     />
     <CMFloatAd color='#707070'/>
     </>

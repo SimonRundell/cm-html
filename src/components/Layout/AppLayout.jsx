@@ -42,6 +42,7 @@ import './AppLayout.css';
  * @param {Function} props.onLoadProject - Called with a project name string to load a saved project.
  * @param {Function} props.onProjectRename - Called with a new name string to rename the current project.
  * @param {Function} props.onSettingsChange - Called with the updated settings object when any setting changes.
+ * @param {Function} props.onImportFile - Called with (name, content, isImage) to add a single imported file to the project.
  * @returns {JSX.Element}
  */
 export default function AppLayout({
@@ -68,6 +69,7 @@ export default function AppLayout({
   onLoadProject,
   onProjectRename,
   onSettingsChange,
+  onImportFile,
 }) {
   // Pre-filter HTML files once so both PreviewPane and ConfigPane receive the same list
   const htmlFiles = project.files.filter(f => f.name.match(/\.html?$/i));
@@ -95,6 +97,7 @@ export default function AppLayout({
           onDeleteFile={onFileDelete}
           previewRootFile={project.previewRootFile}
           onSetPreviewRoot={onPreviewRootChange}
+          onImportFile={onImportFile}
         />
         <div className="app-content">
           <TabBar

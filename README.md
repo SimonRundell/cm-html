@@ -3,6 +3,7 @@
 > A browser-based multi-file HTML/CSS/JavaScript teaching editor for Further Education students.
 
 [![Licence: CC BY-NC-SA 4.0](https://img.shields.io/badge/Licence-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![Version](https://img.shields.io/badge/version-0.1.1-blue.svg)](CHANGELOG.md)
 
 ---
 
@@ -16,9 +17,11 @@ Students can:
 
 - Edit HTML, CSS, and JavaScript files side-by-side with Monaco (the VS Code editor engine)
 - See an instant live preview of their work in a sandboxed iframe
+- Click links in the preview to navigate between pages — the editor follows automatically
+- Import images and other asset files into named folders within the project
 - Use the built-in Help drawer to look up HTML tags, CSS properties, and JavaScript methods
 - Save and load projects using browser localStorage
-- Export and import entire projects as `.zip` files
+- Export and import entire projects as `.zip` files, with folder structure preserved
 
 ---
 
@@ -28,12 +31,15 @@ Students can:
 |---------|--------|
 | **Monaco Editor** | Full syntax highlighting, autocomplete, and formatting for HTML, CSS, and JS |
 | **Live Preview** | Iframe preview rebuilt on every save; CSS and JS are linked via blob URLs |
+| **Multi-page navigation** | Clicking a relative link in the preview loads that page and syncs the editor to its source |
 | **Multi-file projects** | Add, rename, and delete HTML, CSS, JS, JSON, Markdown, and plain text files |
-| **File tree** | Grouped sidebar with rename/delete/set-preview-root actions |
+| **Image & asset support** | Import images and other files into named project folders; preview resolves `<img src>` and CSS `url()` |
+| **Asset folder tree** | Collapsible folder tree in the sidebar for imported assets; supports rename, delete, and arbitrary nesting |
+| **File tree** | Grouped sidebar (HTML / CSS / JS / Other) with rename/delete/set-preview-root actions |
 | **Help drawer** | Bundled reference for 50+ HTML elements, 60+ CSS properties, and 47+ JS methods; falls back to live MDN search |
 | **Contextual help** | Select any word in the editor to look it up instantly |
 | **Project management** | Multiple named projects in localStorage; switch, create, delete |
-| **Zip export/import** | Full project round-trip as a `.zip` file |
+| **Zip export/import** | Full project round-trip as a `.zip` file; folder structure and images are preserved |
 | **Mobile preview** | Preview pane can simulate a configurable mobile viewport width |
 | **Settings** | Font family, font size, editor theme (dark/light), auto-save delay, mobile width |
 | **Auto-save** | Debounced save to localStorage on every keystroke |
@@ -101,7 +107,10 @@ cm-html/
 │   ├── components/
 │   │   ├── Layout/          # AppLayout — main shell (toolbar + sidebar + pane)
 │   │   ├── Toolbar/         # Top toolbar: project name, save, run, import, export
-│   │   ├── FileTree/        # Left sidebar file list with add/rename/delete
+│   │   ├── FileTree/        # Left sidebar: type-grouped file list + asset folder tree
+│   │   │   ├── FileTree.jsx      # Type groups (HTML/CSS/JS/Other) + add-file form
+│   │   │   ├── FileTreeItem.jsx  # Single file row with rename/delete/set-root
+│   │   │   └── FolderTree.jsx    # Asset folder tree with import, rename, and delete
 │   │   ├── TabBar/          # Editor / Preview / Settings tab switcher
 │   │   ├── Editor/          # Monaco editor wrapper + editor+help combined pane
 │   │   ├── Preview/         # Sandboxed iframe preview with viewport controls
@@ -170,16 +179,41 @@ cm-html/
 
 ## How the Preview Works
 
+### Asset resolution
+
 1. When project files change, `usePreview` calls `buildPreviewUrl` in `utils/blobPreview.js`.
-2. Every non-HTML file (CSS, JS) is converted to a `blob:` URL with the correct MIME type.
-3. The active HTML file has its `<link href="...">` and `<script src="...">` attributes
-   rewritten to point to the corresponding blob URLs.
+2. Asset resolution runs in three ordered passes:
+   - **Pass 1 — images:** image files stored as base64 data URLs are placed directly into the asset map (no new blob needed).
+   - **Pass 2 — CSS:** each stylesheet has its `url()` references rewritten to the resolved image values, then a blob URL is created for the processed CSS.
+   - **Pass 3 — other assets:** JS, JSON, and any remaining non-HTML files are converted to blob URLs.
+3. The active HTML file has its `<link href="...">`, `<script src="...">`, and `<img src="...">` attributes rewritten to point to the resolved blob/data URLs.
 4. A final blob URL is created for the modified HTML and set as the `<iframe src>`.
 5. Previous blob URLs are revoked on every rebuild to prevent memory leaks.
 
+### Multi-page navigation
+
+A small nav-interceptor `<script>` is injected into the bottom of every HTML blob.
+It listens (in capture phase) for clicks on relative anchor links and, instead of
+allowing the browser to navigate (which would 404 against a blob URL), sends a
+`postMessage` to the parent window:
+
+```js
+{ type: 'cm-navigate', href: 'about.html' }
+```
+
+`App.jsx` listens for these messages and responds by calling:
+- `setPreviewRootFile(name)` — rebuilds the preview blob for the new page
+- `setActiveFile(id)` — switches the Monaco editor to that file's source
+
+External links (`http://`, `https://`), protocol-relative URLs (`//`), in-page
+anchors (`#`), and hrefs with no matching project file are all ignored.
+
+### Sandbox
+
 The iframe uses `sandbox="allow-scripts allow-same-origin allow-modals allow-forms"`.
-`allow-same-origin` is required for blob URL resolution; this is an accepted trade-off
-in a controlled educational environment where students run only their own code.
+`allow-same-origin` is required for blob URL resolution; this is an accepted
+trade-off in a controlled educational environment where students run only their own
+code.
 
 ---
 
@@ -246,6 +280,12 @@ You are free to share and adapt this work for non-commercial purposes, provided
 you give appropriate credit and distribute any derivative works under the same licence.
 
 See [LICENSE](LICENSE) for the full licence text.
+
+---
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a full version history.
 
 ---
 

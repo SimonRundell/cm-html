@@ -110,7 +110,7 @@ export default function Toolbar({
     <header className="toolbar">
       {/* Left group */}
       <div className="toolbar-group toolbar-left">
-        <img src="/images/codemonkey.png" alt="CodeMonkey Design" className="toolbar-logo" />
+        <img src="/images/codemonkey.png" title="This software created by Simon Rundell (simonrundell@exe-coll.ac.uk) for Exeter College" alt="CodeMonkey Design" className="toolbar-logo" />
 
         {editingName ? (
           <input

@@ -21,9 +21,10 @@ import config from '../config';
 /**
  * @typedef {Object} ProjectFile
  * @property {string} id - UUID that uniquely identifies this file within the project.
- * @property {string} name - Filename with extension (e.g. "index.html").
- * @property {string} content - The full text content of the file.
- * @property {string} language - Monaco editor language identifier (e.g. "html", "css", "javascript").
+ * @property {string} name - Filename or full relative path for images (e.g. "images/cat.png").
+ * @property {string} content - Full text content, or a base64 data URL for image files.
+ * @property {string} language - Monaco language ID (e.g. "html", "css", "javascript", "image").
+ * @property {boolean} [isImage] - True for image files stored as base64 data URLs.
  */
 
 /**
@@ -270,8 +271,9 @@ export function useProject() {
       name: f.name,
       content: f.content,
       language: detectLanguage(f.name),
+      ...(f.isImage ? { isImage: true } : {}),
     }));
-    const htmlFile = files.find(f => f.name.match(/\.html?$/i));
+    const htmlFile = files.find(f => !f.isImage && f.name.match(/\.html?$/i));
     const fresh = {
       projectName,
       files,
@@ -281,6 +283,28 @@ export function useProject() {
     setProject(fresh);
     saveToStorage(fresh);
   }, []);
+
+  /**
+   * Adds a single file imported from the user's filesystem (not from a zip).
+   * The name may include a folder path (e.g. "images/cat.png"). If a file
+   * with the same name already exists the call is a no-op.
+   * @param {string} name - Full relative path, e.g. "images/cat.png".
+   * @param {string} content - Text content or base64 data URL for images.
+   * @param {boolean} [isImage] - True when the file is a binary image.
+   */
+  const addImportedFile = useCallback((name, content, isImage = false) => {
+    updateProject(prev => {
+      if (prev.files.some(f => f.name === name)) return prev;
+      const newFile = {
+        id: uuidv4(),
+        name,
+        content,
+        language: detectLanguage(name),
+        ...(isImage ? { isImage: true } : {}),
+      };
+      return { ...prev, files: [...prev.files, newFile] };
+    });
+  }, [updateProject]);
 
   const activeFile = project.files.find(f => f.id === project.activeFileId);
 
@@ -297,6 +321,7 @@ export function useProject() {
     newProject,
     renameProject,
     importFiles,
+    addImportedFile,
     saveToStorage: () => saveToStorage(project),
   };
 }

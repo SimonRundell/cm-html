@@ -11,15 +11,19 @@
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import FileTreeItem from './FileTreeItem';
+import FolderTree from './FolderTree';
 import './FileTree.css';
 
 const ALLOWED_EXTENSIONS = ['html', 'htm', 'css', 'js', 'json', 'txt', 'md'];
 
+// Only show root-level (no path separator) non-image files in type groups.
+// Files inside folders are shown exclusively in the FolderTree section below.
+const inRoot = f => !f.name.includes('/') && f.language !== 'image' && !f.isImage;
 const GROUPS = [
-  { label: 'HTML', filter: f => f.language === 'html' },
-  { label: 'CSS',  filter: f => f.language === 'css' },
-  { label: 'JS',   filter: f => f.language === 'javascript' },
-  { label: 'Other',filter: f => !['html','css','javascript'].includes(f.language) },
+  { label: 'HTML',  filter: f => inRoot(f) && f.language === 'html' },
+  { label: 'CSS',   filter: f => inRoot(f) && f.language === 'css' },
+  { label: 'JS',    filter: f => inRoot(f) && f.language === 'javascript' },
+  { label: 'Other', filter: f => inRoot(f) && !['html','css','javascript'].includes(f.language) },
 ];
 
 /**
@@ -34,6 +38,7 @@ const GROUPS = [
  * @param {Function} props.onDeleteFile - Called with a file UUID after the student confirms deletion.
  * @param {string} props.previewRootFile - Filename of the current preview root (shown with an eye badge).
  * @param {Function} props.onSetPreviewRoot - Called with a filename string to change the preview root.
+ * @param {Function} props.onImportFile - Called with (name, content, isImage) to add an imported asset file.
  * @returns {JSX.Element}
  */
 export default function FileTree({
@@ -45,6 +50,7 @@ export default function FileTree({
   onDeleteFile,
   previewRootFile,
   onSetPreviewRoot,
+  onImportFile,
 }) {
   const [newFileName, setNewFileName]   = useState('');
   const [showNewInput, setShowNewInput] = useState(false);
@@ -142,6 +148,17 @@ export default function FileTree({
             {addError && <div className="file-tree-error">{addError}</div>}
           </div>
         )}
+
+        <div className="file-tree-assets">
+          <FolderTree
+            files={files}
+            activeFileId={activeFileId}
+            onSelectFile={onSelectFile}
+            onDeleteFile={onDeleteFile}
+            onRenameFile={onRenameFile}
+            onImportFile={onImportFile}
+          />
+        </div>
 
         <img src="./images/cm-html.png" alt="CodeMonkey HTML/CSS/JavaScript Editor" title="This application licensed by Creative Commons BY-NC-SA 4.0 2026" className="logo" />
       </div>

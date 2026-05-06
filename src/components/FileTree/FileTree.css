@@ -87,6 +87,10 @@
   border-left-color: var(--color-accent);
 }
 
+.file-tree-item.no-select {
+  cursor: default;
+}
+
 .file-tree-item-icon {
   color: var(--color-text-muted);
   display: flex;
@@ -193,8 +197,282 @@
   line-height: 1.3;
 }
 
+/* ------------------------------------------------------------------ */
+/* Assets / Folder Tree                                                  */
+/* ------------------------------------------------------------------ */
+
+.file-tree-assets {
+  border-top: 1px solid var(--color-border-subtle);
+  margin-top: var(--space-2);
+  flex-shrink: 0;
+}
+
+.folder-tree {
+  padding-bottom: var(--space-1);
+}
+
+.folder-tree-header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  gap: var(--space-1);
+}
+
+.folder-tree-label {
+  flex: 1;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.folder-tree-upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.folder-tree-upload-btn:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text-primary);
+}
+
+.folder-tree-file-input {
+  display: none;
+}
+
+.folder-tree-empty {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+/* Shared row styles for folder and file rows */
+.ft-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 26px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  position: relative;
+  padding-right: var(--space-2);
+}
+
+.ft-item:hover {
+  background: var(--color-bg-hover);
+}
+
+.ft-item.active {
+  background: var(--color-accent-muted);
+}
+
+.ft-item.no-select {
+  cursor: default;
+}
+
+.ft-folder-row {
+  user-select: none;
+}
+
+.ft-item-chevron {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.ft-item-icon {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.ft-item.active .ft-item-icon {
+  color: var(--color-accent);
+}
+
+.ft-item-name {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.ft-item.active .ft-item-name {
+  color: var(--color-text-primary);
+}
+
+.ft-item-actions {
+  display: none;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.ft-item:hover .ft-item-actions {
+  display: flex;
+}
+
+.ft-item-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.ft-item-actions button:hover {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
+.ft-item-actions button.danger:hover {
+  color: var(--color-danger);
+}
+
+/* Rename input (inline, inside ft-item row) */
+.ft-rename-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.ft-rename-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: 1px var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+.ft-rename-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+/* Import form */
+.folder-tree-import-form {
+  margin: var(--space-2) var(--space-3);
+  padding: var(--space-2);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.folder-tree-import-filename {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+  overflow: hidden;
+}
+
+.folder-tree-import-filename span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.folder-tree-import-label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.folder-tree-path-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+.folder-tree-path-preview {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.folder-tree-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+  margin-top: var(--space-1);
+}
+
+.folder-tree-import-btns {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.folder-tree-btn-primary,
+.folder-tree-btn-secondary {
+  flex: 1;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  border: none;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.folder-tree-btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.folder-tree-btn-primary:hover {
+  opacity: 0.88;
+}
+
+.folder-tree-btn-secondary {
+  background: var(--color-bg-hover);
+  color: var(--color-text-secondary);
+}
+
+.folder-tree-btn-secondary:hover {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+}
+
 .logo {
   display: block;
-  width: 120px;
+  width: 100px;
   margin: auto auto var(--space-4);
 }
