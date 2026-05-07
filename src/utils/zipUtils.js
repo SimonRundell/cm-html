@@ -109,3 +109,108 @@ export async function importProjectZip(zipFile) {
   results.forEach(r => { if (r) files.push(r); });
   return files;
 }
+
+/**
+ * Imports a CodePen-exported zip file.
+ *
+ * CodePen zips contain `dist/` (standalone compiled page) and `src/` (raw source
+ * files). This function reads only `src/` and wraps any body-only HTML content in
+ * a full HTML5 boilerplate, linking whatever CSS and JS files were found alongside it.
+ *
+ * If the HTML file already has a `<!DOCTYPE` or `<html>` declaration it is used
+ * as-is without additional wrapping.
+ *
+ * @param {File} zipFile - A browser File object obtained from an `<input type="file">`.
+ * @param {string} [projectName='My Project'] - Used in the `<title>` of the generated HTML.
+ * @returns {Promise<Array<{name: string, content: string, isImage?: boolean}>>}
+ */
+export async function importCodePenZip(zipFile, projectName = 'My Project') {
+  const zip = await JSZip.loadAsync(zipFile);
+
+  // Match only direct children of any src/ directory (e.g. pen-name/src/index.html)
+  const srcEntries = Object.entries(zip.files).filter(
+    ([path, entry]) =>
+      !entry.dir &&
+      /\/src\/[^/]+$/.test(path) &&
+      !path.split('/').pop().startsWith('.') &&
+      !path.includes('__MACOSX/')
+  );
+
+  if (srcEntries.length === 0) {
+    throw new Error(
+      'No files found in the src/ folder. Make sure this is a CodePen export zip.'
+    );
+  }
+
+  const read = await Promise.all(
+    srcEntries.map(async ([path, entry]) => {
+      const filename = path.split('/').pop();
+      if (isImageFile(filename)) {
+        const ext = filename.split('.').pop().toLowerCase();
+        const mime = IMAGE_MIME[ext] || 'application/octet-stream';
+        const base64 = await entry.async('base64');
+        return { filename, content: `data:${mime};base64,${base64}`, isImage: true };
+      }
+      try {
+        const content = await entry.async('text');
+        return { filename, content, isImage: false };
+      } catch {
+        console.warn(`Skipping binary file in src/: ${path}`); // eslint-disable-line no-console
+        return null;
+      }
+    })
+  );
+
+  const valid = read.filter(Boolean);
+  const cssFiles = valid.filter(f => !f.isImage && /\.css$/i.test(f.filename));
+  const jsFiles  = valid.filter(f => !f.isImage && /\.js$/i.test(f.filename));
+
+  return valid.map(entry => {
+    if (entry.isImage) return { name: entry.filename, content: entry.content, isImage: true };
+
+    if (/\.html?$/i.test(entry.filename)) {
+      const trimmed = entry.content.trim();
+      const isFullDoc = /^<!DOCTYPE/i.test(trimmed) || /^<html/i.test(trimmed);
+      return {
+        name: 'index.html',
+        content: isFullDoc
+          ? entry.content
+          : buildCodePenHtml(entry.content, projectName, cssFiles, jsFiles),
+      };
+    }
+
+    return { name: entry.filename, content: entry.content };
+  });
+}
+
+/**
+ * Wraps CodePen body-only HTML content in a full HTML5 boilerplate,
+ * adding link and script tags for each CSS/JS file supplied.
+ *
+ * @param {string} bodyContent - Raw HTML that goes inside `<body>`.
+ * @param {string} projectName - Used in `<title>`.
+ * @param {{filename:string}[]} cssFiles - CSS files to add as `<link>` tags.
+ * @param {{filename:string}[]} jsFiles  - JS files to add as `<script>` tags.
+ * @returns {string} A complete HTML document string.
+ */
+function buildCodePenHtml(bodyContent, projectName, cssFiles, jsFiles) {
+  const cssLinks  = cssFiles.map(f => `  <link rel="stylesheet" href="${f.filename}">`);
+  const jsScripts = jsFiles.map(f => `  <script src="${f.filename}"></script>`);
+
+  const headExtra  = cssLinks.length  ? '\n' + cssLinks.join('\n')        : '';
+  const bodyScripts = jsScripts.length ? '\n' + jsScripts.join('\n') + '\n' : '';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${projectName}</title>${headExtra}
+</head>
+<body>
+
+${bodyContent.trim()}
+${bodyScripts}
+</body>
+</html>`;
+}

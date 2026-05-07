@@ -62,15 +62,14 @@ function createDefaultProject(name) {
  * on the next page load.
  * @param {ProjectState} state - The project state to serialise and store.
  */
+/**
+ * Saves project state to localStorage. Throws a DOMException (QuotaExceededError)
+ * if the browser storage quota is full — callers are responsible for catching this.
+ */
 function saveToStorage(state) {
-  try {
-    const key = `${config.localStoragePrefix}${state.projectName}`;
-    localStorage.setItem(key, JSON.stringify(state));
-    localStorage.setItem(`${config.localStoragePrefix}lastProject`, state.projectName);
-  } catch (err) {
-    // Quota exceeded — storage is full
-    console.warn('localStorage save failed (quota exceeded?):', err);
-  }
+  const key = `${config.localStoragePrefix}${state.projectName}`;
+  localStorage.setItem(key, JSON.stringify(state));
+  localStorage.setItem(`${config.localStoragePrefix}lastProject`, state.projectName);
 }
 
 /**
@@ -126,15 +125,25 @@ export function useProject() {
     restored || createDefaultProject(config.defaultProjectName)
   );
 
+  /** Set when any save operation fails due to a full storage quota. */
+  const [storageError, setStorageError] = useState(null);
+  const clearStorageError = useCallback(() => setStorageError(null), []);
+
   /**
    * Central state updater. Applies an updater function or object, then immediately
    * persists the resulting state so storage is always in sync with React state.
+   * If the quota is exceeded, storageError is set asynchronously (deferred via
+   * setTimeout because setState must not be called inside a setProject updater).
    * @param {function(ProjectState): ProjectState | ProjectState} updater
    */
   const updateProject = useCallback((updater) => {
     setProject(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater;
-      saveToStorage(next);
+      try {
+        saveToStorage(next);
+      } catch (err) {
+        setTimeout(() => setStorageError(err), 0);
+      }
       return next;
     });
   }, []);
@@ -247,17 +256,43 @@ export function useProject() {
   const newProject = useCallback((name) => {
     const fresh = createDefaultProject(name);
     setProject(fresh);
-    saveToStorage(fresh);
+    try { saveToStorage(fresh); } catch (err) { setStorageError(err); }
   }, []);
 
   /**
-   * Renames the current project. The old localStorage entry is NOT deleted here —
-   * it will be orphaned until the user explicitly removes it via project management.
+   * Renames the current project, removing the old localStorage key so no orphan entry is left.
    * @param {string} newName - The new project name.
    */
   const renameProject = useCallback((newName) => {
-    updateProject(prev => ({ ...prev, projectName: newName }));
+    updateProject(prev => {
+      localStorage.removeItem(`${config.localStoragePrefix}${prev.projectName}`);
+      return { ...prev, projectName: newName };
+    });
   }, [updateProject]);
+
+  /**
+   * Deletes a project from localStorage. If the deleted project is currently active,
+   * switches to the first remaining saved project or falls back to a fresh default.
+   * For non-current projects the caller must trigger a re-render externally.
+   * @param {string} name - Name of the project to delete.
+   */
+  const deleteProject = useCallback((name) => {
+    localStorage.removeItem(`${config.localStoragePrefix}${name}`);
+    setProject(prev => {
+      if (prev.projectName !== name) return prev;
+      const remaining = getSavedProjectNames();
+      if (remaining.length > 0) {
+        const loaded = loadFromStorage(remaining[0]);
+        if (loaded) {
+          localStorage.setItem(`${config.localStoragePrefix}lastProject`, loaded.projectName);
+          return loaded;
+        }
+      }
+      const fresh = createDefaultProject(config.defaultProjectName);
+      saveToStorage(fresh);
+      return fresh;
+    });
+  }, []);
 
   /**
    * Replaces all files in the project with files imported from a zip archive.
@@ -283,7 +318,7 @@ export function useProject() {
       previewRootFile: htmlFile?.name || files[0]?.name,
     };
     setProject(fresh);
-    saveToStorage(fresh);
+    try { saveToStorage(fresh); } catch (err) { setStorageError(err); }
   }, []);
 
   /**
@@ -322,8 +357,13 @@ export function useProject() {
     loadProject,
     newProject,
     renameProject,
+    deleteProject,
     importFiles,
     addImportedFile,
-    saveToStorage: () => saveToStorage(project),
+    saveToStorage: () => {
+      try { saveToStorage(project); } catch (err) { setStorageError(err); }
+    },
+    storageError,
+    clearStorageError,
   };
 }

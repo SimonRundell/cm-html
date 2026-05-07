@@ -1,5 +1,8 @@
 <h3>Version 0.1.2</h3>
 <ul>
+<li>Progress bar of available local storage</li>
+<li>Added feature to import CodePen Exported Zip files</li>
+<li>Improved management of projects to export, rename and delete.</li>
 <li>Ensure index.html is always displayed first</li>
 <li>Improved uploading of images</li>
 </ul>

@@ -102,6 +102,13 @@
   color: var(--color-text-primary);
 }
 
+.config-btn-icon {
+  padding: var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .config-btn-accent {
   background: var(--color-accent-muted);
   border-color: var(--color-accent);
@@ -160,6 +167,76 @@
   font-size: var(--font-size-xs);
   color: var(--color-accent);
   font-weight: 600;
+}
+
+.config-btn-danger {
+  color: #c53030;
+  border-color: #c53030;
+}
+
+.config-btn-danger:hover {
+  background: #c53030;
+  color: #fff;
+}
+
+.config-project-rename-input {
+  flex: 1;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-sm);
+}
+
+.config-project-name {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.config-project-size {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-code);
+}
+
+.config-storage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.config-storage-quota {
+  color: var(--color-text-muted);
+}
+
+.config-storage-label-right {
+  font-family: var(--font-code);
+  font-size: var(--font-size-sm);
+}
+
+.config-storage-bar {
+  height: 8px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.config-storage-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+  transition: width 0.3s ease;
+}
+
+.config-storage-fill.warn   { background: #d97706; }
+.config-storage-fill.danger { background: #c53030; }
+
+.config-storage-warning {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: #c53030;
 }
 
 .motd-para {

@@ -68,6 +68,9 @@ export default function AppLayout({
   onNewProject,
   onLoadProject,
   onProjectRename,
+  onRenameProject,
+  onDeleteProject,
+  onExportProject,
   onSettingsChange,
   onImportFile,
 }) {
@@ -141,6 +144,9 @@ export default function AppLayout({
                 savedProjects={savedProjectNames}
                 onNewProject={onNewProject}
                 onLoadProject={onLoadProject}
+                onRenameProject={onRenameProject}
+                onDeleteProject={onDeleteProject}
+                onExportProject={onExportProject}
                 htmlFiles={htmlFiles}
                 previewRootFile={project.previewRootFile}
                 onSetPreviewRoot={onPreviewRootChange}

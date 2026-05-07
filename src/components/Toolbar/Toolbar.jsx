@@ -46,6 +46,7 @@ export default function Toolbar({
   const [showProjects, setShowProjects] = useState(false);
   const [newProjectName, setNewProjectName] = useState('');
   const [showNewInput, setShowNewInput]     = useState(false);
+  const [isCodePen, setIsCodePen]           = useState(false);
 
   /**
    * Commits the edited project name on blur, or reverts if unchanged/empty.
@@ -83,7 +84,7 @@ export default function Toolbar({
   function handleFileChange(e) {
     const file = e.target.files[0];
     if (file) {
-      onImport(file);
+      onImport(file, isCodePen);
       e.target.value = '';
     }
   }
@@ -188,6 +189,17 @@ export default function Toolbar({
           <FolderOpen size={16} />
           <span>Import</span>
         </button>
+        <label
+          className={`toolbar-codepen-toggle${isCodePen ? ' toolbar-codepen-toggle--active' : ''}`}
+          title="Check this before importing a CodePen export zip"
+        >
+          <input
+            type="checkbox"
+            checked={isCodePen}
+            onChange={e => setIsCodePen(e.target.checked)}
+          />
+          <span>CodePen zip</span>
+        </label>
         <button className="toolbar-btn" onClick={onExport} title="Export .zip">
           <Download size={16} />
           <span>Export</span>

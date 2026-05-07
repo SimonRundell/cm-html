@@ -182,3 +182,33 @@
 .toolbar-new-project-input:focus {
   border-color: var(--color-accent);
 }
+
+.toolbar-codepen-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.toolbar-codepen-toggle:hover {
+  color: var(--color-text-primary);
+}
+
+.toolbar-codepen-toggle--active {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.toolbar-codepen-toggle input[type="checkbox"] {
+  accent-color: var(--color-accent);
+  cursor: pointer;
+  margin: 0;
+}

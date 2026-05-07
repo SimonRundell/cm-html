@@ -3,9 +3,17 @@
  * Supports desktop and mobile viewport modes, HTML file selection, and refresh.
  *
  * The iframe uses a `key` that combines the blob URL with a manual refresh counter
- * so the student can force a reload without changing any file content. The sandbox
- * attribute permits scripts and same-origin access (needed for blob: URLs) while
- * blocking navigation and top-level frame access for safety.
+ * so the student can force a reload without changing any file content.
+ *
+ * Sandbox policy: scripts and same-origin access are permitted (required for blob:
+ * URL resolution). Popups and presentation are also allowed so that third-party
+ * embeds such as YouTube iframes function correctly inside student pages.
+ *
+ * Permissions Policy (`allow` attribute): common media capabilities
+ * (autoplay, encrypted-media, fullscreen, etc.) are delegated to all nested
+ * frames so that embedded players — YouTube, Vimeo, etc. — can operate normally.
+ * Without this delegation the browser denies those features to cross-origin nested
+ * iframes by default, causing player errors even when sandbox is permissive.
  */
 
 import { useState, useCallback } from 'react';
@@ -107,7 +115,8 @@ export default function PreviewPane({
             src={previewUrl}
             className={`preview-frame${isMobile ? ' mobile-mode' : ''}`}
             style={isMobile ? { width: `${mobileWidth}px` } : { width: '100%' }}
-            sandbox="allow-scripts allow-same-origin allow-modals allow-forms"
+            sandbox="allow-scripts allow-same-origin allow-modals allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; gyroscope; picture-in-picture; web-share"
             title="Preview"
           />
         ) : (

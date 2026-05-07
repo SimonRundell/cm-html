@@ -3,7 +3,7 @@
 > A browser-based multi-file HTML/CSS/JavaScript teaching editor for Further Education students.
 
 [![Licence: CC BY-NC-SA 4.0](https://img.shields.io/badge/Licence-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![Version](https://img.shields.io/badge/version-0.1.1-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.1.3-blue.svg)](CHANGELOG.md)
 
 ---
 
@@ -38,8 +38,10 @@ Students can:
 | **File tree** | Grouped sidebar (HTML / CSS / JS / Other) with rename/delete/set-preview-root actions |
 | **Help drawer** | Bundled reference for 50+ HTML elements, 60+ CSS properties, and 47+ JS methods; falls back to live MDN search |
 | **Contextual help** | Select any word in the editor to look it up instantly |
-| **Project management** | Multiple named projects in localStorage; switch, create, delete |
+| **Project management** | Multiple named projects in localStorage; switch, create, rename, delete, and export individual projects from the Settings tab |
+| **Storage monitor** | Progress bar in Settings shows localStorage usage; per-project sizes listed; error modal if the quota is exceeded |
 | **Zip export/import** | Full project round-trip as a `.zip` file; folder structure and images are preserved |
+| **CodePen import** | Import a CodePen export zip directly — wraps the body-only HTML in a full boilerplate and links the CSS/JS automatically |
 | **Mobile preview** | Preview pane can simulate a configurable mobile viewport width |
 | **Settings** | Font family, font size, editor theme (dark/light), auto-save delay, mobile width |
 | **Auto-save** | Debounced save to localStorage on every keystroke |
@@ -208,12 +210,31 @@ allowing the browser to navigate (which would 404 against a blob URL), sends a
 External links (`http://`, `https://`), protocol-relative URLs (`//`), in-page
 anchors (`#`), and hrefs with no matching project file are all ignored.
 
-### Sandbox
+### Sandbox and Permissions Policy
 
-The iframe uses `sandbox="allow-scripts allow-same-origin allow-modals allow-forms"`.
-`allow-same-origin` is required for blob URL resolution; this is an accepted
-trade-off in a controlled educational environment where students run only their own
-code.
+The preview iframe uses:
+
+```
+sandbox="allow-scripts allow-same-origin allow-modals allow-forms
+         allow-popups allow-popups-to-escape-sandbox allow-presentation"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+       fullscreen; gyroscope; picture-in-picture; web-share"
+```
+
+`allow-same-origin` is required for blob URL resolution.  `allow-popups` and
+`allow-presentation` are needed for third-party embeds (YouTube, Vimeo, etc.)
+to function; without them the embedded player's fullscreen and navigation links
+are blocked by the browser.
+
+The `allow` attribute is equally important.  It sets a **Permissions Policy**
+that is inherited by all nested frames.  Without it, the browser denies
+cross-origin nested iframes (such as YouTube's player) access to features like
+`encrypted-media`, `autoplay`, and `fullscreen` — even if the student has
+added the correct `allow` attribute to their own `<iframe>` tag.  With it,
+those capabilities are explicitly delegated down the frame tree.
+
+This is an accepted trade-off in a controlled educational environment where
+students run only their own code.
 
 ---
 

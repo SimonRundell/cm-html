@@ -5,14 +5,14 @@
  * and coordinating project import/export errors.
  */
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import { useProject, getSavedProjectNames } from './hooks/useProject';
 import { usePreview } from './hooks/usePreview';
 import { useContextualHelp } from './hooks/useContextualHelp';
 import { useAutoSave } from './hooks/useAutoSave';
 import AppLayout from './components/Layout/AppLayout';
 import Modal from './components/Modal/Modal';
-import { exportProjectZip, importProjectZip } from './utils/zipUtils';
+import { exportProjectZip, importProjectZip, importCodePenZip } from './utils/zipUtils';
 import CMFloatAd from './cmFloatAd';
 import config from './config';
 import './index.css';
@@ -53,6 +53,9 @@ export default function App() {
     }
   });
 
+  const [projectListKey, setProjectListKey] = useState(0);
+  const bumpProjectList = useCallback(() => setProjectListKey(k => k + 1), []);
+
   const {
     project,
     activeFile,
@@ -65,10 +68,31 @@ export default function App() {
     loadProject,
     newProject,
     renameProject,
+    deleteProject,
     importFiles,
     addImportedFile,
     saveToStorage,
+    storageError,
+    clearStorageError,
   } = useProject();
+
+  useEffect(() => {
+    if (!storageError) return;
+    setErrorModal({
+      title: 'Storage full',
+      message:
+        'Your browser\'s localStorage quota is full — the last change could not be saved. ' +
+        'Go to Settings and delete or export projects you no longer need to free up space.',
+    });
+    clearStorageError();
+  }, [storageError, clearStorageError]);
+
+  // Recomputes whenever a project is created, renamed, deleted, or the active project changes.
+  const savedProjectNames = useMemo(
+    () => getSavedProjectNames(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [projectListKey, project.projectName],
+  );
 
   const { previewUrl } = usePreview(project.files, project.previewRootFile);
 
@@ -140,20 +164,69 @@ export default function App() {
   }, [project]);
 
   /**
+   * Exports any saved project by name, loading its files from localStorage.
+   * @param {string} name - Project name to export.
+   */
+  const handleExportProject = useCallback((name) => {
+    const raw = localStorage.getItem(`${config.localStoragePrefix}${name}`);
+    if (!raw) return;
+    const { projectName, files } = JSON.parse(raw);
+    exportProjectZip(projectName, files);
+  }, []);
+
+  /**
+   * Renames any saved project. For the active project, updates React state via
+   * renameProject (which also cleans up the old localStorage key). For other
+   * projects, manipulates localStorage directly and bumps the list version.
+   * @param {string} oldName
+   * @param {string} newName
+   */
+  const handleRenameProject = useCallback((oldName, newName) => {
+    if (!newName || newName === oldName) return;
+    if (oldName === project.projectName) {
+      renameProject(newName);
+    } else {
+      const raw = localStorage.getItem(`${config.localStoragePrefix}${oldName}`);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        localStorage.setItem(
+          `${config.localStoragePrefix}${newName}`,
+          JSON.stringify({ ...parsed, projectName: newName }),
+        );
+        localStorage.removeItem(`${config.localStoragePrefix}${oldName}`);
+      }
+      bumpProjectList();
+    }
+  }, [project.projectName, renameProject, bumpProjectList]);
+
+  /**
+   * Deletes any saved project. For the active project, deleteProject switches
+   * to another project (updating React state). For others, removes from
+   * localStorage and bumps the list version to force a re-render.
+   * @param {string} name - Project name to delete.
+   */
+  const handleDeleteProject = useCallback((name) => {
+    deleteProject(name);
+    if (name !== project.projectName) bumpProjectList();
+  }, [deleteProject, project.projectName, bumpProjectList]);
+
+  /**
    * Reads a .zip file chosen by the user and loads it as a new project.
    * Displays an error modal if the archive cannot be parsed.
    * @param {File} zipFile - The File object from the browser file-input.
    */
-  const handleImport = useCallback(async (zipFile) => {
+  const handleImport = useCallback(async (zipFile, isCodePen = false) => {
     try {
-      const files = await importProjectZip(zipFile);
       const name = zipFile.name.replace(/\.zip$/i, '');
+      const files = isCodePen
+        ? await importCodePenZip(zipFile, name)
+        : await importProjectZip(zipFile);
       importFiles(files, name);
     } catch (err) {
       console.error('Failed to import zip:', err);
       setErrorModal({
         title: 'Import failed',
-        message: 'Could not read the zip file. Please make sure it is a valid .zip archive.',
+        message: err.message || 'Could not read the zip file. Please make sure it is a valid .zip archive.',
       });
     }
   }, [importFiles]);
@@ -196,7 +269,7 @@ export default function App() {
       settings={settings}
       previewUrl={previewUrl}
       helpState={help}
-      savedProjectNames={getSavedProjectNames()}
+      savedProjectNames={savedProjectNames}
       onFileSelect={setActiveFile}
       onFileAdd={addFile}
       onFileRename={renameFile}
@@ -211,6 +284,9 @@ export default function App() {
       onNewProject={newProject}
       onLoadProject={loadProject}
       onProjectRename={renameProject}
+      onRenameProject={handleRenameProject}
+      onDeleteProject={handleDeleteProject}
+      onExportProject={handleExportProject}
       onSettingsChange={handleSettingsChange}
       onImportFile={addImportedFile}
     />

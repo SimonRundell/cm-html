@@ -5,6 +5,76 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.1.3] — 2026-05-07
+
+### Added
+
+#### CodePen zip import
+- A **CodePen zip** checkbox in the toolbar (between Import and Export) flags an
+  import as a CodePen export archive.
+- When checked, `importCodePenZip` reads only the `src/` folder from the zip
+  (ignoring the compiled `dist/` output).
+- The body-only HTML that CodePen writes to `src/index.html` is automatically
+  wrapped in a full HTML5 boilerplate (`<!DOCTYPE html>`, `<head>`, charset and
+  viewport meta tags, `<title>`).
+- `<link rel="stylesheet">` tags are added for every `.css` file found in `src/`,
+  and `<script>` tags for every `.js` file, so the project is immediately runnable.
+- If `src/index.html` already contains a `<!DOCTYPE>` or `<html>` element it is
+  used as-is without additional wrapping.
+- A clear error modal is shown if the zip has no `src/` folder.
+
+#### Project management — rename, delete, and export from Settings tab
+- Each project row in the Settings tab now has icon action buttons (Lucide icons):
+  - **Load** (`FolderOpen`) — switches to that project (non-current projects only).
+  - **Rename** (`Pencil`) — replaces the name with an inline input; confirms on
+    Enter or blur, cancels on Escape.  The old localStorage key is removed so no
+    orphan entry is left behind.
+  - **Export** (`Download`) — downloads that project as a `.zip` without switching
+    to it.
+  - **Delete** (`Trash2`) — two-click confirmation (click once → button becomes
+    `Check` "Sure?", click again to confirm).  Deleting the active project
+    automatically switches to the next saved project, or creates a fresh default if
+    none remain.
+
+#### localStorage storage monitor
+- A **Storage** section in the Settings tab shows a progress bar of localStorage
+  usage against the browser's estimated ~5 MB quota.
+- The bar turns amber above 60 % and red above 80 %, with a written warning
+  prompting students to export and delete unused projects.
+- Each project row now displays its storage footprint in small monospace text so
+  students can identify which projects are consuming the most space.
+
+### Fixed
+
+- `renameProject` previously left the old localStorage key behind when the active
+  project was renamed, gradually accumulating orphan entries.  The old key is now
+  removed as part of the rename operation.
+
+- `saveToStorage` previously swallowed `QuotaExceededError` silently, meaning
+  students would lose unsaved work without any indication.  The error now
+  propagates through `useProject` and is shown as an error modal in `App.jsx`,
+  directing students to free space via the Settings tab.
+
+---
+
+## [0.1.2] — 2026-05-06
+
+### Added
+
+#### Message of the Day (MOTD)
+- The Settings tab now shows a **Recent Updates** section at the bottom, loaded
+  from `/public/MOTD.txt` on startup.
+- Content is rendered as raw HTML, allowing simple formatted update notes.
+- A static notice directs students to report bugs/suggestions by email.
+
+#### Preview root file selection
+- On zip import and new project creation the preview now prefers `index.html` as
+  the root file, falling back to the first HTML file found.
+- A **Preview Root File** selector appears in the Settings tab whenever the project
+  contains more than one HTML file.
+
+---
+
 ## [0.1.1] — 2026-05-06
 
 ### Added
@@ -71,6 +141,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   tab switch, so students can inspect the source without leaving the preview.
 - External links (`http://`, `https://`, `//`) and in-page anchors (`#`) are
   ignored and behave normally.
+
+### Fixed
+
+#### Embedded third-party iframes (YouTube, Vimeo, etc.)
+- YouTube embeds and similar third-party players now render correctly inside
+  student pages.  Two browser mechanisms were blocking them:
+  - **Sandbox inheritance** — nested iframes inherit the parent sandbox's
+    restrictions.  `allow-popups`, `allow-popups-to-escape-sandbox`, and
+    `allow-presentation` have been added to the preview iframe so that player
+    fullscreen and navigation links are not blocked.
+  - **Permissions Policy** — the browser denies cross-origin nested iframes
+    access to `encrypted-media`, `autoplay`, `fullscreen`, etc. unless the
+    parent iframe explicitly delegates those permissions via its `allow`
+    attribute.  The preview iframe now carries
+    `allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+    fullscreen; gyroscope; picture-in-picture; web-share"`.
+- These changes affect `PreviewPane.jsx` only; no project file format changes.
 
 ### Changed
 
