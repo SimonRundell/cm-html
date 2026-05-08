@@ -172,7 +172,7 @@ export default function ConfigPane({
         </div>
 
         <div className="config-row">
-          <label className="config-label" htmlFor="cfg-theme">Editor Theme</label>
+          <label className="config-label" htmlFor="cfg-theme">Theme</label>
           <select
             id="cfg-theme"
             className="config-select"

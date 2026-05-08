@@ -53,6 +53,14 @@ export default function App() {
     }
   });
 
+  // Keep the HTML element's data-theme in sync so CSS variables cover the whole app.
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      'data-theme',
+      settings.theme === 'vs' ? 'light' : 'dark',
+    );
+  }, [settings.theme]);
+
   const [projectListKey, setProjectListKey] = useState(0);
   const bumpProjectList = useCallback(() => setProjectListKey(k => k + 1), []);
 

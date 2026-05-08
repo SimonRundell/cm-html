@@ -16,8 +16,8 @@
  * iframes by default, causing player errors even when sandbox is permissive.
  */
 
-import { useState, useCallback } from 'react';
-import { RefreshCw, ExternalLink, Monitor, Smartphone } from 'lucide-react';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import { RefreshCw, ExternalLink, Monitor, Smartphone, ArrowLeft, ArrowRight } from 'lucide-react';
 import './Preview.css';
 
 /**
@@ -45,6 +45,62 @@ export default function PreviewPane({
   const [refreshKey, setRefreshKey] = useState(0);
   const mobileWidth = settings?.mobileWidth || 375;
 
+  // iframe navigation history tracking
+  const iframeRef      = useRef(null);
+  const navHistoryRef  = useRef([]);
+  const navIndexRef    = useRef(-1);
+  const pendingNavRef  = useRef(false);
+  const [canGoBack,    setCanGoBack]    = useState(false);
+  const [canGoForward, setCanGoForward] = useState(false);
+
+  // Reset navigation history whenever the preview rebuilds
+  useEffect(() => {
+    navHistoryRef.current = [];
+    navIndexRef.current   = -1;
+    pendingNavRef.current = false;
+    setCanGoBack(false);
+    setCanGoForward(false);
+  }, [previewUrl, refreshKey]);
+
+  /** Called on every iframe load — records new pages or updates buttons after back/forward. */
+  const handleIframeLoad = useCallback(() => {
+    if (pendingNavRef.current) {
+      // A programmatic back/forward just completed — update buttons, don't push history.
+      pendingNavRef.current = false;
+      setCanGoBack(navIndexRef.current > 0);
+      setCanGoForward(navIndexRef.current < navHistoryRef.current.length - 1);
+      return;
+    }
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+    try {
+      const url = iframe.contentWindow.location.href;
+      // Truncate any forward entries and push the new URL
+      navHistoryRef.current = [...navHistoryRef.current.slice(0, navIndexRef.current + 1), url];
+      navIndexRef.current   = navHistoryRef.current.length - 1;
+      setCanGoBack(navIndexRef.current > 0);
+      setCanGoForward(false);
+    } catch {
+      // Cross-origin restriction — can't read location; leave buttons as-is.
+    }
+  }, []);
+
+  const handleBack = useCallback(() => {
+    const iframe = iframeRef.current;
+    if (!iframe || navIndexRef.current <= 0) return;
+    navIndexRef.current  -= 1;
+    pendingNavRef.current = true;
+    iframe.contentWindow.history.back();
+  }, []);
+
+  const handleForward = useCallback(() => {
+    const iframe = iframeRef.current;
+    if (!iframe || navIndexRef.current >= navHistoryRef.current.length - 1) return;
+    navIndexRef.current  += 1;
+    pendingNavRef.current = true;
+    iframe.contentWindow.history.forward();
+  }, []);
+
   /**
    * Increments the refresh key, which is included in the iframe's `key` prop,
    * causing React to unmount and remount the iframe without changing the blob URL.
@@ -64,6 +120,24 @@ export default function PreviewPane({
   return (
     <div className="preview-pane">
       <div className="preview-toolbar">
+        {/* Back / Forward navigation */}
+        <button
+          className="preview-toolbar-btn"
+          onClick={handleBack}
+          disabled={!canGoBack}
+          title="Go back"
+        >
+          <ArrowLeft size={14} />
+        </button>
+        <button
+          className="preview-toolbar-btn"
+          onClick={handleForward}
+          disabled={!canGoForward}
+          title="Go forward"
+        >
+          <ArrowRight size={14} />
+        </button>
+
         {/* HTML file picker */}
         {htmlFiles.length > 1 && (
           <select
@@ -112,7 +186,9 @@ export default function PreviewPane({
         {previewUrl ? (
           <iframe
             key={`${previewUrl}-${refreshKey}`}
+            ref={iframeRef}
             src={previewUrl}
+            onLoad={handleIframeLoad}
             className={`preview-frame${isMobile ? ' mobile-mode' : ''}`}
             style={isMobile ? { width: `${mobileWidth}px` } : { width: '100%' }}
             sandbox="allow-scripts allow-same-origin allow-modals allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"

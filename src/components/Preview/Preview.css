@@ -61,7 +61,12 @@
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-.preview-toolbar-btn:hover,
+.preview-toolbar-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.preview-toolbar-btn:not(:disabled):hover,
 .preview-toolbar-btn.active {
   background: var(--color-bg-hover);
   color: var(--color-text-primary);
