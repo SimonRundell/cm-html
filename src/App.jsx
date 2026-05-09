@@ -24,8 +24,14 @@ import './index.css';
  * @returns {JSX.Element}
  */
 export default function App() {
-  const [activeTab, setActiveTab] = useState('editor');
-  const [errorModal, setErrorModal] = useState(null); // { title, message }
+  const [activeTab, setActiveTab]         = useState('editor');
+  const [errorModal, setErrorModal]       = useState(null); // { title, message }
+  const [isTeachingOpen, setIsTeachingOpen] = useState(false);
+
+  const handleTeachingToggle = useCallback(
+    () => setIsTeachingOpen(v => !v),
+    [],
+  );
 
   // Settings are persisted to localStorage so they survive page reloads.
   // The initialiser function runs only once; the catch guard handles
@@ -297,6 +303,8 @@ export default function App() {
       onExportProject={handleExportProject}
       onSettingsChange={handleSettingsChange}
       onImportFile={addImportedFile}
+      isTeachingOpen={isTeachingOpen}
+      onTeachingToggle={handleTeachingToggle}
     />
     <CMFloatAd color='#707070'/>
     </>

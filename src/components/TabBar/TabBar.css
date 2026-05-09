@@ -51,3 +51,14 @@
 .tab-bar-tab.active .tab-bar-sublabel {
   color: var(--color-text-secondary);
 }
+
+/* Pushes the Learn button to the right */
+.tab-bar-spacer {
+  flex: 1;
+}
+
+/* Learn button — accent tint when active */
+.tab-bar-learn.active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}

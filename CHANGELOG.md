@@ -5,6 +5,77 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.2.0] — 2026-05-09
+
+### Added
+
+#### Teaching Drawer — structured HTML/CSS reference panel
+
+- A **Learn** button (BookOpen icon) appears at the right end of the tab bar,
+  separated from the Editor / Preview / Settings tabs by a flex spacer.
+  Clicking it opens or closes the teaching drawer without switching the active pane.
+- The drawer slides in from the right over the current editor or preview content
+  at 72 % of the content area width (min 540 px).
+- A **240 px sidebar** lists all 13 chapters, each labelled with a colour-coded
+  badge (`HTML` / `CSS` / `Design` / `A11y`).  Selecting a chapter scrolls the
+  content panel back to the top and highlights the active entry.
+- A **search bar** in the sidebar performs full-text filtering across chapter
+  titles, intros, and section bodies in real time.  The chapter list narrows to
+  only matching entries; a "no results" message is shown when nothing matches.
+- The **content panel** renders each chapter with:
+  - A coloured badge and title heading.
+  - An introductory paragraph.
+  - 4–6 sections, each with explanatory text and one or more of: an annotated
+    code block, an attribute/property reference table, or a tip callout.
+  - A **Key Points** summary card at the foot of each chapter.
+  - **Previous / Next** chapter navigation buttons.
+- Every code block has a **Copy** button that writes the code to the clipboard
+  and briefly shows "Copied!".
+- The drawer closes on **Escape** or the ✕ button.
+- Fully respects the dark / light theme via the existing CSS custom properties.
+
+#### Curriculum content — 13 fully-written chapters
+
+| # | Chapter | Badge |
+|---|---------|-------|
+| 1 | HTML Basics | HTML |
+| 2 | Semantic HTML | HTML |
+| 3 | Links & Navigation | HTML |
+| 4 | Images & Media | HTML |
+| 5 | Forms & Input | HTML |
+| 6 | CSS Basics | CSS |
+| 7 | The Box Model | CSS |
+| 8 | Flexbox | CSS |
+| 9 | CSS Grid | CSS |
+| 10 | Responsive Design | CSS |
+| 11 | Design Principles | Design |
+| 12 | Accessibility | A11y |
+| 13 | Micro-interactions | CSS |
+
+Content follows the pedagogical progression from the *Unlock the Cinema System*
+scheme of work but is written generically — not tied to the cinema project theme.
+
+### Changed
+
+- `TabBar.jsx` — added `isTeachingOpen` and `onTeachingToggle` props; the Learn
+  button is rendered outside the `TABS` array with a `.tab-bar-spacer` pushing it
+  to the far right; `.tab-bar-learn.active` highlights it with the accent colour.
+- `AppLayout.jsx` — imports and renders `<TeachingDrawer>` inside `.app-pane`
+  (which already carries `position: relative`); accepts and threads
+  `isTeachingOpen` / `onTeachingToggle` props.
+- `App.jsx` — adds `isTeachingOpen` state and a stable `handleTeachingToggle`
+  callback (via `useCallback`) passed down to `AppLayout`.
+
+### New files
+
+| File | Purpose |
+|------|---------|
+| `src/components/TeachingDrawer/TeachingDrawer.jsx` | Main drawer component |
+| `src/components/TeachingDrawer/TeachingDrawer.css` | Drawer styles |
+| `src/components/TeachingDrawer/teachingContent.js` | All 13 chapters of curriculum content |
+
+---
+
 ## [0.1.3] — 2026-05-07
 
 ### Added

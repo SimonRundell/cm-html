@@ -3,7 +3,7 @@
 > A browser-based multi-file HTML/CSS/JavaScript teaching editor for Further Education students.
 
 [![Licence: CC BY-NC-SA 4.0](https://img.shields.io/badge/Licence-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![Version](https://img.shields.io/badge/version-0.1.3-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](CHANGELOG.md)
 
 [![React Doctor](https://www.react.doctor/share/badge?p=cm-html&s=90&w=33&f=11)](https://www.react.doctor/share?p=cm-html&s=90&w=33&f=11)
 ---
@@ -37,6 +37,7 @@ Students can:
 | **Image & asset support** | Import images and other files into named project folders; preview resolves `<img src>` and CSS `url()` |
 | **Asset folder tree** | Collapsible folder tree in the sidebar for imported assets; supports rename, delete, and arbitrary nesting |
 | **File tree** | Grouped sidebar (HTML / CSS / JS / Other) with rename/delete/set-preview-root actions |
+| **Teaching drawer** | Slide-in panel with 13 fully-written HTML/CSS curriculum chapters; full-text search, copy-to-clipboard code blocks, prev/next navigation |
 | **Help drawer** | Bundled reference for 50+ HTML elements, 60+ CSS properties, and 47+ JS methods; falls back to live MDN search |
 | **Contextual help** | Select any word in the editor to look it up instantly |
 | **Project management** | Multiple named projects in localStorage; switch, create, rename, delete, and export individual projects from the Settings tab |
@@ -114,10 +115,14 @@ cm-html/
 │   │   │   ├── FileTree.jsx      # Type groups (HTML/CSS/JS/Other) + add-file form
 │   │   │   ├── FileTreeItem.jsx  # Single file row with rename/delete/set-root
 │   │   │   └── FolderTree.jsx    # Asset folder tree with import, rename, and delete
-│   │   ├── TabBar/          # Editor / Preview / Settings tab switcher
+│   │   ├── TabBar/          # Editor / Preview / Settings tab switcher + Learn toggle
 │   │   ├── Editor/          # Monaco editor wrapper + editor+help combined pane
 │   │   ├── Preview/         # Sandboxed iframe preview with viewport controls
 │   │   ├── HelpDrawer/      # Slide-in reference + MDN search drawer
+│   │   ├── TeachingDrawer/  # Slide-in curriculum reference panel (13 chapters)
+│   │   │   ├── TeachingDrawer.jsx   # Component: sidebar + content + search
+│   │   │   ├── TeachingDrawer.css   # Drawer styles (dark/light theme aware)
+│   │   │   └── teachingContent.js   # All 13 chapters of HTML/CSS curriculum content
 │   │   ├── Config/          # Settings UI
 │   │   └── Modal/           # Reusable modal dialog (alert and confirm variants)
 │   │

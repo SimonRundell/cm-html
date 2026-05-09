@@ -7,12 +7,13 @@
  * delegates all user actions upward via callback props.
  */
 
-import Toolbar    from '../Toolbar/Toolbar';
-import FileTree   from '../FileTree/FileTree';
-import TabBar     from '../TabBar/TabBar';
-import EditorPane from '../Editor/EditorPane';
-import PreviewPane from '../Preview/PreviewPane';
-import ConfigPane  from '../Config/ConfigPane';
+import Toolbar        from '../Toolbar/Toolbar';
+import FileTree       from '../FileTree/FileTree';
+import TabBar         from '../TabBar/TabBar';
+import EditorPane     from '../Editor/EditorPane';
+import PreviewPane    from '../Preview/PreviewPane';
+import ConfigPane     from '../Config/ConfigPane';
+import TeachingDrawer from '../TeachingDrawer/TeachingDrawer';
 import './AppLayout.css';
 
 /**
@@ -43,6 +44,8 @@ import './AppLayout.css';
  * @param {Function} props.onProjectRename - Called with a new name string to rename the current project.
  * @param {Function} props.onSettingsChange - Called with the updated settings object when any setting changes.
  * @param {Function} props.onImportFile - Called with (name, content, isImage) to add a single imported file to the project.
+ * @param {boolean} props.isTeachingOpen - Whether the teaching drawer overlay is visible.
+ * @param {Function} props.onTeachingToggle - Called to open/close the teaching drawer.
  * @returns {JSX.Element}
  */
 export default function AppLayout({
@@ -73,6 +76,8 @@ export default function AppLayout({
   onExportProject,
   onSettingsChange,
   onImportFile,
+  isTeachingOpen,
+  onTeachingToggle,
 }) {
   // Pre-filter HTML files once so both PreviewPane and ConfigPane receive the same list
   const htmlFiles = project.files.filter(f => f.name.match(/\.html?$/i));
@@ -107,8 +112,12 @@ export default function AppLayout({
             activeTab={activeTab}
             onTabChange={onTabChange}
             activeFileName={activeFile?.name || ''}
+            isTeachingOpen={isTeachingOpen}
+            onTeachingToggle={onTeachingToggle}
           />
           <div className="app-pane">
+            <TeachingDrawer isOpen={isTeachingOpen} onClose={onTeachingToggle} />
+
             {activeTab === 'preview' && (
               <PreviewPane
                 previewUrl={previewUrl}
