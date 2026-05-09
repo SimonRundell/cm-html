@@ -5,6 +5,7 @@
 [![Licence: CC BY-NC-SA 4.0](https://img.shields.io/badge/Licence-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Version](https://img.shields.io/badge/version-0.1.3-blue.svg)](CHANGELOG.md)
 
+[![React Doctor](https://www.react.doctor/share/badge?p=cm-html&s=90&w=33&f=11)](https://www.react.doctor/share?p=cm-html&s=90&w=33&f=11)
 ---
 
 ## Overview
