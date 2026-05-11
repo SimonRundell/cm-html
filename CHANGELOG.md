@@ -5,6 +5,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.2.1] — 2026-05-11
+
+### Fixed
+
+#### YouTube embeds in preview
+- YouTube `<iframe>` embeds inside student pages no longer show a player error in
+  the preview pane.  YouTube's embed player rejects pages served from `blob:` URLs
+  (the scheme used by the preview) because their origin is opaque — Vimeo and other
+  providers are unaffected.
+- YouTube iframes are now detected during preview build and replaced with a styled
+  **thumbnail placeholder**: the real video thumbnail is fetched from YouTube's
+  image CDN, overlaid with a play-button icon, and clicking opens the video in a
+  new browser tab.  Width and height from the original `<iframe>` attributes are
+  preserved so the student's layout renders correctly.
+- The placeholder is purely a preview convenience — the `<iframe>` embed in the
+  student's source is untouched and will play normally when the project is exported
+  and hosted on a real HTTP/HTTPS server.
+- Affects `src/utils/blobPreview.js` only; no project file format changes.
+
+---
+
 ## [0.2.0] — 2026-05-09
 
 ### Added

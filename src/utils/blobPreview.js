@@ -159,6 +159,39 @@ export function buildPreviewUrl(files, activeHtmlFilename) {
     }
   );
 
+  // YouTube embed pass — YouTube's player rejects blob: origins, so replace
+  // YouTube iframes with a thumbnail placeholder that opens in a new tab.
+  // The video will embed normally when the project is exported and hosted on a
+  // real HTTP/HTTPS server.
+  htmlContent = htmlContent.replace(
+    /<iframe\b([^>]*)\bsrc=(["'])((?:https?:)?\/\/(?:www\.)?youtube(?:-nocookie)?\.com\/embed\/([A-Za-z0-9_\-]+)[^"']*)\2([^>]*)><\/iframe>/gi,
+    (match, pre, _q, _src, videoId, post) => {
+      const attrs       = pre + ' ' + post;
+      const widthMatch  = attrs.match(/\bwidth=["']?(\d+)/i);
+      const heightMatch = attrs.match(/\bheight=["']?(\d+)/i);
+      const w = widthMatch  ? widthMatch[1]  + 'px' : '560px';
+      const h = heightMatch ? heightMatch[1] + 'px' : '315px';
+      const thumbUrl = 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg';
+      const watchUrl = 'https://www.youtube.com/watch?v=' + videoId;
+      return '<div style="position:relative;width:' + w + ';height:' + h + ';background:#000;'
+        + 'display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:4px;flex-shrink:0;">'
+        + '<img src="' + thumbUrl + '" alt="YouTube thumbnail" '
+        + 'style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.7;"/>'
+        + '<a href="' + watchUrl + '" target="_blank" rel="noopener" '
+        + 'style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;">'
+        + '<span style="width:64px;height:64px;background:rgba(200,0,0,0.9);border-radius:50%;'
+        + 'display:flex;align-items:center;justify-content:center;">'
+        + '<svg viewBox="0 0 24 24" width="28" height="28" fill="white"><polygon points="9.5,7 9.5,17 17,12"/></svg>'
+        + '</span>'
+        + '<span style="color:#fff;font-size:12px;font-family:sans-serif;'
+        + 'background:rgba(0,0,0,0.65);padding:4px 10px;border-radius:4px;">'
+        + '&#9654; Open video in new tab'
+        + '</span>'
+        + '</a>'
+        + '</div>';
+    }
+  );
+
   // Inject nav interceptor so relative anchor clicks post a message to the
   // parent window instead of navigating the blob iframe (which would 404).
   // Uses a capture-phase listener so it fires before any page scripts.

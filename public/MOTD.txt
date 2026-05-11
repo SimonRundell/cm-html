@@ -1,3 +1,7 @@
+<h3>Version 0.2.1</h3>
+<ul>
+<li>YouTube embeds now show a thumbnail placeholder in the preview pane — click to open the video in a new tab. The embed will play normally in your exported project.</li>
+</ul>
 <h3>Version 0.2.0</h3>
 <ul>
 <li>Add teaching drawer with full HTML/CSS/JavaScript teaching</li>
